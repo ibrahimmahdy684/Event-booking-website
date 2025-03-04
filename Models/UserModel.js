@@ -9,12 +9,26 @@ const userSchema = new mongoose.Schema( {
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true // the email must be unique for all users
     },
     role: {
         type: String,
         enum: ["Standard User", "Organizer", "System Admin"],
-        required: true
+        required: true,
+        default: "Standard User"
+    },
+    profilePicture: {
+        type: String,
+        required: false // pp is optional
+    },
+    password: {
+        type: String,
+        required: true,
+        minLength: 8 // minimum length for password
+    },
+    timestamp: {
+        type: Date,
+        default: Date.now // initial date of creation
     }
 })
 
