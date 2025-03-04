@@ -25,7 +25,7 @@ const eventSchema = new mongoose.Schema( {
         type:String,
         required:true
     },
-    ticket_price:{
+    ticketPrice:{
         type:Number,
         required:true
     },
