@@ -25,7 +25,15 @@ const eventSchema = new mongoose.Schema( {
         type:String,
         required:true
     },
-    ticketPrice:{
+    ticket_price:{
+        type:Number,
+        required:true
+    },
+    total_Tickets:{
+        type:Number,
+        required:true
+    },
+    remaining_Tickets:{
         type:Number,
         required:true
     },
@@ -36,12 +44,11 @@ const eventSchema = new mongoose.Schema( {
     },
     createdAt: {
         type: Date,
-        default: Date.now, // Automatically set to the current date and time
+       default: Date.now, // Automatically set to the current date and time
     }
 
     
 })
-
 const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
