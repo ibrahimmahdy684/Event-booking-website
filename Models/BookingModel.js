@@ -12,7 +12,7 @@ const bookingSchema = new mongoose.Schema({
     ref: 'Event', // Reference to the Event collection
     required: true, // Booking must be associated with an event
   },
-  numberOfTickets: {
+  numberOfTicketsBooked: {
     type: Number,
     required: true, // Number of tickets booked
     min: 1, // At least 1 ticket must be booked

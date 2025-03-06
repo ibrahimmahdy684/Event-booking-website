@@ -13,28 +13,30 @@ const eventSchema = new mongoose.Schema( {
         type: Date,
         required: true
     },
-    location:{
-        type:String,
+    location: {
+        type: String,
         required:true
     },
     category:{
-        type:String,
+        type: String,
         required:true
     },
-    image:{
-        type:String,
+    image: { // cover photo
+        type: String, // represents url or file path
         required:true
     },
-    ticket_price:{
-        type:Number,
-        required:true
+    ticketPrice: {
+        type: Number,
+        required:true,
+        min: 0 // no price is negative
     },
-    total_Tickets:{
-        type:Number,
-        required:true
+    totalTickets: {
+        type: Number,
+        required:true, 
+        min: 1 // event has to have atleast 1 ticket
     },
-    remaining_Tickets:{
-        type:Number,
+    remainingTickets: {
+        type: Number,
         required:true
     },
     organizer: {
@@ -42,13 +44,12 @@ const eventSchema = new mongoose.Schema( {
         ref: 'User', 
         required: true,
     },
-    createdAt: {
+    timestamp: { // indicates when the event was posted
         type: Date,
-       default: Date.now, // Automatically set to the current date and time
+        default: Date.now, // Automatically set to the current date and time
     }
-
-    
 })
+
 const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
