@@ -30,7 +30,7 @@ const eventSchema = new mongoose.Schema( {
         required:true
     },
     organizer: {
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', 
         required: true,
     },
