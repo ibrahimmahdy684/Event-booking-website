@@ -1,5 +1,26 @@
 {
+  "name": "even-booking",
+  "version": "1.0.0",
+  "description": "This is an event booking system for booking sports, entertainment, and other types of events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maher1506/JavaScript-event-booking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maher1506/JavaScript-event-booking/issues"
+  },
+  "homepage": "https://github.com/Maher1506/JavaScript-event-booking#readme",
   "dependencies": {
-    "mongoose": "^8.12.0"
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2",
+    "nodemon": "^3.1.9"
   }
 }
