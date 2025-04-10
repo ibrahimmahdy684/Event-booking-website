@@ -15,11 +15,7 @@ const getAllUsers = async (req, res) => {
 // get current user profile from db
 const getCurrentUserProfile = async (req, res) => {
     try {
-        const userId = req.user.id;
         
-        // query user from database
-        const user = await User.findOne({ _id: userId });
-        res.status(200).json(user);
     } catch (err) {
         res.status(404).json({ message: err.message} );
     }
