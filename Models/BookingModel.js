@@ -34,6 +34,6 @@ const bookingSchema = new mongoose.Schema({
 });
 
 // Create the Booking model
-const Booking = mongoose.model('Booking', bookingSchema);
+const Booking = mongoose.model('Booking', bookingSchema, "Bookings");
 
 module.exports = Booking;

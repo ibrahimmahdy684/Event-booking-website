@@ -1,6 +1,6 @@
 const User = require('../Models/UserModel');
 
-// get all users from database
+// get all users from db
 const getAllUsers = async (req, res) => {
     try {
         // query all the users
@@ -8,10 +8,24 @@ const getAllUsers = async (req, res) => {
         res.status(200).json(users);
     } catch (err) {
         console.log(err);
-        res.status(400).json({message: err.message});
+        res.status(400).json( { message: err.message } );
+    }
+}
+
+// get current user profile from db
+const getCurrentUserProfile = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        
+        // query user from database
+        const user = await User.findOne({ _id: userId });
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(404).json({ message: err.message} );
     }
 }
 
 module.exports = {
-    getAllUsers
+    getAllUsers,
+    getCurrentUserProfile
 }
