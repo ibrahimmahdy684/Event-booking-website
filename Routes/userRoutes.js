@@ -21,6 +21,12 @@ router.get(
     //authenticateUser,
     //authorizeUser(['Authenticated User']), 
     userController.getCurrentUserProfile);
-
+//get current user's bookings
+router.get(
+    '/api/v1/users/bookings',
+    //authenticateUser,
+    //authorizeUser(['Authenticated User']),
+    userController.getCurrentUserBookings
+);
 // export router
 module.exports = router;
