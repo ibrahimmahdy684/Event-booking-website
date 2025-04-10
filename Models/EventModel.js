@@ -44,6 +44,12 @@ const eventSchema = new mongoose.Schema( {
         ref: 'User', 
         required: true,
     },
+    status: {
+        type: String,
+        enum: ['Approved', 'Pending', 'Denied'],
+        required: true,
+        default: 'Pending',
+    },
     timestamp: { // indicates when the event was posted
         type: Date,
         default: Date.now, // Automatically set to the current date and time
