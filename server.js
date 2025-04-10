@@ -1,6 +1,9 @@
 // load packages
 require('dotenv').config();
 const express = require('express');
+const connectDB = require('./Config/dbConnect');
+
+connectDB();
 const app = express();
 
 // use middleware to parse JSON from requests
