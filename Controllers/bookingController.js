@@ -63,5 +63,6 @@ const bookTicketsForEvent = async(req, res) =>{
 
 module.exports = {
     bookTicketsForEvent,
-    getBookingDetails
+    getBookingDetails,
+    deleteBooking
 }
