@@ -1,12 +1,42 @@
+require('dotenv').config();
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const UserModel = require('../Models/UserModel');
+const { use } = require('../Routes/userRoutes');
 
 // function to register
 const registerUser =  async (req, res) => {
-    try {
+    try {   
+        // get name, email, and password from body
+        const { name, email, password } = req.body;
 
+        // check if user is already registered before
+        const existingUser = await UserModel.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already registered before" });
+        }
+
+        // check for input using Joi
+
+        // hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+        // create new user with the given data and add to dv
+        const newUser = UserModel.create({ 
+            name, 
+            email, 
+            password: hashedPassword 
+        });
+
+        // return user to client
+        res.status(201).json({ 
+            message: "User created successfully", 
+            user: {
+                id: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+            } });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -28,7 +58,7 @@ const loginUser =  async (req, res) => {
         // check if password is correct
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
-            return res.status(405).json({ password: "Incorrect password" });
+            return res.status(401).json({ password: "Incorrect password" });
         }
 
         // initialize cookie and token 
@@ -38,9 +68,11 @@ const loginUser =  async (req, res) => {
         const expiresAt = new Date(+currenDateTime + 180000);
         
         // generate JWT token
+        console.log("SECRET_KEY:", process.env.SECRET_KEY);
+
         const token = jwt.sign(
             { user: {userId: user._id, role: user.role} },
-            process.env.JWT_SECRET,
+            process.env.SECRET_KEY,
             {
                 expiresIn: 3 * 60 * 60, // set the token to expire in 3 hours
             }
@@ -52,7 +84,7 @@ const loginUser =  async (req, res) => {
                 expires: expiresAt,
                 withCredentials: true,
                 httpOnly: false, // should be true in production
-                SameSite: 'none'
+                sameSite: 'none'
             })
             .status(200)
             .json({ message: "Login successfully", user });
@@ -69,3 +101,10 @@ const forgetPassword =  async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 };
+
+// export functions
+module.exports = {
+    registerUser,
+    loginUser,
+    forgetPassword
+}

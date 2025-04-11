@@ -31,9 +31,19 @@ const getCurrentUserBookings = async (req,res)=>{
         res.status(500).json({message:error.message})
     }
 }
-
+//delete user
+const deleteUser = async (req,res)=>{
+try{
+    const user=UserModel.findByIdAndDelete(req.params.id);
+    return res.status(200).json({user,msg:"User deleted successfully"});
+}
+catch(error){
+    return res.status(500).json({message:error.message});
+}
+}
 module.exports = {
     getAllUsers,
     getCurrentUserProfile,
-    getCurrentUserBookings
+    getCurrentUserBookings,
+    deleteUser
 }

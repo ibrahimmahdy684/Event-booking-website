@@ -11,15 +11,15 @@ const router = express.Router();
 // get all users
 router.get(
     '/api/v1/users', 
-    //authenticateUser,
-    //authorizeUser(['Admin']), 
+    authenticateUser,
+    authorizeUser(['Admin']), 
     userController.getAllUsers);
 
 // get current user profile
 router.get(
     '/api/v1/users/profile', 
-    //authenticateUser,
-    //authorizeUser(['Authenticated User']), 
+    authenticateUser,
+    authorizeUser(['Authenticated User']), 
     userController.getCurrentUserProfile);
 //get current user's bookings
 router.get(
@@ -27,6 +27,13 @@ router.get(
     //authenticateUser,
     //authorizeUser(['Authenticated User']),
     userController.getCurrentUserBookings
+);
+//delete user
+router.delete(
+    '/api/v1/users/:id',
+    //authenticateUser,
+    //authorizeUser(['Authenticated User']),
+    userController.deleteUser
 );
 // export router
 module.exports = router;
