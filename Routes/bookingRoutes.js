@@ -14,3 +14,13 @@ router.post(
     authorizeUser(['Standard User']),
     bookingController.bookTicketsForEvent
 )
+
+// Get booking by ID 
+router.get(
+    '/api/v1/bookings/:id',
+    authenticateUser, 
+    authorizeUser(['StandardUser']), // Only Standard Users can access
+    bookingController.getBookingById
+);
+
+module.exports = router;
