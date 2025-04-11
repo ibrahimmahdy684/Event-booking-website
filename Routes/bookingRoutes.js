@@ -10,7 +10,6 @@ const router = express.Router();
 // Booking ticket for event for standard user
 router.post(
     '/api/v1/bookings',
-    authenticateUser,
     authorizeUser(['Standard User']),
     bookingController.bookTicketsForEvent
 )
@@ -18,7 +17,6 @@ router.post(
 // Get booking by ID 
 router.get(
     '/api/v1/bookings/:id',
-    authenticateUser, 
     authorizeUser(['StandardUser']), // Only Standard Users can access
     bookingController.getBookingDetails
 )
@@ -26,7 +24,6 @@ router.get(
 // Cancel a booking
 router.delete(
     '/api/v1/bookings/:id ',
-    authenticateUser,
     authorizeUser(['StandardUser']), // Only Standard Users can access
     bookingController.deleteBooking
 
