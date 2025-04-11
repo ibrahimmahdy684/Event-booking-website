@@ -20,7 +20,16 @@ router.get(
     '/api/v1/bookings/:id',
     authenticateUser, 
     authorizeUser(['StandardUser']), // Only Standard Users can access
-    bookingController.getBookingById
-);
+    bookingController.getBookingDetails
+)
+
+// Cancel a booking
+router.delete(
+    '/api/v1/bookings/:id ',
+    authenticateUser,
+    authorizeUser(['StandardUser']), // Only Standard Users can access
+    bookingController.deleteBooking
+
+)
 
 module.exports = router;

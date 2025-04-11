@@ -51,6 +51,16 @@ const bookTicketsForEvent = async(req, res) =>{
     }
  }
 
+ const deleteBooking = async(req, res) =>{
+    try{
+        // Find the booking by ID
+        const booking = await BookingModel.findByIdAndDelete(req.params.id);
+        return res.status(200).json({user,msg:"Booking deleted successfully"});
+    } catch(err){
+        res.status(400).json({message : err.message})
+    }
+ }
+
 module.exports = {
     bookTicketsForEvent,
     getBookingDetails
