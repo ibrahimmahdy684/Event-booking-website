@@ -20,8 +20,8 @@ app.use(cookieParser());
 
 // use all routes
 app.use(userRoutes);
-// app.use(authRoutes);
-// app.use(eventRoutes);
+ app.use(authRoutes);
+ app.use(eventRoutes);
 // app.use(bookingRoutes);
 
 // get port number or default to 5000
