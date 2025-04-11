@@ -41,6 +41,17 @@ const bookTicketsForEvent = async(req, res) =>{
     }
 }
 
+ const getBookingDetails = async(req, res) =>{
+    try{
+        // Find the booking by ID
+        const booking = await BookingModel.findById(req.params.id);
+        return res.status(200).json(booking);
+    } catch(err){
+        res.status(400).json({message : err.message})
+    }
+ }
+
 module.exports = {
-    bookTicketsForEvent
+    bookTicketsForEvent,
+    getBookingDetails
 }
