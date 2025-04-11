@@ -20,8 +20,20 @@ const getCurrentUserProfile = async (req, res) => {
         res.status(404).json({ message: err.message} );
     }
 }
+//get current user's bookings
+const getCurrentUserBookings = async (req,res)=>{
+    try{
+        const bookings=await BookingModel.find({user:req.user})
+         res.status(200).json(bookings)
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({message:error.message})
+    }
+}
 
 module.exports = {
     getAllUsers,
-    getCurrentUserProfile
+    getCurrentUserProfile,
+    getCurrentUserBookings
 }
