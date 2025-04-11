@@ -28,5 +28,12 @@ router.get(
     //authorizeUser(['Authenticated User']),
     userController.getCurrentUserBookings
 );
+//delete user
+router.delete(
+    '/api/v1/users/:id',
+    //authenticateUser,
+    //authorizeUser(['Authenticated User']),
+    userController.deleteUser
+);
 // export router
 module.exports = router;
