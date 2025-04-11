@@ -46,7 +46,7 @@ const EventController = {
         }
         },
 
-        uptadeEvent:async(req,res)=>{
+        updateEvent:async(req,res)=>{
             try{
                 const event=await EventModel.findByIdAndUpdate(
                     req.params.id,
