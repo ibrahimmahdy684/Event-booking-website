@@ -9,15 +9,15 @@ router.get('/api/v1/events',
        autherizationMiddleware(['Organizer','Standard User','System Admin']),
        EventController.getAllEvents);
 
-router.get('/api/v1/events:id',
+router.get('/api/v1/events/:id',
        autherizationMiddleware(['Organizer','Standard User','System Admin']),
        EventController.getEvent);
 
-router.put('/api/v1/events:id',
+router.put('/api/v1/events/:id',
        autherizationMiddleware(['Organizer','System Admin']),
        EventController.updateEvent);
 
-router.delete('/api/v1/events:id',
+router.delete('/api/v1/events/:id',
        autherizationMiddleware(['Organizer','System Admin']),
        EventController.deleteEvent
 )
