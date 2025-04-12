@@ -1,62 +1,63 @@
 const mongoose = require("mongoose");
 
-const eventSchema = new mongoose.Schema( {
+const eventSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
     },
     description: {
         type: String,
-        required: true
+        required: true,
     },
     date: {
         type: Date,
-        required: true
+        required: true,
     },
     location: {
         type: String,
-        required:true
+        required: true,
     },
-    category:{
+    category: {
         type: String,
-        required:true
+        required: true,
     },
-    image: { // cover photo
+    image: {
+        // cover photo
         type: String, // represents url or file path
-        required:true
+        required: true,
     },
     ticketPrice: {
         type: Number,
-        required:true,
-        min: 0 // no price is negative
+        required: true,
+        min: 0, // no price is negative
     },
     totalTickets: {
         type: Number,
-        required:true, 
-        min: 1 // event has to have atleast 1 ticket
+        required: true,
+        min: 1, // event has to have atleast 1 ticket
     },
     remainingTickets: {
         type: Number,
-        required:true
+        required: true,
     },
     organizer: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User', 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
     status: {
         type: String,
-        enum: ['Approved', 'Pending', 'Denied'],
+        enum: ["Approved", "Pending", "Denied"],
         required: true,
-        default: 'Pending',
+        default: "Pending",
     },
-    timestamp: { // indicates when the event was posted
+    timestamp: {
+        // indicates when the event was posted
         type: Date,
         default: Date.now, // Automatically set to the current date and time
-    }
-})
+    },
+});
 
-const Event = mongoose.model('Event', eventSchema, "Events");
+const Event = mongoose.models.Event || mongoose.model("Event", eventSchema, "Events");
 
 module.exports = Event;
-    

@@ -1,14 +1,14 @@
 // load packages
-require('dotenv').config();
-const express = require('express');
-const cookieParser = require('cookie-parser');
+require("dotenv").config();
+const express = require("express");
+const cookieParser = require("cookie-parser");
 
 // load db and routes
-const connectDB = require('./Config/dbConnect');
-const userRoutes = require('./Routes/userRoutes');
-const authRoutes = require('./Routes/authRoutes');
-const eventRoutes = require('./Routes/eventRoutes');
-const bookingRoutes = require('./Routes/bookingRoutes');
+const connectDB = require("./Config/dbConnect");
+const userRoutes = require("./Routes/userRoutes");
+const authRoutes = require("./Routes/authRoutes");
+const eventRoutes = require("./Routes/eventRoutes");
+const bookingRoutes = require("./Routes/bookingRoutes");
 
 connectDB();
 const app = express();
