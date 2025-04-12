@@ -13,7 +13,8 @@ router.get(
     '/api/v1/users', 
     authenticateUser,
     authorizeUser(['System Admin']), 
-    userController.getAllUsers);
+    userController.getAllUsers
+);
 
 // get current user profile
 router.get(
@@ -61,6 +62,7 @@ router.get(
     authenticateUser,
     authorizeUser(['Organizer']),
     userController.getUserEventAnalytics
-)
+);
+
 // export router
 module.exports = router;
