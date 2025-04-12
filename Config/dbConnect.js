@@ -1,6 +1,6 @@
 // load packages
-require('dotenv').config();
-const mongoose = require('mongoose');
+require("dotenv").config();
+const mongoose = require("mongoose");
 
 // get datatbase url from .env file
 const url = process.env.MONGO_URL;
@@ -13,7 +13,7 @@ const connectDB = async () => {
     } catch (err) {
         console.log(err);
     }
-}
+};
 
 // export connect function
 module.exports = connectDB;
