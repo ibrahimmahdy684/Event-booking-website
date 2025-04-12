@@ -10,7 +10,7 @@ const { use } = require('../Routes/userRoutes');
 const registerUser =  async (req, res) => {
     try {   
         // get name, email, and password from body
-        const { name, email, password } = req.body;
+        const { name, email, password, profilePicture, role } = req.body;
 
         // check if user is already registered before
         const existingUser = await UserModel.findOne({ email });
@@ -18,15 +18,15 @@ const registerUser =  async (req, res) => {
             return res.status(400).json({ message: "User already registered before" });
         }
 
-        // check for input using Joi
-
         // hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-        // create new user with the given data and add to dv
+        // create new user with the given data and add to db 
         const newUser = UserModel.create({ 
             name, 
             email, 
-            password: hashedPassword 
+            password: hashedPassword,
+            profilePicture: profilePicture || null,
+            role
         });
 
         // return user to client
@@ -68,8 +68,6 @@ const loginUser =  async (req, res) => {
         const expiresAt = new Date(+currenDateTime + 180000);
         
         // generate JWT token
-        console.log("SECRET_KEY:", process.env.SECRET_KEY);
-
         const token = jwt.sign(
             { user: {userId: user._id, role: user.role} },
             process.env.SECRET_KEY,
