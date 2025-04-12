@@ -12,7 +12,7 @@ const router = express.Router();
 router.get(
     '/api/v1/users', 
     authenticateUser,
-    authorizeUser(['Admin']), 
+    authorizeUser(['System Admin']), 
     userController.getAllUsers);
 
 // get current user profile
@@ -32,21 +32,21 @@ router.get(
 router.delete(
     '/api/v1/users/:id',
     authenticateUser,
-    authorizeUser(['Admin']),
+    authorizeUser(['System Admin']),
     userController.deleteUser
 );
 //Get current user’s events
 router.get(
     ' /api/v1/users/events',
     authenticateUser,
-    authorizeUser(['EventOrganizer']),
+    authorizeUser(['Organizer']),
     userController.getCurrentUserEvents
 );
 //Get the analytics of the current user’s events
 router.get(
     '/api/v1/users/events/analytics',
     authenticateUser,
-    authorizeUser(['EventOrganizer']),
+    authorizeUser(['Organizer']),
     userController.getUserEventAnalytics
 )
 // export router
