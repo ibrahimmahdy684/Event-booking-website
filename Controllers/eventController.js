@@ -16,7 +16,7 @@ const EventController = {
             status: req.body.status,
             timestamp: req.body.timestamp
 
-        });
+        }); //creating events using the parameters in the body
 
         try {
             const newEvent = await event.save();
@@ -36,6 +36,7 @@ const EventController = {
         }
     },
 
+    // get the event by the id
     getEvent: async(req,res)=>{
         try{
             const event=await EventModel.findById(req.params.id);
@@ -45,7 +46,7 @@ const EventController = {
             return res.status(400).json({message:error.message});
         }
         },
-
+         //uptade the event by id
         updateEvent:async(req,res)=>{
             try{
                 const event=await EventModel.findByIdAndUpdate(
@@ -73,4 +74,4 @@ const EventController = {
 
     
 
-module.exports=EventController
+module.exports=EventController  //exporting the event controller
