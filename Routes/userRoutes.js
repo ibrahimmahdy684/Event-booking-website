@@ -23,6 +23,14 @@ router.get(
     userController.getCurrentUserProfile
 );
 
+// update current user profile
+router.put(
+    '/api/v1/users/profile',
+    authenticateUser,
+    authorizeUser(['Standard User', 'System Admin', 'Organizer']),
+    userController.updateCurrentUserProfile
+);
+
 // get current user's bookings
 router.get(
     '/api/v1/users/bookings',
