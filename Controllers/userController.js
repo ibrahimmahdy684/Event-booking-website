@@ -15,11 +15,58 @@ const getAllUsers = async (req, res) => {
 // get current user profile from db
 const getCurrentUserProfile = async (req, res) => {
     try {
+        // get current user (exclude password)
+        const user = await UserModel.findOne({_id: req.user.userId}).select('-password');
         
+        // handle if user not found
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(user);
     } catch (err) {
-        res.status(404).json({ message: err.message} );
+        res.status(500).json({ message: err.message} );
     }
 }
+
+// update current user profile
+const updateCurrentUserProfile = async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const updates = req.body;
+
+        // state the allowed fields to be updated
+        const allowedUpdates = ['name', 'email', 'profilePicture'];
+        // get the updated fileds
+        const updateFields = Object.keys(updates);
+
+        // check if the update fields are allowed
+        const isValidUpdate = updateFields.every(field => allowedUpdates.includes(field));
+        if (!isValidUpdate) {
+            return res.status(400).json({ message: "Invalid input fields" });
+        }
+
+        // find the user and update him
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            userId, 
+            { $set: updates },
+            { new: true, runValidators: true}
+        ).select('-password');
+
+        // handle user not found
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ 
+            message: "User updated",
+            updatedUser
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message} );
+    }
+}
+
 //get current user's bookings
 const getCurrentUserBookings = async (req,res)=>{
     try{
@@ -139,6 +186,7 @@ const getUserEventAnalytics = async (req, res) => {
 module.exports = {
     getAllUsers,
     getCurrentUserProfile,
+    updateCurrentUserProfile,
     getCurrentUserBookings,
     deleteUser,
     getCurrentUserEvents,
