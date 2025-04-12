@@ -15,11 +15,14 @@ const getAllUsers = async (req, res) => {
 // get current user profile from db
 const getCurrentUserProfile = async (req, res) => {
     try {
-        
+        // get current user (exclude password)
+        const user = await UserModel.findOne({_id: req.user.userId}).select('-password');
+        res.status(200).json(user);
     } catch (err) {
         res.status(404).json({ message: err.message} );
     }
 }
+
 //get current user's bookings
 const getCurrentUserBookings = async (req,res)=>{
     try{

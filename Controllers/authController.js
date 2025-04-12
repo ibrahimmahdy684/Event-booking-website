@@ -32,11 +32,8 @@ const registerUser =  async (req, res) => {
         // return user to client
         res.status(201).json({ 
             message: "User created successfully", 
-            user: {
-                id: newUser._id,
-                name: newUser.name,
-                email: newUser.email,
-            } });
+            newUser
+        });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

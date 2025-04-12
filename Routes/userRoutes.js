@@ -19,22 +19,26 @@ router.get(
 router.get(
     '/api/v1/users/profile', 
     authenticateUser,
-    authorizeUser(['Authenticated User']), 
-    userController.getCurrentUserProfile);
-//get current user's bookings
+    authorizeUser(['Standard User', 'System Admin', 'Organizer']), 
+    userController.getCurrentUserProfile
+);
+
+// get current user's bookings
 router.get(
     '/api/v1/users/bookings',
     authenticateUser,
     authorizeUser(['Standard User']),
     userController.getCurrentUserBookings
 );
-//delete user
+
+// delete user
 router.delete(
     '/api/v1/users/:id',
     authenticateUser,
     authorizeUser(['System Admin']),
     userController.deleteUser
 );
+
 //Get current user’s events
 router.get(
     ' /api/v1/users/events',
@@ -42,6 +46,7 @@ router.get(
     authorizeUser(['Organizer']),
     userController.getCurrentUserEvents
 );
+
 //Get the analytics of the current user’s events
 router.get(
     '/api/v1/users/events/analytics',
