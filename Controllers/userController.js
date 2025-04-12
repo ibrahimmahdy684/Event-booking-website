@@ -35,6 +35,9 @@ const getCurrentUserBookings = async (req,res)=>{
 const deleteUser = async (req,res)=>{
 try{
     const user=UserModel.findByIdAndDelete(req.params.id);
+    if(!user)
+      return res.status(404).json({ msg: "User not found" });
+    
     return res.status(200).json({user,msg:"User deleted successfully"});
 }
 catch(error){
