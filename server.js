@@ -1,5 +1,5 @@
 // load packages
-require('dotenv').config();
+require('dotenv').config({path:'.env'});
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
@@ -21,8 +21,8 @@ app.use(cookieParser());
 // use all routes
 app.use(userRoutes);
 app.use(authRoutes);
-// app.use(eventRoutes);
-// app.use(bookingRoutes);
+app.use(eventRoutes);
+app.use(bookingRoutes);
 
 // get port number or default to 5000
 const PORT = process.env.PORT || 5000;

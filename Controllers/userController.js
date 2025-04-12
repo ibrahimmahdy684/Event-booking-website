@@ -23,7 +23,7 @@ const getCurrentUserProfile = async (req, res) => {
 //get current user's bookings
 const getCurrentUserBookings = async (req,res)=>{
     try{
-        const bookings=await BookingModel.find({user:req.user})
+        const bookings=await BookingModel.find({user:req.user.id})
          res.status(200).json(bookings)
     }
     catch(error){
@@ -31,9 +31,113 @@ const getCurrentUserBookings = async (req,res)=>{
         res.status(500).json({message:error.message})
     }
 }
+//delete user
+const deleteUser = async (req,res)=>{
+try{
+    const user=UserModel.findByIdAndDelete(req.params.id);
+    return res.status(200).json({user,msg:"User deleted successfully"});
+}
+catch(error){
+    return res.status(500).json({message:error.message});
+}
+}
+//Get current user’s events
+const getCurrentUserEvents = async (req,res)=>{
+    try{
+        const events= EventModel.find({organizer:req.user.id})
+        return res.status(200).json({events});
+
+    }
+    catch(error){
+        return res.status(500).json({message:error.message});
+    }
+}
+//Get the analytics of the current user’s events
+const getUserEventAnalytics = async (req, res) => {
+  try {
+   
+
+    const analytics = await Event.aggregate([
+      { $match: { organizer: req.user.id } },
+      {
+        $facet: {
+          totalEvents: [
+            { $count: 'count' }
+          ],
+          eventsByStatus: [
+            {
+              $group: {
+                _id: '$status',
+                count: { $sum: 1 }
+              }
+            }
+          ],
+          ticketsSoldAndRevenue: [
+            {
+              $project: {
+                soldTickets: { $subtract: ['$totalTickets', '$remainingTickets'] },
+                revenue: {
+                  $multiply: [
+                    { $subtract: ['$totalTickets', '$remainingTickets'] },
+                    '$ticketPrice'
+                  ]
+                }
+              }
+            },
+            {
+              $group: {
+                _id: null,
+                totalTicketsSold: { $sum: '$soldTickets' },
+                totalRevenue: { $sum: '$revenue' }
+              }
+            }
+          ],
+          eventsByCategory: [
+            {
+              $group: {
+                _id: '$category',
+                count: { $sum: 1 }
+              }
+            }
+          ],
+          upcomingVsPastEvents: [
+            {
+              $group: {
+                _id: {
+                  $cond: [{ $gte: ['$date', new Date()] }, 'Upcoming', 'Past']
+                },
+                count: { $sum: 1 }
+              }
+            }
+          ]
+        }
+      }
+    ]);
+
+    // Format response
+    const result = {
+      totalEvents: analytics[0].totalEvents[0]?.count || 0,
+      eventsByStatus: analytics[0].eventsByStatus,
+      ticketsSoldAndRevenue: analytics[0].ticketsSoldAndRevenue[0] || {
+        totalTicketsSold: 0,
+        totalRevenue: 0
+      },
+      eventsByCategory: analytics[0].eventsByCategory,
+      upcomingVsPastEvents: analytics[0].upcomingVsPastEvents
+    };
+
+    res.status(200).json(result);
+  } catch (error) {
+    
+    res.status(500).json({ error: 'Failed to fetch event analytics' });
+  }
+};
 
 module.exports = {
     getAllUsers,
     getCurrentUserProfile,
-    getCurrentUserBookings
+    getCurrentUserBookings,
+    deleteUser,
+    getCurrentUserEvents,
+    getUserEventAnalytics
 }
