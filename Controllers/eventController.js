@@ -1,6 +1,6 @@
 const EventModel = require('../Models/EventModel');
 
-const EventController = {
+const eventController = {
     createEvent: async (req, res) => {
         const event=new EventModel({
             title: req.body.title,
@@ -74,4 +74,4 @@ const EventController = {
 
     
 
-module.exports=EventController  //exporting the event controller
+module.exports=eventController  //exporting the event controller
