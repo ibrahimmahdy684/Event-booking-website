@@ -15,7 +15,9 @@ const authController = {
             // check if user is already registered before
             const existingUser = await UserModel.findOne({ email });
             if (existingUser) {
-                return res.status(400).json({ message: "User already registered before" });
+                return res
+                    .status(400)
+                    .json({ message: "User already registered before" });
             }
 
             // hash password
@@ -62,6 +64,7 @@ const authController = {
 
             const currenDateTime = new Date();
             // set the cookie to expire in 3 seconds (+currentDateTime converts to int)
+            // should be 7 days in production (7 * 24 * 60 * 60 * 1000)
             const expiresAt = new Date(+currenDateTime + 180000);
 
             // generate JWT token
@@ -69,6 +72,7 @@ const authController = {
                 { user: { userId: user._id, role: user.role } },
                 process.env.SECRET_KEY,
                 {
+                    // should be 7 days in production (expiresIn: "7d",)
                     expiresIn: 3 * 60 * 60, // set the token to expire in 3 hours
                 }
             );
