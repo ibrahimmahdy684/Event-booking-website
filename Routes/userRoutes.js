@@ -9,16 +9,11 @@ const authenticateUser = require("../Middleware/authenticationMiddleware");
 const router = express.Router();
 
 // get all users
-router.get(
-    "/api/v1/users",
-    authenticateUser,
-    authorizeUser(["System Admin"]),
-    userController.getAllUsers
-);
+router.get("/users", authenticateUser, authorizeUser(["System Admin"]), userController.getAllUsers);
 
 // get current user profile
 router.get(
-    "/api/v1/users/profile",
+    "/users/profile",
     authenticateUser,
     authorizeUser(["Standard User", "System Admin", "Organizer"]),
     userController.getCurrentUserProfile
@@ -26,7 +21,7 @@ router.get(
 
 // update current user profile
 router.put(
-    "/api/v1/users/profile",
+    "/users/profile",
     authenticateUser,
     authorizeUser(["Standard User", "System Admin", "Organizer"]),
     userController.updateCurrentUserProfile
@@ -34,7 +29,7 @@ router.put(
 
 // get current user's bookings
 router.get(
-    "/api/v1/users/bookings",
+    "/users/bookings",
     authenticateUser,
     authorizeUser(["Standard User"]),
     userController.getCurrentUserBookings
@@ -42,7 +37,7 @@ router.get(
 
 // delete user
 router.delete(
-    "/api/v1/users/:id",
+    "/users/:id",
     authenticateUser,
     authorizeUser(["System Admin"]),
     userController.deleteUser
@@ -50,7 +45,7 @@ router.delete(
 
 //Get current user’s events
 router.get(
-    " /api/v1/users/events",
+    " /users/events",
     authenticateUser,
     authorizeUser(["Organizer"]),
     userController.getCurrentUserEvents
@@ -58,7 +53,7 @@ router.get(
 
 //Get the analytics of the current user’s events
 router.get(
-    "/api/v1/users/events/analytics",
+    "/users/events/analytics",
     authenticateUser,
     authorizeUser(["Organizer"]),
     userController.getUserEventAnalytics

@@ -78,8 +78,9 @@ const authController = {
                 .cookie("token", token, {
                     expires: expiresAt,
                     withCredentials: true,
-                    httpOnly: false, // should be true in production
+                    httpOnly: true,
                     sameSite: "none",
+                    secure: true,
                 })
                 .status(200)
                 .json({ message: "Login successfully", user });

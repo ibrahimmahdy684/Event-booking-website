@@ -6,7 +6,7 @@ const authenticateUser = require("../Middleware/authenticationMiddleware");
 
 // route for oragainzer to post events
 router.post(
-    "/api/v1/events",
+    "/events",
     authenticateUser,
     authorizeUser(["Organizer"]),
     eventController.createEvent
@@ -14,7 +14,7 @@ router.post(
 
 //route to get all the events and all the user have acess to it
 router.get(
-    "/api/v1/events",
+    "/events",
     authenticateUser,
     authorizeUser(["Organizer", "Standard User", "System Admin"]),
     eventController.getAllEvents
@@ -22,7 +22,7 @@ router.get(
 
 //rote to get a single event
 router.get(
-    "/api/v1/events/:id",
+    "/events/:id",
     authenticateUser,
     authorizeUser(["Organizer", "Standard User", "System Admin"]),
     eventController.getEvent
@@ -30,7 +30,7 @@ router.get(
 
 //route to update an event not for standard user
 router.put(
-    "/api/v1/events/:id",
+    "/events/:id",
     authenticateUser,
     authorizeUser(["Organizer", "System Admin"]),
     eventController.updateEvent
@@ -38,7 +38,7 @@ router.put(
 
 //route to delete event not available for standard user
 router.delete(
-    "/api/v1/events/:id",
+    "/events/:id",
     authenticateUser,
     authorizeUser(["Organizer", "System Admin"]),
     eventController.deleteEvent
