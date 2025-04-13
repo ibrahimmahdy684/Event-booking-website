@@ -15,9 +15,7 @@ const authController = {
             // check if user is already registered before
             const existingUser = await UserModel.findOne({ email });
             if (existingUser) {
-                return res
-                    .status(400)
-                    .json({ message: "User already registered before" });
+                return res.status(400).json({ message: "User already registered before" });
             }
 
             // hash password
@@ -37,7 +35,7 @@ const authController = {
                 newUser,
             });
         } catch (err) {
-            res.status(400).json({ message: err.message });
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -86,15 +84,40 @@ const authController = {
                 .status(200)
                 .json({ message: "Login successfully", user });
         } catch (err) {
-            res.status(400).json({ message: err.message });
+            res.status(500).json({ message: err.message });
         }
     },
 
     // funtion to forget password
     forgetPassword: async (req, res) => {
         try {
+            // get email and new password from body
+            const { email, newPassword } = req.body;
+
+            // find the user by email
+            const user = await UserModel.findOne({ email });
+            if (!user) {
+                return res.status(404).json({ message: "No email found" });
+            }
+
+            // validate new password
+            if (!newPassword) {
+                return res.status(400).json({ message: "New password is required" });
+            }
+
+            // hash new password
+            const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+            // update new password
+            user.password = hashedNewPassword;
+            // update in db
+            await user.save();
+
+            res.status(200).json({
+                message: "Changed password successfully",
+                user,
+            });
         } catch (err) {
-            res.status(400).json({ message: err.message });
+            res.status(500).json({ message: err.message });
         }
     },
 };
