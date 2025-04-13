@@ -37,7 +37,7 @@ const authController = {
                 newUser,
             });
         } catch (err) {
-            res.status(400).json({ message: err.message });
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -64,6 +64,7 @@ const authController = {
 
             const currenDateTime = new Date();
             // set the cookie to expire in 3 seconds (+currentDateTime converts to int)
+            // should be 7 days in production (7 * 24 * 60 * 60 * 1000)
             const expiresAt = new Date(+currenDateTime + 180000);
 
             // generate JWT token
@@ -71,6 +72,7 @@ const authController = {
                 { user: { userId: user._id, role: user.role } },
                 process.env.SECRET_KEY,
                 {
+                    // should be 7 days in production (expiresIn: "7d",)
                     expiresIn: 3 * 60 * 60, // set the token to expire in 3 hours
                 }
             );
@@ -80,21 +82,47 @@ const authController = {
                 .cookie("token", token, {
                     expires: expiresAt,
                     withCredentials: true,
-                    httpOnly: false, // should be true in production
+                    httpOnly: true,
                     sameSite: "none",
+                    secure: true,
                 })
                 .status(200)
                 .json({ message: "Login successfully", user });
         } catch (err) {
-            res.status(400).json({ message: err.message });
+            res.status(500).json({ message: err.message });
         }
     },
 
     // funtion to forget password
     forgetPassword: async (req, res) => {
         try {
+            // get email and new password from body
+            const { email, newPassword } = req.body;
+
+            // find the user by email
+            const user = await UserModel.findOne({ email });
+            if (!user) {
+                return res.status(404).json({ message: "No email found" });
+            }
+
+            // validate new password
+            if (!newPassword) {
+                return res.status(400).json({ message: "New password is required" });
+            }
+
+            // hash new password
+            const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+            // update new password
+            user.password = hashedNewPassword;
+            // update in db
+            await user.save();
+
+            res.status(200).json({
+                message: "Changed password successfully",
+                user,
+            });
         } catch (err) {
-            res.status(400).json({ message: err.message });
+            res.status(500).json({ message: err.message });
         }
     },
 };

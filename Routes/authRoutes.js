@@ -5,13 +5,13 @@ const authController = require("../Controllers/authController");
 const router = express.Router();
 
 // route for register
-router.post("/api/v1/register", authController.registerUser);
+router.post("/register", authController.registerUser);
 
 // route for login
-router.post("/api/v1/login", authController.loginUser);
+router.post("/login", authController.loginUser);
 
 // route for forget password
-router.put("/api/v1/forgetPassword", authController.forgetPassword);
+router.put("/forgetPassword", authController.forgetPassword);
 
 // export router
 module.exports = router;

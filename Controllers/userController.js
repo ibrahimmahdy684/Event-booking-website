@@ -1,4 +1,6 @@
 const UserModel = require("../Models/UserModel");
+const EventModel = require("../Models/eventModel");
+const BookingModel = require("../Models/BookingModel");
 
 const userController = {
     // get all users from db
@@ -17,7 +19,9 @@ const userController = {
     getCurrentUserProfile: async (req, res) => {
         try {
             // get current user (exclude password)
-            const user = await UserModel.findOne({ _id: req.user.userId }).select("-password");
+            const user = await UserModel.findOne({ _id: req.user.userId }).select(
+                "-password"
+            );
 
             // handle if user not found
             if (!user) {
@@ -42,7 +46,9 @@ const userController = {
             const updateFields = Object.keys(updates);
 
             // check if the update fields are allowed
-            const isValidUpdate = updateFields.every((field) => allowedUpdates.includes(field));
+            const isValidUpdate = updateFields.every((field) =>
+                allowedUpdates.includes(field)
+            );
             if (!isValidUpdate) {
                 return res.status(400).json({ message: "Invalid input fields" });
             }
@@ -82,7 +88,7 @@ const userController = {
     // delete user
     deleteUser: async (req, res) => {
         try {
-            const user = UserModel.findByIdAndDelete(req.params.id);
+            const user = await UserModel.findByIdAndDelete(req.params.id);
             if (!user) return res.status(404).json({ msg: "User not found" });
 
             return res.status(200).json({ user, msg: "User deleted successfully" });
@@ -125,7 +131,12 @@ const userController = {
                                     },
                                     revenue: {
                                         $multiply: [
-                                            { $subtract: ["$totalTickets", "$remainingTickets"] },
+                                            {
+                                                $subtract: [
+                                                    "$totalTickets",
+                                                    "$remainingTickets",
+                                                ],
+                                            },
                                             "$ticketPrice",
                                         ],
                                     },
