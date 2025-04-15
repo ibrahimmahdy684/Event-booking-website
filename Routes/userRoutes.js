@@ -35,6 +35,14 @@ router.get(
     userController.getCurrentUserBookings
 );
 
+// Get details of a single user
+router.get(
+    "/users/:id",
+    authenticateUser,
+    authorizeUser(["System Admin"]),
+    userController.getDetails
+);
+
 // delete user
 router.delete(
     "/users/:id",
