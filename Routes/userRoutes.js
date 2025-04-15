@@ -43,6 +43,15 @@ router.get(
     userController.getDetails
 );
 
+
+//Update user’s role 
+router.put(
+    "/users/:id",
+    authenticateUser,
+    authorizeUser(["System Admin"]),
+    userController.updateRoles
+);
+
 // delete user
 router.delete(
     "/users/:id",
