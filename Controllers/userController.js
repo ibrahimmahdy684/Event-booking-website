@@ -85,6 +85,23 @@ const userController = {
         }
     },
 
+    // Get details of a single user
+    getDetails: async(req,res) =>{
+        try{
+          const  userId = req.params.id;
+           const user = await UserModel.findById(userId);
+           if (!user){
+           return res.status(404).json({message : "user not found"})
+           }
+           res.status(200).json(user.select("-password"));
+        }
+        catch(error){
+            console.log(error);
+            res.status(500).json({message: error.message});
+
+        }
+    },
+
     // delete user
     deleteUser: async (req, res) => {
         try {
