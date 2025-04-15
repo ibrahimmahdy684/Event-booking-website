@@ -113,7 +113,7 @@ const userController = {
                 }
                 user.role=newRole;
                 user.save();
-                res.status(200).json(user);
+                res.status(200).json(user.select("-password"));
 
                 
 
