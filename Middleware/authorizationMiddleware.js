@@ -2,9 +2,15 @@
 function authorizeUser(roles) {
     try {
         return (req, res, next) => {
+            // Debug logs
+            // console.log("User Role:", req.user?.role);
+            // console.log("Allowed Roles:", roles);
+
             // to ensure that the req.user exists (and req.user.role)
             if (!req.user || !req.user.role) {
-                return res.status(401).json({ message: "Unauthorized: no user info found" });
+                return res
+                    .status(401)
+                    .json({ message: "Unauthorized: no user info found" });
             }
 
             // get user role from request

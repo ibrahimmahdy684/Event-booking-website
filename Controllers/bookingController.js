@@ -1,4 +1,4 @@
-const BookingModel = require("../Models/BookingModel");
+const BookingModel = require("../Models/bookingModel");
 const EventModel = require("../Models/eventModel");
 
 const bookingController = {
@@ -37,7 +37,8 @@ const bookingController = {
 
             res.status(200).json({ message: "Booking successful!", booking });
         } catch (err) {
-            res.status(404).json({ message: err.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -47,7 +48,8 @@ const bookingController = {
             const booking = await BookingModel.findById(req.params.id);
             return res.status(200).json(booking);
         } catch (err) {
-            res.status(400).json({ message: err.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 

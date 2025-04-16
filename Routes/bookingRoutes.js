@@ -1,9 +1,9 @@
 const express = require("express");
-const bookingController = require("../Controllers/bookingController");
 
-// load middlewares
+// load middlewares and controller
 const authorizeUser = require("../Middleware/authorizationMiddleware");
 const authenticateUser = require("../Middleware/authenticationMiddleware");
+const bookingController = require("../Controllers/bookingController");
 
 const router = express.Router();
 

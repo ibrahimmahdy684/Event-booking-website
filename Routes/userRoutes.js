@@ -1,15 +1,27 @@
 const express = require("express");
 
-const userController = require("../Controllers/userController");
-
-// load middlewares
+// load middlewares and controller
 const authorizeUser = require("../Middleware/authorizationMiddleware");
 const authenticateUser = require("../Middleware/authenticationMiddleware");
+const userController = require("../Controllers/userController");
 
 const router = express.Router();
 
+//Get current user’s events
+router.get(
+    "/users/events",
+    authenticateUser,
+    authorizeUser(["Organizer"]),
+    userController.getCurrentUserEvents
+);
+
 // get all users
-router.get("/users", authenticateUser, authorizeUser(["System Admin"]), userController.getAllUsers);
+router.get(
+    "/users",
+    authenticateUser,
+    authorizeUser(["System Admin"]),
+    userController.getAllUsers
+);
 
 // get current user profile
 router.get(
@@ -35,21 +47,20 @@ router.get(
     userController.getCurrentUserBookings
 );
 
-// Get details of a single user
+// get details of a single user
 router.get(
     "/users/:id",
     authenticateUser,
     authorizeUser(["System Admin"]),
-    userController.getDetails
+    userController.getUserDetails
 );
 
-
-//Update user’s role 
+// update user’s role
 router.put(
     "/users/:id",
     authenticateUser,
     authorizeUser(["System Admin"]),
-    userController.updateRoles
+    userController.updateUserRole
 );
 
 // delete user
@@ -58,14 +69,6 @@ router.delete(
     authenticateUser,
     authorizeUser(["System Admin"]),
     userController.deleteUser
-);
-
-//Get current user’s events
-router.get(
-    " /users/events",
-    authenticateUser,
-    authorizeUser(["Organizer"]),
-    userController.getCurrentUserEvents
 );
 
 //Get the analytics of the current user’s events

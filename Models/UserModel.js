@@ -26,24 +26,22 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: "Standard User",
     },
-   
     // adding for the user in case he forget the password and he need to be sent an otp
     otpCode: {
-        type: String
+        type: String,
     },
     otpExpiry: {
-        type: Date
+        type: Date,
     },
-
     timestamp: {
         // when the user was created
         type: Date,
         default: Date.now, // initial date of creation
-    }  
+    },
 });
 
 // create the mongoose model
-const User = mongoose.models.User || mongoose.model("User", userSchema, "Users");
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 // export the model
 module.exports = User;

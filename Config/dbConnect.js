@@ -1,5 +1,5 @@
-// load packages
 require("dotenv").config();
+
 const mongoose = require("mongoose");
 
 // get datatbase url from .env file
@@ -12,6 +12,7 @@ const connectDB = async () => {
         console.log("Connected to db");
     } catch (err) {
         console.log(err);
+        process.exit(1); // exit if error occurs
     }
 };
 
