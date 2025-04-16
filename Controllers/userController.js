@@ -86,42 +86,35 @@ const userController = {
     },
 
     // Get details of a single user
-    getDetails: async(req,res) =>{
-        try{
-          const userId = req.params.id;
-           const user = await UserModel.findById(userId);
-           if (!user){
-           return res.status(404).json({message : "user not found"})
-           }
-           res.status(200).json(user.select("-password"));
-        }
-        catch(error){
+    getUserDetails: async (req, res) => {
+        try {
+            const userId = req.params.id;
+            const user = await UserModel.findById(userId);
+            if (!user) {
+                return res.status(404).json({ message: "user not found" });
+            }
+            res.status(200).json(user.select("-password"));
+        } catch (error) {
             console.log(error);
-            res.status(500).json({message: error.message});
-
+            res.status(500).json({ message: error.message });
         }
-    }, 
+    },
 
-
-    //Update user’s role 
-    updateRoles:  async(req,res) =>{
-          try{
-              const {email ,newRole}=req.body;
-              const user = await UserModel.findOne({email});
-              if (!user){
-                return res.status(404).json({message : "user not found"})
-                }
-                user.role=newRole;
-                user.save();
-                res.status(200).json(user.select("-password"));
-
-                
-
-          }
-          catch(error){
+    //Update user’s role
+    updateUserRole: async (req, res) => {
+        try {
+            const { email, newRole } = req.body;
+            const user = await UserModel.findOne({ email });
+            if (!user) {
+                return res.status(404).json({ message: "user not found" });
+            }
+            user.role = newRole;
+            await user.save();
+            res.status(200).json(user.select("-password"));
+        } catch (error) {
             console.log(error);
-            res.status(500).json({message: error.message});
-          }
+            res.status(500).json({ message: error.message });
+        }
     },
 
     // delete user

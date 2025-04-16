@@ -9,7 +9,12 @@ const authenticateUser = require("../Middleware/authenticationMiddleware");
 const router = express.Router();
 
 // get all users
-router.get("/users", authenticateUser, authorizeUser(["System Admin"]), userController.getAllUsers);
+router.get(
+    "/users",
+    authenticateUser,
+    authorizeUser(["System Admin"]),
+    userController.getAllUsers
+);
 
 // get current user profile
 router.get(
@@ -35,21 +40,20 @@ router.get(
     userController.getCurrentUserBookings
 );
 
-// Get details of a single user
+// get details of a single user
 router.get(
     "/users/:id",
     authenticateUser,
     authorizeUser(["System Admin"]),
-    userController.getDetails
+    userController.getUserDetails
 );
 
-
-//Update user’s role 
+// update user’s role
 router.put(
     "/users/:id",
     authenticateUser,
     authorizeUser(["System Admin"]),
-    userController.updateRoles
+    userController.updateUserRole
 );
 
 // delete user
