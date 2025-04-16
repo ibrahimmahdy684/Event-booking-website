@@ -1,5 +1,5 @@
-// load packages
 require("dotenv").config();
+
 const mongoose = require("mongoose");
 
 // get datatbase url from .env file

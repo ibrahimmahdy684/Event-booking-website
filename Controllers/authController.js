@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const UserModel = require("../Models/UserModel");
-
 const transporter = require("../Services/emailService");
 
 const authController = {

@@ -1,8 +1,11 @@
 const express = require("express");
-const router = express.Router(); // requring the router from express
-const eventController = require("../Controllers/eventController");
+
+// load middlewares and controller
 const authorizeUser = require("../Middleware/authorizationMiddleware");
 const authenticateUser = require("../Middleware/authenticationMiddleware");
+const eventController = require("../Controllers/eventController");
+
+const router = express.Router();
 
 // route for oragainzer to post events
 router.post(

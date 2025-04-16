@@ -1,10 +1,9 @@
 const express = require("express");
 
-const userController = require("../Controllers/userController");
-
-// load middlewares
+// load middlewares and controller
 const authorizeUser = require("../Middleware/authorizationMiddleware");
 const authenticateUser = require("../Middleware/authenticationMiddleware");
+const userController = require("../Controllers/userController");
 
 const router = express.Router();
 

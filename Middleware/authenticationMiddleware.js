@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const secretKey = process.env.SECRET_KEY;
 
 module.exports = function authenticationMiddleware(req, res, next) {
     const cookie = req.cookies; // get cookie from request
@@ -17,6 +16,7 @@ module.exports = function authenticationMiddleware(req, res, next) {
     }
 
     // verify the token
+    const secretKey = process.env.SECRET_KEY;
     jwt.verify(token, secretKey, (error, decoded) => {
         if (error) {
             return res.status(403).json({ message: "Invalid token" });
