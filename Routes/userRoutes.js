@@ -7,6 +7,14 @@ const userController = require("../Controllers/userController");
 
 const router = express.Router();
 
+//Get current user’s events
+router.get(
+    "/users/events",
+    authenticateUser,
+    authorizeUser(["Organizer"]),
+    userController.getCurrentUserEvents
+);
+
 // get all users
 router.get(
     "/users",
@@ -61,14 +69,6 @@ router.delete(
     authenticateUser,
     authorizeUser(["System Admin"]),
     userController.deleteUser
-);
-
-//Get current user’s events
-router.get(
-    "/users/events",
-    authenticateUser,
-    authorizeUser(["Organizer"]),
-    userController.getCurrentUserEvents
 );
 
 //Get the analytics of the current user’s events

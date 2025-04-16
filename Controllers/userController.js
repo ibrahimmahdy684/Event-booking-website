@@ -79,11 +79,11 @@ const userController = {
     //get current user's bookings
     getCurrentUserBookings: async (req, res) => {
         try {
-            const bookings = await BookingModel.find({ user: req.user.id });
+            const bookings = await BookingModel.find({ user: req.user.userId });
             res.status(200).json(bookings);
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: error.message });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -98,9 +98,9 @@ const userController = {
                 return res.status(404).json({ message: "user not found" });
             }
             res.status(200).json(user);
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: error.message });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -123,9 +123,9 @@ const userController = {
             await user.save();
 
             res.status(200).json(user);
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: error.message });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -136,7 +136,7 @@ const userController = {
             if (!user) return res.status(404).json({ msg: "User not found" });
 
             return res.status(200).json({ user, msg: "User deleted successfully" });
-        } catch (error) {
+        } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
@@ -145,9 +145,9 @@ const userController = {
     //Get current user’s events
     getCurrentUserEvents: async (req, res) => {
         try {
-            const events = await EventModel.find({ organizer: req.user.id });
+            const events = await EventModel.find({ organizer: req.user.userId });
             return res.status(200).json({ events });
-        } catch (error) {
+        } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
@@ -156,10 +156,11 @@ const userController = {
     //Get the analytics of the current user’s events
     getUserEventAnalytics: async (req, res) => {
         try {
+            console.log(req.user.userId);
             // Aggregate analytics for events organized by the current user
-            const analytics = await Event.aggregate([
+            const analytics = await EventModel.aggregate([
                 // Match events by the current user's ID
-                { $match: { organizer: req.user.id } },
+                { $match: { organizer: req.user.userId } },
                 {
                     $facet: {
                         // Count the total number of events
@@ -246,7 +247,7 @@ const userController = {
             };
 
             res.status(200).json(result);
-        } catch (error) {
+        } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
