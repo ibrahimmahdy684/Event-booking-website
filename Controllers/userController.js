@@ -11,7 +11,7 @@ const userController = {
             res.status(200).json(users);
         } catch (err) {
             console.log(err);
-            res.status(400).json({ message: err.message });
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -30,6 +30,7 @@ const userController = {
 
             res.status(200).json(user);
         } catch (err) {
+            console.log(err);
             res.status(500).json({ message: err.message });
         }
     },
@@ -70,6 +71,7 @@ const userController = {
                 updatedUser,
             });
         } catch (err) {
+            console.log(err);
             res.status(500).json({ message: err.message });
         }
     },
@@ -89,11 +91,11 @@ const userController = {
     getUserDetails: async (req, res) => {
         try {
             const userId = req.params.id;
-            const user = await UserModel.findById(userId);
+            const user = await UserModel.findById(userId).select("-password");
             if (!user) {
                 return res.status(404).json({ message: "user not found" });
             }
-            res.status(200).json(user.select("-password"));
+            res.status(200).json(user);
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: error.message });
@@ -104,13 +106,13 @@ const userController = {
     updateUserRole: async (req, res) => {
         try {
             const { email, newRole } = req.body;
-            const user = await UserModel.findOne({ email });
+            const user = await UserModel.findOne({ email }).select("-password");
             if (!user) {
                 return res.status(404).json({ message: "user not found" });
             }
             user.role = newRole;
             await user.save();
-            res.status(200).json(user.select("-password"));
+            res.status(200).json(user);
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: error.message });
@@ -125,17 +127,19 @@ const userController = {
 
             return res.status(200).json({ user, msg: "User deleted successfully" });
         } catch (error) {
-            return res.status(500).json({ message: error.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
     //Get current user’s events
     getCurrentUserEvents: async (req, res) => {
         try {
-            const events = EventModel.find({ organizer: req.user.id });
+            const events = await EventModel.find({ organizer: req.user.id });
             return res.status(200).json({ events });
         } catch (error) {
-            return res.status(500).json({ message: error.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -222,7 +226,8 @@ const userController = {
 
             res.status(200).json(result);
         } catch (error) {
-            res.status(500).json({ error: "Failed to fetch event analytics" });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 };

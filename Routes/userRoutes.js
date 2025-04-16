@@ -65,7 +65,7 @@ router.delete(
 
 //Get current user’s events
 router.get(
-    " /users/events",
+    "/users/events",
     authenticateUser,
     authorizeUser(["Organizer"]),
     userController.getCurrentUserEvents

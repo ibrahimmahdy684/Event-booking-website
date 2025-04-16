@@ -38,6 +38,7 @@ const authController = {
                 newUser,
             });
         } catch (err) {
+            console.log(err);
             res.status(500).json({ message: err.message });
         }
     },
@@ -58,7 +59,7 @@ const authController = {
             // check if password is correct
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (!passwordMatch) {
-                return res.status(401).json({ password: "Incorrect password" });
+                return res.status(400).json({ password: "Incorrect password" });
             }
 
             // initialize cookie and token
@@ -90,15 +91,16 @@ const authController = {
                 .status(200)
                 .json({ message: "Login successfully", user });
         } catch (err) {
+            console.log(err);
             res.status(500).json({ message: err.message });
         }
     },
 
     // forget password with the bonus of MFA by sending the otp to the mail of the user
     forgetPassword: async (req, res) => {
-        const { email } = req.body; //getting the mail of the forgotten pass
-
         try {
+            const { email } = req.body; //getting the mail of the forgotten pass
+
             const user = await UserModel.findOne({ email });
             if (!user)
                 //if the email does not exist return with error
@@ -121,6 +123,7 @@ const authController = {
 
             res.status(200).json({ message: "OTP sent to email" });
         } catch (err) {
+            console.log(err);
             res.status(500).json({ message: err.message });
         }
     },
@@ -147,6 +150,7 @@ const authController = {
 
             res.status(200).json({ message: "Password reset successful" });
         } catch (err) {
+            console.log(err);
             res.status(500).json({ message: err.message });
         }
     },

@@ -21,7 +21,8 @@ const eventController = {
             const newEvent = await event.save();
             res.status(201).json(newEvent);
         } catch (error) {
-            return res.status(400).json({ message: error.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -30,7 +31,8 @@ const eventController = {
             const events = await EventModel.find();
             return res.status(200).json(events);
         } catch (error) {
-            return res.status(400).json({ message: error.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -40,7 +42,8 @@ const eventController = {
             const event = await EventModel.findById(req.params.id);
             return res.status(200).json(event);
         } catch (error) {
-            return res.status(400).json({ message: error.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -52,16 +55,22 @@ const eventController = {
             });
             return res.status(200).json(event);
         } catch (error) {
-            return res.status(500).json({ message: error.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 
     deleteEvent: async (req, res) => {
         try {
             const event = await EventModel.findByIdAndDelete(req.params.id);
+            if (!event) {
+                return res.status(404).json({ message: "Event not found" });
+            }
+
             return res.status(200).json(event);
         } catch (error) {
-            return res.status(500).json({ message: error.message });
+            console.log(err);
+            res.status(500).json({ message: err.message });
         }
     },
 };
