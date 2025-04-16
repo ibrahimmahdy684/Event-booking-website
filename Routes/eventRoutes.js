@@ -15,21 +15,11 @@ router.post(
     eventController.createEvent
 );
 
-//route to get all the events and all the user have acess to it
-router.get(
-    "/events",
-    authenticateUser,
-    authorizeUser(["Organizer", "Standard User", "System Admin"]),
-    eventController.getAllEvents
-);
+//route to get all the events (public access)
+router.get("/events", eventController.getAllEvents);
 
-//rote to get a single event
-router.get(
-    "/events/:id",
-    authenticateUser,
-    authorizeUser(["Organizer", "Standard User", "System Admin"]),
-    eventController.getEvent
-);
+//rote to get a single event (public access)
+router.get("/events/:id", eventController.getEvent);
 
 //route to update an event not for standard user
 router.put(

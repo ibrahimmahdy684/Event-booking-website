@@ -13,10 +13,6 @@ const eventController = {
                 image,
                 ticketPrice,
                 totalTickets,
-                remainingTickets,
-                organizer,
-                status,
-                timestamp,
             } = req.body;
 
             // create new event and save it to db
@@ -29,15 +25,13 @@ const eventController = {
                 image,
                 ticketPrice,
                 totalTickets,
-                remainingTickets,
-                organizer,
-                status,
-                timestamp,
+                remainingTickets: totalTickets,
+                organizer: req.user.userId,
             });
             await newEvent.save();
 
             res.status(201).json(newEvent);
-        } catch (error) {
+        } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
@@ -47,7 +41,7 @@ const eventController = {
         try {
             const events = await EventModel.find();
             return res.status(200).json(events);
-        } catch (error) {
+        } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
@@ -62,7 +56,7 @@ const eventController = {
             }
 
             return res.status(200).json(event);
-        } catch (error) {
+        } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
@@ -71,17 +65,36 @@ const eventController = {
     //update the event by id
     updateEvent: async (req, res) => {
         try {
+            // validate and filter the fields to update
+            const updateFields = ({
+                title,
+                description,
+                date,
+                location,
+                category,
+                image,
+                ticketPrice,
+                totalTickets,
+                remainingTickets,
+                organizer,
+                status,
+            } = req.body);
+
             // find the event and update it
-            const event = await EventModel.findByIdAndUpdate(req.params.id, req.body, {
-                new: true,
-            });
+            const event = await EventModel.findByIdAndUpdate(
+                req.params.id,
+                updateFields,
+                {
+                    new: true,
+                }
+            );
 
             if (!event) {
                 return res.status(404).json({ message: "Event not found" });
             }
 
             return res.status(200).json(event);
-        } catch (error) {
+        } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
@@ -96,7 +109,7 @@ const eventController = {
             }
 
             return res.status(200).json(event);
-        } catch (error) {
+        } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
