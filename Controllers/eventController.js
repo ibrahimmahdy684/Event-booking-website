@@ -2,23 +2,40 @@ const EventModel = require("../Models/eventModel");
 
 const eventController = {
     createEvent: async (req, res) => {
-        const event = new EventModel({
-            title: req.body.title,
-            description: req.body.description,
-            date: req.body.date,
-            location: req.body.location,
-            category: req.body.category,
-            image: req.body.image,
-            ticketPrice: req.body.ticketPrice,
-            totalTickets: req.body.totalTickets,
-            remainingTickets: req.body.remainingTickets,
-            organizer: req.body.organizer,
-            status: req.body.status,
-            timestamp: req.body.timestamp,
-        }); //creating events using the parameters in the body
-
         try {
-            const newEvent = await event.save();
+            // get details from body
+            const {
+                title,
+                description,
+                date,
+                location,
+                category,
+                image,
+                ticketPrice,
+                totalTickets,
+                remainingTickets,
+                organizer,
+                status,
+                timestamp,
+            } = req.body;
+
+            // create new event and save it to db
+            const newEvent = new EventModel({
+                title,
+                description,
+                date,
+                location,
+                category,
+                image,
+                ticketPrice,
+                totalTickets,
+                remainingTickets,
+                organizer,
+                status,
+                timestamp,
+            });
+            await newEvent.save();
+
             res.status(201).json(newEvent);
         } catch (error) {
             console.log(err);
@@ -40,6 +57,10 @@ const eventController = {
     getEvent: async (req, res) => {
         try {
             const event = await EventModel.findById(req.params.id);
+            if (!event) {
+                return res.status(404).json({ message: "Event not found" });
+            }
+
             return res.status(200).json(event);
         } catch (error) {
             console.log(err);
@@ -47,12 +68,18 @@ const eventController = {
         }
     },
 
-    //uptade the event by id
+    //update the event by id
     updateEvent: async (req, res) => {
         try {
+            // find the event and update it
             const event = await EventModel.findByIdAndUpdate(req.params.id, req.body, {
                 new: true,
             });
+
+            if (!event) {
+                return res.status(404).json({ message: "Event not found" });
+            }
+
             return res.status(200).json(event);
         } catch (error) {
             console.log(err);
@@ -60,6 +87,7 @@ const eventController = {
         }
     },
 
+    // delete an event from the db
     deleteEvent: async (req, res) => {
         try {
             const event = await EventModel.findByIdAndDelete(req.params.id);
