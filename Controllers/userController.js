@@ -1,6 +1,6 @@
-const UserModel = require("../Models/UserModel");
+const UserModel = require("../Models/userModel");
 const EventModel = require("../Models/eventModel");
-const BookingModel = require("../Models/BookingModel");
+const BookingModel = require("../Models/bookingModel");
 
 const userController = {
     // get all users from db
