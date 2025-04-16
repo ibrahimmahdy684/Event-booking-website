@@ -7,7 +7,7 @@ const userController = {
     getAllUsers: async (req, res) => {
         try {
             // query all the users
-            const users = await UserModel.find();
+            const users = await UserModel.find().select("-password -otpCode -otpExpiry");
             res.status(200).json(users);
         } catch (err) {
             console.log(err);
@@ -20,7 +20,7 @@ const userController = {
         try {
             // get current user (exclude password)
             const user = await UserModel.findOne({ _id: req.user.userId }).select(
-                "-password"
+                "-password -otpCode -otpExpiry"
             );
 
             // handle if user not found
@@ -59,7 +59,7 @@ const userController = {
                 userId,
                 { $set: updates },
                 { new: true, runValidators: true }
-            ).select("-password");
+            ).select("-password -otpCode -otpExpiry");
 
             // handle user not found
             if (!updatedUser) {
@@ -91,7 +91,9 @@ const userController = {
     getUserDetails: async (req, res) => {
         try {
             const userId = req.params.id;
-            const user = await UserModel.findById(userId).select("-password");
+            const user = await UserModel.findById(userId).select(
+                "-password -otpCode -otpExpiry"
+            );
             if (!user) {
                 return res.status(404).json({ message: "user not found" });
             }
@@ -106,12 +108,20 @@ const userController = {
     updateUserRole: async (req, res) => {
         try {
             const { email, newRole } = req.body;
-            const user = await UserModel.findOne({ email }).select("-password");
+
+            // find user by email
+            const user = await UserModel.findOne({ email }).select(
+                "-password -otpCode -otpExpiry"
+            );
+            // handle user not found
             if (!user) {
                 return res.status(404).json({ message: "user not found" });
             }
+
+            // update role and save to db
             user.role = newRole;
             await user.save();
+
             res.status(200).json(user);
         } catch (error) {
             console.log(error);
@@ -146,11 +156,16 @@ const userController = {
     //Get the analytics of the current user’s events
     getUserEventAnalytics: async (req, res) => {
         try {
+            // Aggregate analytics for events organized by the current user
             const analytics = await Event.aggregate([
+                // Match events by the current user's ID
                 { $match: { organizer: req.user.id } },
                 {
                     $facet: {
+                        // Count the total number of events
                         totalEvents: [{ $count: "count" }],
+
+                        // Group events by their status (e.g., active, canceled)
                         eventsByStatus: [
                             {
                                 $group: {
@@ -159,6 +174,8 @@ const userController = {
                                 },
                             },
                         ],
+
+                        // Calculate tickets sold and revenue for each event
                         ticketsSoldAndRevenue: [
                             {
                                 $project: {
@@ -186,6 +203,8 @@ const userController = {
                                 },
                             },
                         ],
+
+                        // Group events by their category
                         eventsByCategory: [
                             {
                                 $group: {
@@ -194,6 +213,8 @@ const userController = {
                                 },
                             },
                         ],
+
+                        // Categorize events as upcoming or past based on their date
                         upcomingVsPastEvents: [
                             {
                                 $group: {
@@ -212,7 +233,7 @@ const userController = {
                 },
             ]);
 
-            // Format response
+            // Format the aggregated analytics into a structured response
             const result = {
                 totalEvents: analytics[0].totalEvents[0]?.count || 0,
                 eventsByStatus: analytics[0].eventsByStatus,

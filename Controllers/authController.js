@@ -32,10 +32,18 @@ const authController = {
                 role,
             });
 
+            // remove password and other attributes from the returned user object
+            const {
+                password: _,
+                otpCode,
+                otpExpiry,
+                ...userWithoutSensitiveData
+            } = newUser.toObject();
+
             // return user to client
             res.status(201).json({
                 message: "User created successfully",
-                newUser,
+                user: userWithoutSensitiveData,
             });
         } catch (err) {
             console.log(err);
@@ -65,19 +73,25 @@ const authController = {
             // initialize cookie and token
 
             const currenDateTime = new Date();
-            // set the cookie to expire in 3 seconds (+currentDateTime converts to int)
-            // should be 7 days in production (7 * 24 * 60 * 60 * 1000)
-            const expiresAt = new Date(+currenDateTime + 180000);
+            // set the cookie to expire in 7 days (+currentDateTime converts to int)
+            const expiresAt = new Date(+currenDateTime + 7 * 24 * 60 * 60 * 1000);
 
             // generate JWT token
             const token = jwt.sign(
                 { user: { userId: user._id, role: user.role } },
                 process.env.SECRET_KEY,
                 {
-                    // should be 7 days in production (expiresIn: "7d",)
-                    expiresIn: 3 * 60 * 60, // set the token to expire in 3 hours
+                    expiresIn: "7d", // set the token to expire in 7 days
                 }
             );
+
+            // remove password and other attributes from the returned user object
+            const {
+                password: _,
+                otpCode,
+                otpExpiry,
+                ...userWithoutSensitiveData
+            } = user.toObject();
 
             // set the cookie
             return res
@@ -86,10 +100,9 @@ const authController = {
                     withCredentials: true,
                     httpOnly: true,
                     sameSite: "none",
-                    secure: true,
                 })
                 .status(200)
-                .json({ message: "Login successfully", user });
+                .json({ message: "Login successfully", userWithoutSensitiveData });
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
