@@ -1,7 +1,7 @@
 const UserModel = require("../Models/userModel");
 const EventModel = require("../Models/eventModel");
 const BookingModel = require("../Models/bookingModel");
-
+const mongoose = require("mongoose");
 const userController = {
     // get all users from db
     getAllUsers: async (req, res) => {
@@ -160,7 +160,7 @@ const userController = {
             // Aggregate analytics for events organized by the current user
             const analytics = await EventModel.aggregate([
                 // Match events by the current user's ID
-                { $match: { organizer: req.user.userId } },
+                { $match: { organizer: new mongoose.Types.ObjectId(req.user.userId) } },
                 {
                     $facet: {
                         // Count the total number of events
