@@ -15,8 +15,15 @@ router.post(
     eventController.createEvent
 );
 
-//route to get all the events (public access)
-router.get("/events", eventController.getAllEvents);
+// route to get Approved events (public access)
+router.get("/events",eventController.getApprovedEvents);
+
+//route to get all the events 
+router.get(
+    "/events/all", 
+    authenticateUser,
+    authorizeUser(["System Admin"]),
+    eventController.getAllEvents);
 
 //rote to get a single event (public access)
 router.get("/events/:id", eventController.getEvent);
