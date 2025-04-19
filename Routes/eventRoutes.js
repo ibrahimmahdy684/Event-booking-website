@@ -16,7 +16,10 @@ router.post(
 );
 
 // route to get Approved events (public access)
-router.get("/events",eventController.getApprovedEvents);
+router.get("/events",
+    authenticateUser,
+    authorizeUser(["Standard User","System Admin","Organizer"]),
+    eventController.getApprovedEvents);
 
 //route to get all the events 
 router.get(
@@ -26,7 +29,10 @@ router.get(
     eventController.getAllEvents);
 
 //rote to get a single event (public access)
-router.get("/events/:id", eventController.getEvent);
+router.get("/events/:id",
+    authenticateUser,
+    authorizeUser(["Standard User","System Admin","Organizer"]),
+     eventController.getEvent);
 
 //route to update an event not for standard user
 router.put(
