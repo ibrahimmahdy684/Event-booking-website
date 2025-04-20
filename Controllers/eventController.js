@@ -118,7 +118,7 @@ const eventController = {
                 return res.status(404).json({ message: "Event not found" });
             }
 
-            return res.status(200).json(event);
+            return res.status(200).json({ message: "Event deleted successfully", event });
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
