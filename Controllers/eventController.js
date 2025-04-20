@@ -37,15 +37,14 @@ const eventController = {
         }
     },
 
-    getApprovedEvents: async(req, res) => {
+    getApprovedEvents: async (req, res) => {
         try {
-            const approvedEvents = await EventModel.find({ status: 'Approved' });
+            const approvedEvents = await EventModel.find({ status: "Approved" });
             return res.status(200).json(approvedEvents);
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
         }
-
     },
 
     getAllEvents: async (req, res) => {

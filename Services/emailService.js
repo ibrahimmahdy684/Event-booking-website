@@ -1,6 +1,7 @@
+require("dotenv").config();
+
 // requring node mailer for sending otp mail in case forget password
 const nodemailer = require("nodemailer");
-require('dotenv').config();
 
 //geting the service and getting the email and password of the app from the env file
 const transporter = nodemailer.createTransport({
