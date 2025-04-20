@@ -35,7 +35,46 @@ const userController = {
         }
     },
 
-    ///////////
+    // update current user profile
+    updateCurrentUserProfile: async (req, res) => {
+        try {
+            const userId = req.user.userId;
+            const updates = req.body;
+
+            // state the allowed fields to be updated
+            const allowedUpdates = ["name", "email", "profilePicture"];
+            // get the updated fileds
+            const updateFields = Object.keys(updates);
+
+            // check if the update fields are allowed
+            const isValidUpdate = updateFields.every((field) =>
+                allowedUpdates.includes(field)
+            );
+            if (!isValidUpdate) {
+                return res.status(400).json({ message: "Invalid input fields" });
+            }
+
+            // find the user and update him
+            const updatedUser = await UserModel.findByIdAndUpdate(
+                userId,
+                { $set: updates },
+                { new: true, runValidators: true }
+            ).select("-password -otpCode -otpExpiry");
+
+            // handle user not found
+            if (!updatedUser) {
+                return res.status(404).json({ message: "User not found" });
+            }
+
+            res.status(200).json({
+                message: "User updated",
+                updatedUser,
+            });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: err.message });
+        }
+    },
 
     //get current user's bookings
     getCurrentUserBookings: async (req, res) => {
@@ -68,22 +107,21 @@ const userController = {
     //Update user’s role
     updateUserRole: async (req, res) => {
         try {
-            const { email, newRole } = req.body;
-
-            // find user by email
-            const user = await UserModel.findOne({ email }).select(
+            const userId = req.params.id;
+            const user = await UserModel.findById(userId).select(
                 "-password -otpCode -otpExpiry"
             );
-            // handle user not found
             if (!user) {
                 return res.status(404).json({ message: "user not found" });
             }
+
+            const { newRole } = req.body;
 
             // update role and save to db
             user.role = newRole;
             await user.save();
 
-            res.status(200).json(user);
+            res.status(200).json({ message: "user updated successfully", user });
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
