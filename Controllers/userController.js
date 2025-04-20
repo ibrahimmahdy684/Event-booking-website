@@ -68,22 +68,21 @@ const userController = {
     //Update user’s role
     updateUserRole: async (req, res) => {
         try {
-            const { email, newRole } = req.body;
-
-            // find user by email
-            const user = await UserModel.findOne({ email }).select(
+            const userId = req.params.id;
+            const user = await UserModel.findById(userId).select(
                 "-password -otpCode -otpExpiry"
             );
-            // handle user not found
             if (!user) {
                 return res.status(404).json({ message: "user not found" });
             }
+
+            const { newRole } = req.body;
 
             // update role and save to db
             user.role = newRole;
             await user.save();
 
-            res.status(200).json(user);
+            res.status(200).json({ message: "user updated successfully", user });
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
