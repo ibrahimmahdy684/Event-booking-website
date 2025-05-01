@@ -7,13 +7,25 @@ const userController = require("../Controllers/userController");
 
 const router = express.Router();
 
-//Get current user’s events
+// Specific Routes
+
+// get current user’s events
 router.get(
     "/users/events",
     authenticateUser,
     authorizeUser(["Organizer"]),
     userController.getCurrentUserEvents
 );
+
+//Get the analytics of the current user’s events
+router.get(
+    "/users/events/analytics",
+    authenticateUser,
+    authorizeUser(["Organizer"]),
+    userController.getUserEventAnalytics
+);
+
+// General routes
 
 // get all users
 router.get(
@@ -47,6 +59,8 @@ router.get(
     userController.getCurrentUserBookings
 );
 
+// Dynamic routes
+
 // get details of a single user
 router.get(
     "/users/:id",
@@ -69,14 +83,6 @@ router.delete(
     authenticateUser,
     authorizeUser(["System Admin"]),
     userController.deleteUser
-);
-
-//Get the analytics of the current user’s events
-router.get(
-    "/users/events/analytics",
-    authenticateUser,
-    authorizeUser(["Organizer"]),
-    userController.getUserEventAnalytics
 );
 
 // export router
