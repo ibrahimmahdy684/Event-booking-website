@@ -1,8 +1,8 @@
 {
-    "name": "even-booking",
+    "name": "backend",
     "version": "1.0.0",
     "description": "This is an event booking system for booking sports, entertainment, and other types of events",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon backend/server.js"
