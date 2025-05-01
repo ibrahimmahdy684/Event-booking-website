@@ -1,4 +1,11 @@
 {
-    "tabWidth": 4,
-    "printWidth": 90
+  "printWidth": 90,
+  "overrides": [
+    {
+      "files": "*.js",
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
 }
