@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 // requring node mailer for sending otp mail in case forget password
 const nodemailer = require("nodemailer");
 

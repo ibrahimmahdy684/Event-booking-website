@@ -1,3 +1,5 @@
+require("dotenv").config({ path: "./.env" });
+
 const app = require("./app");
 
 // get port number or default to 5000
