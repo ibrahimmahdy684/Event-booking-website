@@ -16,5 +16,8 @@ router.put("/forgetPassword", authController.forgetPassword);
 //route for reseting the password after the user got the otp mail
 router.put("/verifyReset", authController.verifyReset);
 
+// route for logout
+router.get("/logout", authController.logoutUser);
+
 // export router
 module.exports = router;
