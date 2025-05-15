@@ -165,6 +165,24 @@ const authController = {
             res.status(500).json({ message: err.message });
         }
     },
+
+    // method to log the user out
+    logoutUser: async (req, res) => {
+        try {
+            // overwrite existing token with empty value and make it expire now
+            res.cookie("token", "", {
+                httpOnly: true,
+                secure: false, // should be true in production
+                sameSite: "none", // should be strict in production
+                maxAge: new Date(0), // expire the cookie now
+            })
+                .status(200)
+                .json({ message: "Logout successfully" });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: err.message });
+        }
+    },
 };
 
 // export controller
