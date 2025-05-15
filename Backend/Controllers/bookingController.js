@@ -27,6 +27,7 @@ const bookingController = {
                 event: eventId,
                 numberOfTicketsBooked,
                 totalPrice,
+                bookingStatus: "confirmed"
             });
 
             await booking.save();
