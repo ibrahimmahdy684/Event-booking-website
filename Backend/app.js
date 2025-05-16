@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 // load db and routes
 const connectDB = require("./Config/dbConnect");
@@ -15,6 +16,13 @@ const app = express();
 app.use(express.json());
 // use middleware to parse cookies from requests
 app.use(cookieParser());
+// use middleware to enable CORS
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    })
+);
 
 // use all routes
 app.use("/api/v1", userRoutes);
