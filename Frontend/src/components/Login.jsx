@@ -1,7 +1,8 @@
 import axios from "axios";
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { useAuth } from "../auth/AuthContext";
 
 import "../styles/Login.css";
 
@@ -9,23 +10,30 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { setUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // prevent refreshing the page after form submission
     setError("");
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+
+      setUser(res.data.user);
 
       // Handle successful login
       //localStorage.setItem("token", response.data.token);
-      window.location.href = "/"; // redirect to home page
+      //window.location.href = "/"; // redirect to home page
 
-      console.log(response.data);
+      console.log(res.data);
     } catch (err) {
-      console.error(err);
+      console.error("Login failed: " + err);
       setError("Invalid email or password");
     }
   };

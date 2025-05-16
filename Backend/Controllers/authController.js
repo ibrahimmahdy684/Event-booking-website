@@ -100,7 +100,7 @@ const authController = {
                     sameSite: "none",
                 })
                 .status(200)
-                .json({ message: "Login successfully", userWithoutSensitiveData });
+                .json({ message: "Login successfully", user: userWithoutSensitiveData });
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
