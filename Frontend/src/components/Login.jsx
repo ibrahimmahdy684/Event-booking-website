@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../auth/AuthContext";
 
@@ -11,11 +11,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { setUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // prevent refreshing the page after form submission
     setError("");
     try {
+      // call the login api from the backend
       const res = await axios.post(
         "http://localhost:3000/api/v1/login",
         {
@@ -25,11 +27,12 @@ const Login = () => {
         { withCredentials: true }
       );
 
+      // set user (authenticated)
       setUser(res.data.user);
 
       // Handle successful login
       //localStorage.setItem("token", response.data.token);
-      //window.location.href = "/"; // redirect to home page
+      navigate("/"); // redirect to home page
 
       console.log(res.data);
     } catch (err) {
