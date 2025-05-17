@@ -1,38 +1,52 @@
 import axios from "axios";
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import "../styles/Login.css";
+import { useAuth } from "../auth/AuthContext";
+
+import "../styles/Form.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { setUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // prevent refreshing the page after form submission
     setError("");
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/login", {
-        email,
-        password,
-      });
+      // call the login api from the backend
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
 
-      // Handle successful login
-      //localStorage.setItem("token", response.data.token);
-      window.location.href = "/"; // redirect to home page
+      setUser(res.data.user); // set user (authenticated)
+      localStorage.setItem("token", res.data.token); // save token
+      navigate("/"); // redirect to home page
 
-      console.log(response.data);
+      console.log(res.data);
     } catch (err) {
-      console.error(err);
-      setError("Invalid email or password");
+      console.log(err);
+
+      // Check if the backend sent a specific error message
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("An unexpected error occurred.");
+      }
     }
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
+    <div className="form-container">
+      <form className="form" onSubmit={handleSubmit}>
         <h1>Log in</h1>
         {error && <div style={{ color: "red", marginBottom: "1rem" }}>{error}</div>}
         <div className="form-group">
@@ -59,15 +73,15 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="login-btn">
+        <button type="submit" className="form-btn">
           Log in
         </button>
-        <div className="login-links">
+        <div className="form-links">
           <Link to="/forgot-password" className="forgot-link">
             Forgot password?
           </Link>
         </div>
-        <div className="signup-link">
+        <div className="alt-link">
           Don't have an account? <Link to="/register">Sign up</Link>
         </div>
       </form>

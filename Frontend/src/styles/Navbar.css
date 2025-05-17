@@ -1,20 +1,21 @@
 .navbar {
+  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #ffffff;
-  padding: 0.75rem 2rem;
-  box-shadow: 0 4px 16px rgba(171, 152, 152, 0.35);
-  border-radius: 24px;
-  height: 45px;
-  margin-top: 24px;
+  padding: 0 2rem;
+  height: 70px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
 }
 
 .navbar-logo {
-  text-decoration: none;
-  color: #000000;
   display: flex;
   align-items: center;
+  height: 100%;
+  color: black;
+  text-decoration: none;
 }
 
 .navbar-logo h2 {
@@ -26,7 +27,9 @@
 
 .navbar-links {
   display: flex;
+  align-items: center;
   gap: 1.5rem;
+  height: 100%;
 }
 
 .navbar-links a {
@@ -40,7 +43,15 @@
 }
 
 .navbar-links a:hover {
-  background: #c6c6c6;
+  background: #6ebae8;
   color: #222;
   transition: background 0.3s, color 0.2s;
+}
+
+.user-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: box-shadow 0.2s;
 }

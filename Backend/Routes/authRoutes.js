@@ -1,8 +1,14 @@
 const express = require("express");
 
+const authenticateUser = require("../Middleware/authenticationMiddleware");
 const authController = require("../Controllers/authController");
 
 const router = express.Router();
+
+// route to check if user is authenticated
+router.get("/check-auth", authenticateUser, (req, res) => {
+    res.status(200).json({ user: req.user });
+});
 
 // route for register
 router.post("/register", authController.registerUser);

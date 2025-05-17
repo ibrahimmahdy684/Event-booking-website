@@ -59,13 +59,13 @@ const authController = {
             const user = await UserModel.findOne({ email });
             // check if user exists (user is registered or not)
             if (!user) {
-                return res.status(404).json({ message: "Email is not found" });
+                return res.status(404).json({ message: "Incorrect email or password" });
             }
 
             // check if password is correct
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (!passwordMatch) {
-                return res.status(400).json({ password: "Incorrect password" });
+                return res.status(400).json({ message: "Incorrect email or password" });
             }
 
             // initialize cookie and token
@@ -98,9 +98,13 @@ const authController = {
                     withCredentials: true,
                     httpOnly: true,
                     sameSite: "none",
+                    secure: false,
                 })
                 .status(200)
-                .json({ message: "Login successfully", userWithoutSensitiveData });
+                .json({
+                    message: "Login successfully",
+                    user: userWithoutSensitiveData,
+                });
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
