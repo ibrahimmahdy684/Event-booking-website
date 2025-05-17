@@ -5,11 +5,12 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="app-container">
         <Navbar />
 
         <div className="content">
@@ -19,6 +20,8 @@ function App() {
             <Route path="/register" element={<h1>Register Page</h1>} />
           </Routes>
         </div>
+
+        <Footer />
       </div>
     </Router>
   );
