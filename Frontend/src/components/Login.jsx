@@ -27,17 +27,20 @@ const Login = () => {
         { withCredentials: true }
       );
 
-      // set user (authenticated)
-      setUser(res.data.user);
-
-      // Handle successful login
-      //localStorage.setItem("token", response.data.token);
+      setUser(res.data.user); // set user (authenticated)
+      localStorage.setItem("token", res.data.token); // save token
       navigate("/"); // redirect to home page
 
       console.log(res.data);
     } catch (err) {
-      console.error("Login failed: " + err);
-      setError("Invalid email or password");
+      console.log(err);
+
+      // Check if the backend sent a specific error message
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("An unexpected error occurred.");
+      }
     }
   };
 

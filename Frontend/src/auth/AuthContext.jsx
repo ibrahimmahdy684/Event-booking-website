@@ -11,10 +11,15 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    console.log(localStorage.getItem("token"));
     axios
-      .get("/api/v1/profile", { withCredentials: true })
-      .then((res) => setUser(res.data.user))
-      .catch(() => setUser(null));
+      .get("http://localhost:3000/api/v1/check-auth", { withCredentials: true })
+      .then((res) => {
+        setUser(res.data.user);
+      })
+      .catch(() => {
+        setUser(null);
+      });
   }, []);
 
   // Provide the user and setUser to all child components via context
