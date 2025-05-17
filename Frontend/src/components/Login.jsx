@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../auth/AuthContext";
 
-import "../styles/Login.css";
+import "../styles/Form.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -45,8 +45,8 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
+    <div className="form-container">
+      <form className="form" onSubmit={handleSubmit}>
         <h1>Log in</h1>
         {error && <div style={{ color: "red", marginBottom: "1rem" }}>{error}</div>}
         <div className="form-group">
@@ -73,15 +73,15 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="login-btn">
+        <button type="submit" className="form-btn">
           Log in
         </button>
-        <div className="login-links">
+        <div className="form-links">
           <Link to="/forgot-password" className="forgot-link">
             Forgot password?
           </Link>
         </div>
-        <div className="signup-link">
+        <div className="alt-link">
           Don't have an account? <Link to="/register">Sign up</Link>
         </div>
       </form>
