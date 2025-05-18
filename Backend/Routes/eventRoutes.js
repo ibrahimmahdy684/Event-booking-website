@@ -18,8 +18,7 @@ router.post(
 // route to get Approved events (public access)
 router.get(
     "/events",
-    authenticateUser,
-    authorizeUser(["Standard User", "System Admin", "Organizer"]),
+    
     eventController.getApprovedEvents
 );
 
@@ -42,8 +41,6 @@ router.get(
 //route to update an event not for standard user
 router.put(
     "/events/:id",
-    authenticateUser,
-    authorizeUser(["Organizer", "System Admin"]),
     eventController.updateEvent
 );
 

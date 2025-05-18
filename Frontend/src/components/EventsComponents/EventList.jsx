@@ -9,7 +9,7 @@ const EventList=()=>{
     
 
     useEffect(()=>{
-        axios.get('https://localHost:3000/api/v1/events')
+        axios.get('https://localhost:3000/api/v1/events')
         .then(response=>{
         setEvents(response.data);
         setLoading(false);
