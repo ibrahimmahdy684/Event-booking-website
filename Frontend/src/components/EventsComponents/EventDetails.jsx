@@ -7,22 +7,30 @@ import {toast} from 'react-toastify'
 const isLoggedIn = () => {
   return localStorage.getItem('token') !== null;
 };
-const getEventDetails=()=>{
+const EventDetails=()=>{
 const id=useParams();
 const [event,setEvent]=useState(null);
 
 
-useEffect(()=>{
- try{
-    const event=axios.get('https://localHost:3000/api/v1/events/:id');
-    setEvent(event);
- }
- catch(error){
-    toast.error("failed to retrieve event details");
- }
-},[id]);
 
-if(!event)return <div><LoadingSpinner/></div>
+
+useEffect(() => {
+  const fetchEvent = async () => {
+    try {
+      const res = await axios.get(`https://localhost:3000/api/v1/events/${id}`);
+      setEvent(res.data);
+    } catch (error) {
+      toast.error("Failed to retrieve event details");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchEvent();
+}, [id]);
+
+if (loading || !event) return <div><LoadingSpinner /></div>;
+
 
 return(
     <div className="event-details">
@@ -48,4 +56,4 @@ return(
       </div>
 );
 }
-export default getEventDetails;
+export default EventDetails;

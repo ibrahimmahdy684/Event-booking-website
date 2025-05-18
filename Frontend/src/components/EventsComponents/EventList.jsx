@@ -3,7 +3,7 @@ import axios from "axios";
 import EventCard from "./EventCard";
 import LoadingSpinner from "../LoadingSpinner";
 import { toast } from "react-toastify";
-const eventList=()=>{
+const EventList=()=>{
     const[events,setEvents]=useState([]);
     const [loading,setLoading]=useState(true);
     
@@ -17,7 +17,7 @@ const eventList=()=>{
            toast.error("Failed to get events")
             setLoading(false);
         });
-    },[events]);
+    },[]);
     if(loading)return <div><LoadingSpinner/></div>
     
     return(
@@ -31,4 +31,4 @@ const eventList=()=>{
         </div>
     );
 }
-export default eventList
+export default EventList;

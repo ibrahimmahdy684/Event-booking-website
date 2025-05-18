@@ -7,18 +7,25 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Register from "./components/Register";
+import EventList from "./components/EventsComponents/EventList";
+import EventDetails from "./components/EventsComponents/EventDetails";
+
 
 function App() {
   return (
     <Router>
+      
       <div className="app-container">
         <Navbar />
-
+        
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/events" element={<EventList />} />
+            <Route path="/events/:id" element={<EventDetails />} />
+    
           </Routes>
         </div>
 
