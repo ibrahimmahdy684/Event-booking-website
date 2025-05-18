@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 import Register from "./components/Register";
 import EventList from "./components/EventsComponents/EventList";
 import EventDetails from "./components/EventsComponents/EventDetails";
+import UserBookingsPage from "./components/BookingComponenets/UserBookingsPage";
+import BookingDetails from "./components/BookingComponenets/BookingDetails";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,6 +29,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/events" element={<EventList />} />
             <Route path="/events/:id" element={<EventDetails />} />
+            <Route path="/bookings" element={<UserBookingsPage />} />
+            <Route path="/bookings/:id" element={<BookingDetails />} />
     
           </Routes>
         </div>
