@@ -18,7 +18,6 @@ router.post(
 // route to get Approved events (public access)
 router.get(
     "/events",
-    
     eventController.getApprovedEvents
 );
 
