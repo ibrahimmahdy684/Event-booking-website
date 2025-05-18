@@ -10,6 +10,8 @@ import Register from "./components/Register";
 import EventList from "./components/EventsComponents/EventList";
 import EventDetails from "./components/EventsComponents/EventDetails";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -30,6 +32,7 @@ function App() {
         </div>
 
         <Footer />
+         <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </Router>
   );
