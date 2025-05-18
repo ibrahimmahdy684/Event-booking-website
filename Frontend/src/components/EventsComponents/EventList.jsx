@@ -1,34 +1,34 @@
 import React,{useState,useEffect} from "react";
 import axios from "axios";
-
+import EventCard from "./EventCard";
+import LoadingSpinner from "../LoadingSpinner";
+import { toast } from "react-toastify";
 const eventList=()=>{
     const[events,setEvents]=useState([]);
     const [loading,setLoading]=useState(true);
-    const[error,setError]=useState(null);
+    
 
     useEffect(()=>{
-        axios.get('https://localHost:3000/api/v1/users/events')
+        axios.get('https://localHost:3000/api/v1/events')
         .then(response=>{
         setEvents(response.data);
         setLoading(false);
         }).catch(error=>{
-            setError('Failed to fetch events');
+           toast.error("Failed to get events")
             setLoading(false);
         });
     },[events]);
-    if(loading)return <div>loading events...</div>
-    if(error)return <div>{error}</div>
+    if(loading)return <div><LoadingSpinner/></div>
+    
     return(
         <div className="eventsList">
             <h2>Events</h2>
             <div className="eventCards">
-                {events.map(event=>{
-                    <div key={event.id} className="eventCard">
-                        <h3>{event.title}</h3>
-                        
-                    </div>
-                })}
+                {events.map(event=>(
+                    <EventCard key={event._id} event={event}/>
+                ))}
             </div>
         </div>
-    )
+    );
 }
+export default eventList

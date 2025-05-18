@@ -2,12 +2,15 @@ import React,{useEffect,useState} from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
+import {toast} from 'react-toastify'
 
-
+const isLoggedIn = () => {
+  return localStorage.getItem('token') !== null;
+};
 const getEventDetails=()=>{
 const id=useParams();
 const [event,setEvent]=useState(null);
-const [error,setError]=useState(null);
+
 
 useEffect(()=>{
  try{
@@ -15,10 +18,10 @@ useEffect(()=>{
     setEvent(event);
  }
  catch(error){
-    setError('failed to fetch event details');
+    toast.error("failed to retrieve event details");
  }
 },[id]);
-if(error)return <div>{error}</div>
+
 if(!event)return <div><LoadingSpinner/></div>
 
 return(
@@ -31,6 +34,17 @@ return(
       <p><strong>Category:</strong> {event.category}</p>
       <p><strong>Ticket Price:</strong> ${event.ticketPrice}</p>
       <p><strong>Available Tickets:</strong> {event.remainingTickets}</p>
+      {isLoggedIn() ? (
+        <div>
+          <h3>Book Tickets</h3>
+          <form>
+            <input type="number" min="1" max={event.remainingTickets} placeholder="No. of tickets" />
+            <button type="submit">Book Now</button>
+          </form>
+        </div>
+      ) : (
+        toast.error("log in first to be able to book tickets")
+      )}
       </div>
 );
 }
