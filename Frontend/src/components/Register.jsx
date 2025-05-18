@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import "../styles/Form.css";
 
@@ -32,17 +33,20 @@ const Register = () => {
     }
   };
 
+  /* lw ya maher lesa 3ayz tshoof el code bta3k
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
 
     if (form.password.length < 8) {
-      setError("Password must be at least 8 characters.");
+      
+      ("Password must be at least 8 characters.");
       return;
     }
     if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match.");
+      toast.error("Password must be at least 8 characters.");
+      //setError("Passwords do not match.");
       return;
     }
 
@@ -72,6 +76,44 @@ const Register = () => {
       }
     }
   };
+  */
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (form.password.length < 8) {
+    toast.error("Password must be at least 8 characters.");
+    return;
+  }
+
+  if (form.password !== form.confirmPassword) {
+    toast.error("Passwords do not match.");
+    return;
+  }
+
+  try {
+    const data = {
+      name: form.name,
+      email: form.email,
+      password: form.password,
+      role: form.role,
+    };
+
+    const res = await axios.post("http://localhost:3000/api/v1/register", data, {
+      withCredentials: true,
+    });
+
+    toast.success("Registration successful!");
+    setTimeout(() => navigate("/login"), 1500);
+    console.log(res);
+  } catch (err) {
+    if (err.response?.data?.message) {
+      toast.error(err.response.data.message);
+    } else {
+      toast.error("An unexpected error occurred.");
+    }
+  }
+};
+
 
   return (
     <div className="form-container" id="register-form-container">
