@@ -28,3 +28,9 @@
     "vite": "^6.3.5"
   }
 }
+
+{
+  "dependencies": {
+    "react-toastify": "^11.0.5"
+  }
+}
