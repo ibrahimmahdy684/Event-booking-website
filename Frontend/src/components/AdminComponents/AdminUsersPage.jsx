@@ -40,7 +40,7 @@ const AdminUsersPage = () => {
       await axios.put(
         `http://localhost:3000/api/v1/users/${id}`,
         {}, // or send new role if needed
-        { withCredentials: true }
+        { withCredentials: true },
       );
       toast.success("Role updated");
       fetchUsers(); // Refresh list
@@ -55,7 +55,10 @@ const AdminUsersPage = () => {
       <table>
         <thead>
           <tr>
-            <th>Name</th><th>Email</th><th>Role</th><th>Actions</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>

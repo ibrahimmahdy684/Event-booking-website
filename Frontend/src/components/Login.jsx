@@ -23,7 +23,7 @@ const Login = () => {
           email,
           password,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       setUser(res.data.user); // set user (authenticated)
