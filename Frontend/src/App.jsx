@@ -14,6 +14,7 @@ import BookingDetails from "./components/BookingComponenets/BookingDetails";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UnauthorizedPage from "./components/UnauthorizedPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/events/:id" element={<EventDetails />} />
             <Route path="/bookings" element={<UserBookingsPage />} />
             <Route path="/bookings/:id" element={<BookingDetails />} />
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
     
           </Routes>
         </div>

@@ -4,16 +4,22 @@ import axios from "axios";
 import UserRow from "./UserRow";
 import { toast } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner"; // Import your spinner
-
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
   const[loading,setLoading]=useState(false);
+  const{user}=useAuth()
+  const navigate = useNavigate();
 
   // Fetch users on mount
   useEffect(() => {
+    if (!user || user.role !== "System Admin") {
+      navigate("/unauthorized"); // Redirect to unauthorized page
+    }
     fetchUsers();
-  }, []);
+  }, [user,navigate]);
 
   const fetchUsers = async () => {
    setLoading(true)
