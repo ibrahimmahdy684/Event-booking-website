@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserRow from "./UserRow";
 import { toast } from "react-toastify";
+import LoadingSpinner from "./LoadingSpinner"; // Import your spinner
+
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
+  const[loading,setLoading]=useState(false);
 
   // Fetch users on mount
   useEffect(() => {
@@ -13,6 +16,7 @@ const AdminUsersPage = () => {
   }, []);
 
   const fetchUsers = async () => {
+   setLoading(true)
     try {
       const res = await axios.get("http://localhost:3000/api/v1/users", {
         withCredentials: true,
@@ -20,10 +24,13 @@ const AdminUsersPage = () => {
       setUsers(res.data.users);
     } catch (err) {
       toast.error("Failed to load users.");
+    }finally{
+      setLoading(false)
     }
   };
 
   const handleDelete = async (id) => {
+    setLoading(true)
     try {
       await axios.delete(`http://localhost:3000/api/v1/users/${id}`, {
         withCredentials: true,
@@ -32,22 +39,31 @@ const AdminUsersPage = () => {
       fetchUsers(); // Refresh list
     } catch (err) {
       toast.error("Failed to delete user");
+    }finally{
+    setLoading(false)
     }
   };
 
-  const handleUpdateRole = async (id) => {
+  const handleUpdateRole = async (id,newRole) => {
+    setLoading(true)
     try {
       await axios.put(
         `http://localhost:3000/api/v1/users/${id}`,
-        {}, // or send new role if needed
+        {newRole}, // or send new role if needed
         { withCredentials: true }
       );
       toast.success("Role updated");
       fetchUsers(); // Refresh list
     } catch (err) {
       toast.error("Failed to update role");
+    }finally{
+      setLoading(false)
     }
   };
+
+  if(loading){
+    return <div><LoadingSpinner/></div>
+  }
 
   return (
     <div className="admin-page">
