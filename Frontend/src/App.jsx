@@ -15,6 +15,8 @@ import BookingDetails from "./components/BookingComponenets/BookingDetails";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UnauthorizedPage from "./components/UnauthorizedPage";
+import ProtectedRoutes from "./auth/ProtectedRoutes";
+import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
 
 function App() {
   return (
@@ -25,15 +27,24 @@ function App() {
         
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/events" element={<EventList />} />
-            <Route path="/events/:id" element={<EventDetails />} />
-            <Route path="/bookings" element={<UserBookingsPage />} />
-            <Route path="/bookings/:id" element={<BookingDetails />} />
-            <Route path="/unauthorized" element={<UnauthorizedPage />} />
-    
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/events" element={<EventList />} />
+              <Route path="/events/:id" element={<EventDetails />} />
+              <Route path="/bookings" element={<UserBookingsPage />} />
+              <Route path="/bookings/:id" element={<BookingDetails />} />
+              <Route path="/unauthorized" element={<UnauthorizedPage />} />
+
+              {/* Protected routes */}
+              <Route
+                path="/admin/users"
+                element={
+                  <ProtectedRoutes allowedRoles={['System Admin']}>
+                    <AdminUsersPage />
+                  </ProtectedRoutes>
+                }
+              />
           </Routes>
         </div>
 

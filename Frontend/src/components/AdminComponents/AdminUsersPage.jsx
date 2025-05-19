@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserRow from "./UserRow";
 import { toast } from "react-toastify";
-import LoadingSpinner from "./LoadingSpinner"; // Import your spinner
-import { useAuth } from "../context/AuthContext";
+import LoadingSpinner from "../LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/AuthContext";
+
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);

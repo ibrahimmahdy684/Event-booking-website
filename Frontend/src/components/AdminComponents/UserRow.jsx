@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
-import ConfirmationDialog from "./ConfirmationDialog";
 
+import ConfirmationDialog from "../ConfirmationDialogue";
 const UserRow = ({ user, onDelete, onUpdateRole }) => {
   const [showConfirm, setShowConfirm] = useState(false);
 
