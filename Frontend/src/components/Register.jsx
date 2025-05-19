@@ -72,8 +72,6 @@ const Register = () => {
     <div className="form-container" id="register-form-container">
       <form className="form" onSubmit={handleSubmit} encType="multipart/form-data">
         <h1>Sign up</h1>
-        {error && <div style={{ color: "red", marginBottom: "1rem" }}>{error}</div>}
-        {success && <div style={{ color: "green", marginBottom: "1rem" }}>{success}</div>}
         <div className="form-group">
           <label htmlFor="name">Full Name</label>
           <input

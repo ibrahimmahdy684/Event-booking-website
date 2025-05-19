@@ -106,6 +106,130 @@
   color: #dc2626;
 }
 
+.profile-edit-btn {
+  margin-top: 1.2rem;
+  padding: 0.7rem 2.2rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.13rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+}
+
+.profile-edit-btn:hover {
+  background: #1746a2;
+}
+
+.profile-edit-form {
+  width: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.profile-edit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.profile-edit-group label {
+  font-size: 1rem;
+  color: #22223b;
+  margin-bottom: 0.2rem;
+}
+
+.profile-edit-group input[type="text"],
+.profile-edit-group input[type="email"] {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border 0.2s;
+}
+
+.profile-edit-group input[type="text"]:focus,
+.profile-edit-group input[type="email"]:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.profile-edit-group .custom-file-label {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  background: #f9fafb;
+  color: #22223b;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  border: 1.5px solid #d1d5db;
+  box-shadow: none;
+  width: fit-content;
+}
+
+.profile-edit-group .custom-file-label:hover,
+.profile-edit-group .custom-file-label:focus {
+  border-color: #2563eb;
+  background: #f3f4f6;
+}
+
+.profile-edit-group .file-name {
+  margin-top: 0.3rem;
+  font-size: 0.97rem;
+  color: #444;
+  word-break: break-all;
+}
+
+.profile-edit-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  justify-content: flex-end;
+}
+
+.profile-save-btn {
+  padding: 0.6rem 1.8rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.profile-save-btn:hover {
+  background: #1746a2;
+}
+
+.profile-cancel-btn {
+  padding: 0.6rem 1.8rem;
+  background: #f3f4f6;
+  color: #22223b;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, border 0.18s;
+}
+
+.profile-cancel-btn:hover {
+  background: #e5e7eb;
+  border-color: #2563eb;
+}
+
 @media (max-width: 600px) {
   .profile-card {
     padding: 1.2rem 0.7rem 1.2rem 0.7rem;
