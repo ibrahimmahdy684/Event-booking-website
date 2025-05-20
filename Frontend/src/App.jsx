@@ -14,6 +14,9 @@ import EventDetails from "./components/EventsComponents/EventDetails";
 import UserBookingsPage from "./components/BookingComponenets/UserBookingsPage";
 import BookingDetails from "./components/BookingComponenets/BookingDetails";
 import Profile from "./components/Profile";
+import UnauthorizedPage from "./components/UnauthorizedPage";
+import ProtectedRoutes from "./auth/ProtectedRoutes";
+import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
 
 function App() {
   return (
@@ -34,6 +37,18 @@ function App() {
 
             <Route path="/bookings" element={<UserBookingsPage />} />
             <Route path="/bookings/:id" element={<BookingDetails />} />
+
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
+            <Route path="/admin/users" element={<AdminUsersPage />} />
+            {/* Protected routes */}
+            {/*<Route
+                path="/admin/users"
+                element={
+                  <ProtectedRoutes allowedRoles={['System Admin']}>
+                    <AdminUsersPage />
+                  </ProtectedRoutes>
+                }
+              />*/}
           </Routes>
         </div>
 
