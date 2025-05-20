@@ -68,7 +68,7 @@ const userController = {
 
             res.status(200).json({
                 message: "User updated",
-                updatedUser,
+                user: updatedUser,
             });
         } catch (err) {
             console.log(err);

@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
@@ -11,9 +13,7 @@ import EventList from "./components/EventsComponents/EventList";
 import EventDetails from "./components/EventsComponents/EventDetails";
 import UserBookingsPage from "./components/BookingComponenets/UserBookingsPage";
 import BookingDetails from "./components/BookingComponenets/BookingDetails";
-
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Profile from "./components/Profile";
 import UnauthorizedPage from "./components/UnauthorizedPage";
 import ProtectedRoutes from "./auth/ProtectedRoutes";
 import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
@@ -21,23 +21,27 @@ import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
 function App() {
   return (
     <Router>
-      
       <div className="app-container">
         <Navbar />
-        
+
         <div className="content">
           <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/events" element={<EventList />} />
-              <Route path="/events/:id" element={<EventDetails />} />
-              <Route path="/bookings" element={<UserBookingsPage />} />
-              <Route path="/bookings/:id" element={<BookingDetails />} />
-              <Route path="/unauthorized" element={<UnauthorizedPage />} />
-              <Route path="/admin/users" element={<AdminUsersPage />} />
-              {/* Protected routes */}
-              {/*<Route
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
+            <Route path="/profile" element={<Profile />} />
+
+            <Route path="/events" element={<EventList />} />
+            <Route path="/events/:id" element={<EventDetails />} />
+
+            <Route path="/bookings" element={<UserBookingsPage />} />
+            <Route path="/bookings/:id" element={<BookingDetails />} />
+
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
+            <Route path="/admin/users" element={<AdminUsersPage />} />
+            {/* Protected routes */}
+            {/*<Route
                 path="/admin/users"
                 element={
                   <ProtectedRoutes allowedRoles={['System Admin']}>
@@ -49,7 +53,7 @@ function App() {
         </div>
 
         <Footer />
-         <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </Router>
   );

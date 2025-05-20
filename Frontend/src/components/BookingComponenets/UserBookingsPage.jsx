@@ -96,14 +96,14 @@ const UserBookingsPage = () => {
                 <strong>Status:</strong> {booking.bookingStatus || "Unknown"}
               </p>
               <div className="booking-actions">
-                <button 
-                  className="details-button" 
+                <button
+                  className="details-button"
                   onClick={() => setSelectedBookingId(booking._id)}
                 >
                   View Details
                 </button>
-                <button 
-                  className="cancel-button" 
+                <button
+                  className="cancel-button"
                   onClick={() => handleCancel(booking._id)}
                   disabled={booking.bookingStatus === "CANCELLED"}
                 >

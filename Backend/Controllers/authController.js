@@ -97,8 +97,8 @@ const authController = {
                     expires: expiresAt,
                     withCredentials: true,
                     httpOnly: true,
-                    sameSite: "none",
-                    secure: false,
+                    sameSite: "lax", // should be strict in production
+                    secure: false, // should be true in production
                 })
                 .status(200)
                 .json({
