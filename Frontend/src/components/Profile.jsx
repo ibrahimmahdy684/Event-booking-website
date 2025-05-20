@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
-import UpdateProfile from "./UpdateProfile";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "./../styles/Profile.css";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -31,11 +31,6 @@ const Profile = () => {
     };
     fetchProfile();
   }, []);
-
-  const handleProfileUpdated = (updatedUser) => {
-    setUser(updatedUser);
-    setEditing(false);
-  };
 
   if (loading) {
     return (
@@ -73,35 +68,25 @@ const Profile = () => {
           </div>
           <div className="profile-role">{user.role}</div>
         </div>
-        {!editing ? (
-          <>
-            <div className="profile-info">
-              <div className="profile-field">
-                <span className="profile-label">Name:</span>
-                <span className="profile-value">{user.name}</span>
-              </div>
-              <div className="profile-field">
-                <span className="profile-label">Email:</span>
-                <span className="profile-value">{user.email}</span>
-              </div>
-              <div className="profile-field">
-                <span className="profile-label">Joined:</span>
-                <span className="profile-value">
-                  {user.timestamp ? new Date(user.timestamp).toLocaleDateString() : "N/A"}
-                </span>
-              </div>
-            </div>
-            <button className="profile-edit-btn" onClick={() => setEditing(true)}>
-              Edit Profile
-            </button>
-          </>
-        ) : (
-          <UpdateProfile
-            user={user}
-            onCancel={() => setEditing(false)}
-            onProfileUpdated={handleProfileUpdated}
-          />
-        )}
+        <div className="profile-info">
+          <div className="profile-field">
+            <span className="profile-label">Name:</span>
+            <span className="profile-value">{user.name}</span>
+          </div>
+          <div className="profile-field">
+            <span className="profile-label">Email:</span>
+            <span className="profile-value">{user.email}</span>
+          </div>
+          <div className="profile-field">
+            <span className="profile-label">Joined:</span>
+            <span className="profile-value">
+              {user.timestamp ? new Date(user.timestamp).toLocaleDateString() : "N/A"}
+            </span>
+          </div>
+        </div>
+        <button className="profile-edit-btn" onClick={() => navigate("/updateProfile")}>
+          Edit Profile
+        </button>
         <ToastContainer position="top-center" />
       </div>
     </div>

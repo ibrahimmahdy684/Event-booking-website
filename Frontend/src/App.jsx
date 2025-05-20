@@ -14,6 +14,7 @@ import EventDetails from "./components/EventsComponents/EventDetails";
 import UserBookingsPage from "./components/BookingComponenets/UserBookingsPage";
 import BookingDetails from "./components/BookingComponenets/BookingDetails";
 import Profile from "./components/Profile";
+import UpdateProfile from "./components/UpdateProfile";
 import UnauthorizedPage from "./components/UnauthorizedPage";
 import ProtectedRoutes from "./auth/ProtectedRoutes";
 import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
@@ -31,6 +32,7 @@ function App() {
             <Route path="/register" element={<Register />} />
 
             <Route path="/profile" element={<Profile />} />
+            <Route path="/updateProfile" element={<UpdateProfile />} />
 
             <Route path="/events" element={<EventList />} />
             <Route path="/events/:id" element={<EventDetails />} />
