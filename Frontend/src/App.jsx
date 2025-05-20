@@ -35,16 +35,16 @@ function App() {
               <Route path="/bookings" element={<UserBookingsPage />} />
               <Route path="/bookings/:id" element={<BookingDetails />} />
               <Route path="/unauthorized" element={<UnauthorizedPage />} />
-
+              <Route path="/admin/users" element={<AdminUsersPage />} />
               {/* Protected routes */}
-              <Route
+              {/*<Route
                 path="/admin/users"
                 element={
                   <ProtectedRoutes allowedRoles={['System Admin']}>
                     <AdminUsersPage />
                   </ProtectedRoutes>
                 }
-              />
+              />*/}
           </Routes>
         </div>
 
