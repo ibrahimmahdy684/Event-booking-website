@@ -8,7 +8,9 @@ const isLoggedIn = () => {
   return localStorage.getItem('token') !== null;
 };
 const EventDetails=()=>{
-const id=useParams();
+const { id } = useParams();
+const [loading, setLoading] = useState(true);
+
 const [event,setEvent]=useState(null);
 
 
@@ -17,9 +19,10 @@ const [event,setEvent]=useState(null);
 useEffect(() => {
   const fetchEvent = async () => {
     try {
-      const res = await axios.get(`https://localhost:3000/api/v1/events/${id}`);
+      const res = await axios.get(`http://localhost:3000/api/v1/events/${id}`);
       setEvent(res.data);
     } catch (error) {
+      console.error("Error fetching event details:", error);
       toast.error("Failed to retrieve event details");
     } finally {
       setLoading(false);
