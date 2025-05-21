@@ -10,8 +10,9 @@ const BookingDetails = ({ bookingId, onClose }) => {
     const fetchBookingDetails = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`/api/v1/bookings/${bookingId}`, {
+        const response = await axios.get(`http://localhost:3000/api/v1/bookings/${bookingId}`, {
           headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
         setBooking(response.data);
       } catch (error) {
@@ -31,21 +32,11 @@ const BookingDetails = ({ bookingId, onClose }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Booking Details</h2>
-        <p>
-          <strong>Event:</strong> {booking.event.name}
-        </p>
-        <p>
-          <strong>Quantity:</strong> {booking.numberOfTicketsBooked}
-        </p>
-        <p>
-          <strong>Total Price:</strong> ${booking.totalPrice}
-        </p>
-        <p>
-          <strong>Status:</strong> {booking.bookingStatus}
-        </p>
-        <button className="close-button" onClick={onClose}>
-          Close
-        </button>
+        <p><strong>Event:</strong> {booking.event.name}</p>
+        <p><strong>Quantity:</strong> {booking.numberOfTicketsBooked}</p>
+        <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
+        <p><strong>Status:</strong> {booking.bookingStatus}</p>
+        <button className="close-button" onClick={onClose}>Close</button>
       </div>
     </div>
   );
