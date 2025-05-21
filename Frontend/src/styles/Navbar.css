@@ -45,9 +45,7 @@
 .navbar-links a:hover {
   background: #6ebae8;
   color: #222;
-  transition:
-    background 0.3s,
-    color 0.2s;
+  transition: background 0.3s, color 0.2s;
 }
 
 .user-icon {
