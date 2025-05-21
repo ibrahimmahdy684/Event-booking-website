@@ -11,6 +11,7 @@ const UpdateProfile = () => {
     email: "",
     profilePicture: null,
   });
+  const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -28,6 +29,13 @@ const UpdateProfile = () => {
             email: res.data.email || "",
             profilePicture: null,
           });
+
+          // Set the profile image URL if it exists
+          if (res.data.profilePicture) {
+            setProfileImageUrl(
+              `http://localhost:3000/uploads/${res.data.profilePicture}`
+            );
+          }
         }
       } catch (err) {
         toast.error(err.response?.data?.message || "Failed to load profile information.");
@@ -45,6 +53,12 @@ const UpdateProfile = () => {
         ...prev,
         profilePicture: files[0],
       }));
+
+      // Create a preview URL for the selected image
+      if (files[0]) {
+        const previewUrl = URL.createObjectURL(files[0]);
+        setProfileImageUrl(previewUrl);
+      }
     } else {
       setEditForm((prev) => ({
         ...prev,
@@ -57,16 +71,25 @@ const UpdateProfile = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      const data = new FormData();
-      data.append("name", editForm.name);
-      data.append("email", editForm.email);
+      const formData = new FormData();
+      formData.append("name", editForm.name);
+      formData.append("email", editForm.email);
+
       if (editForm.profilePicture) {
-        data.append("profilePicture", editForm.profilePicture);
+        formData.append("profilePicture", editForm.profilePicture);
       }
-      const res = await axios.put("http://localhost:3000/api/v1/users/profile", data, {
-        withCredentials: true,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+
+      const res = await axios.put(
+        "http://localhost:3000/api/v1/users/profile",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
       if (res.data) {
         toast.success("Profile updated successfully!");
         navigate("/profile");
@@ -94,6 +117,20 @@ const UpdateProfile = () => {
   return (
     <div className="profile-container">
       <div className="profile-card">
+        <div className="profile-picture-container">
+          {profileImageUrl ? (
+            <img
+              src={profileImageUrl}
+              alt="Profile"
+              className="profile-picture-preview"
+            />
+          ) : (
+            <div className="profile-picture-placeholder">
+              {editForm.name ? editForm.name.charAt(0).toUpperCase() : "U"}
+            </div>
+          )}
+        </div>
+
         <form className="profile-edit-form" onSubmit={handleEditSubmit}>
           <div className="profile-edit-group">
             <label htmlFor="edit-name">Name</label>

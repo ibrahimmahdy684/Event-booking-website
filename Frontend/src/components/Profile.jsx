@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
@@ -9,6 +9,7 @@ import "./../styles/Profile.css";
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [profileImageUrl, setProfileImageUrl] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,13 @@ const Profile = () => {
         });
         if (res.data) {
           setUser(res.data);
+
+          // Set the profile image URL if it exists
+          if (res.data.profilePicture) {
+            setProfileImageUrl(
+              `http://localhost:3000/uploads/${res.data.profilePicture}`
+            );
+          }
         } else {
           setUser(null);
         }
@@ -56,18 +64,20 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-card">
-        <div className="profile-avatar-section">
-          <div className="profile-avatar">
-            {user.profilePicture ? (
-              <img src={user.profilePicture} alt="Profile" className="profile-img" />
-            ) : (
-              <div className="profile-placeholder">
-                {user.name?.charAt(0).toUpperCase() || "U"}
-              </div>
-            )}
-          </div>
-          <div className="profile-role">{user.role}</div>
+        <div className="profile-picture-container">
+          {profileImageUrl ? (
+            <img
+              src={profileImageUrl}
+              alt="Profile"
+              className="profile-picture-preview"
+            />
+          ) : (
+            <div className="profile-picture-placeholder">
+              {user.name?.charAt(0).toUpperCase() || "U"}
+            </div>
+          )}
         </div>
+        <div className="profile-role">{user.role}</div>
         <div className="profile-info">
           <div className="profile-field">
             <span className="profile-label">Name:</span>

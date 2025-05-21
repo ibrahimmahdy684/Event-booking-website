@@ -24,6 +24,8 @@ app.use(
         credentials: true,
     })
 );
+// to serve the uploads folder statically
+app.use("/uploads", express.static("uploads"));
 
 // use all routes
 app.use("/api/v1", userRoutes);
