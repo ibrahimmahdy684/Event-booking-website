@@ -18,18 +18,20 @@ import UpdateProfile from "./components/UpdateProfile";
 import UnauthorizedPage from "./components/UnauthorizedPage";
 import ProtectedRoutes from "./auth/ProtectedRoutes";
 import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
+import ForgetPassword from "./components/ForgetPassword";
 
 function App() {
   return (
     <Router>
+      <ToastContainer position="top-center" autoClose={3000} />
       <div className="app-container">
         <Navbar />
-
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgetPassword />} />
 
             <Route path="/profile" element={<Profile />} />
             <Route path="/updateProfile" element={<UpdateProfile />} />
@@ -53,9 +55,7 @@ function App() {
               />*/}
           </Routes>
         </div>
-
         <Footer />
-        <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </Router>
   );

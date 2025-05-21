@@ -1,7 +1,8 @@
+import React, { useState } from "react";
 import axios from "axios";
-import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import LoadingSpinner from "./LoadingSpinner";
 import "../styles/Form.css";
 
 // SVG icons for eye/eye-off
@@ -37,6 +38,7 @@ const Register = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -56,14 +58,17 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (form.password.length < 8) {
       toast.error("Password must be at least 8 characters.");
+      setLoading(false);
       return;
     }
 
     if (form.password !== form.confirmPassword) {
       toast.error("Passwords do not match.");
+      setLoading(false);
       return;
     }
 
@@ -75,21 +80,22 @@ const Register = () => {
         role: form.role,
       };
 
-      const res = await axios.post("http://localhost:3000/api/v1/register", data, {
+      await axios.post("http://localhost:3000/api/v1/register", data, {
         withCredentials: true,
       });
 
-      toast.success("Registration successful!");
-      setTimeout(() => navigate("/login"), 1500);
-      console.log(res);
+      toast.success("Registration successful");
+      setTimeout(() => navigate("/login"), 500);
     } catch (err) {
-      if (err.response?.data?.message) {
-        toast.error(err.response.data.message);
-      } else {
-        toast.error("An unexpected error occurred.");
-      }
+      console.log(err);
+      toast.error(err.response?.data?.message || "Registration failed.");
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="form-container" id="register-form-container">

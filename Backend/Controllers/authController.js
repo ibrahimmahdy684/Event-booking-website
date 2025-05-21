@@ -148,9 +148,9 @@ const authController = {
         const { email, otp, newPassword } = req.body;
 
         try {
-            const user = await UserModel.findOne({ email, otpCode: otp });
+            const user = await UserModel.findOne({ email });
 
-            //if the otp does not exist or expired
+            // if the otp does not exist or expired
             if (!user || Date.now() > user.otpExpiry) {
                 return res.status(400).json({ message: "Invalid or expired OTP" });
             }

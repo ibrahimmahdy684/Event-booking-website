@@ -2,6 +2,9 @@ const UserModel = require("../Models/userModel");
 const EventModel = require("../Models/eventModel");
 const BookingModel = require("../Models/bookingModel");
 const mongoose = require("mongoose");
+const fs = require("fs");
+const path = require("path");
+
 const userController = {
     // get all users from db
     getAllUsers: async (req, res) => {
@@ -52,6 +55,23 @@ const userController = {
             );
             if (!isValidUpdate) {
                 return res.status(400).json({ message: "Invalid input fields" });
+            }
+
+            // Find the user first (needed for file removal)
+            const user = await UserModel.findById(userId);
+
+            // Remove profile picture if requested
+            if (req.body.removeProfilePicture === "true" && user && user.profilePicture) {
+                const filePath = path.join(
+                    __dirname,
+                    "../../uploads",
+                    user.profilePicture
+                );
+                // Remove file from disk if exists
+                fs.unlink(filePath, (err) => {
+                    // Ignore error if file doesn't exist
+                });
+                updates.profilePicture = null;
             }
 
             // save profile picture path if exists
