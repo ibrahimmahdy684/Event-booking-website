@@ -33,7 +33,10 @@ const Navbar = () => {
         <Link to="/events">Events</Link>
 
         {user?.role === "System Admin" && (
-          <Link to="/admin/users">User Management</Link>
+          <>
+            <Link to="/admin/users">User Management</Link>
+            <Link to="/admin/events">Admin Events</Link>
+          </>
         )}
 
         {user ? (
