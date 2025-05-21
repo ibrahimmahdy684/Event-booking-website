@@ -28,6 +28,7 @@ const Navbar = () => {
       </Link>
       <div className="navbar-links">
         <Link to="/">Home</Link>
+        <Link to="/events">Events</Link>
 
         {user ? (
           <>

@@ -3,11 +3,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'Lelita One', cursive;
   padding: 0 2rem;
   height: 70px;
-  background: #0a192f; /* dark navy blue */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 30px;
 }
 
@@ -15,7 +14,7 @@
   display: flex;
   align-items: center;
   height: 100%;
-  color: hsl(168, 17%, 94%); /* aqua accent */
+  color: black;
   text-decoration: none;
 }
 
@@ -24,7 +23,6 @@
   font-size: 1.7rem;
   font-weight: 700;
   letter-spacing: 1px;
-  color: hsl(180, 20%, 98%);
 }
 
 .navbar-links {
@@ -35,30 +33,25 @@
 }
 
 .navbar-links a {
-  color: #ccd6f6; /* soft light blue */
+  color: #000000;
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 500;
-  transition: all 0.3s ease;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
+  transition: color 0.2s;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
 }
 
 .navbar-links a:hover {
-  background: rgba(100, 255, 218, 0.2); /* soft glow */
-  color: #64ffda;
-  transition: all 0.3s ease;
+  background: #6ebae8;
+  color: #222;
+  transition: background 0.3s, color 0.2s;
 }
 
 .user-icon {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 6px rgba(100, 255, 218, 0.4);
-  transition: box-shadow 0.3s;
-}
-
-.user-icon:hover {
-  box-shadow: 0 0 12px rgba(100, 255, 218, 0.8);
+  transition: box-shadow 0.2s;
 }
