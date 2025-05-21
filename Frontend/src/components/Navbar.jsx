@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./auth/AuthContext";
@@ -12,10 +13,11 @@ const Navbar = () => {
   // method to logout
   const handleLogout = async () => {
     try {
-      // call the logout api endpoint
-      await axios.get("http://localhost:3000/api/v1/logout", { withCredentials: true });
+      await axios.get("http://localhost:3000/api/v1/logout", {
+        withCredentials: true,
+      });
       setUser(null); // user not authenticated
-      navigate("/login"); // redirect to login
+      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -29,6 +31,10 @@ const Navbar = () => {
       <div className="navbar-links">
         <Link to="/">Home</Link>
         <Link to="/events">Events</Link>
+
+        {user?.role === "System Admin" && (
+          <Link to="/admin/users">User Management</Link>
+        )}
 
         {user ? (
           <>
