@@ -54,6 +54,23 @@ const userController = {
                 return res.status(400).json({ message: "Invalid input fields" });
             }
 
+            // save profile picture path if exists
+            if (req.file) {
+                updates.profilePicture = req.file.filename;
+            }
+
+            // check if the user's new email is already registered
+            if (updateFields.includes("email")) {
+                const existingUser = await UserModel.findOne({
+                    email: updates.email,
+                });
+                if (existingUser && existingUser._id.toString() !== userId) {
+                    return res.status(400).json({
+                        message: "Email already registered",
+                    });
+                }
+            }
+
             // find the user and update him
             const updatedUser = await UserModel.findByIdAndUpdate(
                 userId,

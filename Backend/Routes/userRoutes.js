@@ -1,10 +1,12 @@
 const express = require("express");
+const multer = require("multer");
 
 // load middlewares and controller
 const authorizeUser = require("../Middleware/authorizationMiddleware");
 const authenticateUser = require("../Middleware/authenticationMiddleware");
 const userController = require("../Controllers/userController");
 
+const upload = multer({ dest: "uploads/" });
 const router = express.Router();
 
 // Specific Routes
@@ -48,6 +50,7 @@ router.put(
     "/users/profile",
     authenticateUser,
     authorizeUser(["Standard User", "System Admin", "Organizer"]),
+    upload.single("profilePicture"), // for uploading profile picture
     userController.updateCurrentUserProfile
 );
 

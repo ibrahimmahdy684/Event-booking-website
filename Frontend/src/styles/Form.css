@@ -99,9 +99,7 @@
   font-size: 1.1rem;
   font-weight: 400;
   cursor: pointer;
-  transition:
-    border 0.2s,
-    box-shadow 0.2s;
+  transition: border 0.2s, box-shadow 0.2s;
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
   border: 1.5px solid #d1d5db;
@@ -168,4 +166,38 @@
 
 .alt-link a:hover {
   text-decoration: underline;
+}
+
+.password-group .password-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.show-password-btn {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: #757575;
+  font-size: 1.25rem;
+  height: 100%;
+}
+
+.show-password-btn:focus {
+  color: #2563eb;
+}
+
+.password-group input[type="password"],
+.password-group input[type="text"] {
+  width: 100%;
+  padding-right: 2.2rem; /* space for the icon */
+  box-sizing: border-box;
 }
