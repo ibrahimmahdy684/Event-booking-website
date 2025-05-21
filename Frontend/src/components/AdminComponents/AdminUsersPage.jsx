@@ -5,7 +5,7 @@ import UserRow from "./UserRow";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../LoadingSpinner";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../auth/AuthContext";
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);

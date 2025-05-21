@@ -15,10 +15,10 @@ import UserBookingsPage from "./components/BookingComponenets/UserBookingsPage";
 import BookingDetails from "./components/BookingComponenets/BookingDetails";
 import Profile from "./components/Profile";
 import UpdateProfile from "./components/UpdateProfile";
-import UnauthorizedPage from "./components/UnauthorizedPage";
-import ProtectedRoutes from "./auth/ProtectedRoutes";
+import UnauthorizedPage from "./components/auth/UnauthorizedPage";
 import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
 import ForgetPassword from "./components/ForgetPassword";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
@@ -32,27 +32,61 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgetPassword />} />
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/updateProfile" element={<UpdateProfile />} />
+            {/* Protected routes for authenticated users (all roles) */}
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute
+                  allowedRoles={["Standard User", "System Admin", "Organizer"]}
+                >
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/updateProfile"
+              element={
+                <ProtectedRoute
+                  allowedRoles={["Standard User", "System Admin", "Organizer"]}
+                >
+                  <UpdateProfile />
+                </ProtectedRoute>
+              }
+            />
 
+            {/* Protected routes for Standard User */}
+            <Route
+              path="/bookings"
+              element={
+                <ProtectedRoute allowedRoles={["Standard User"]}>
+                  <UserBookingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/bookings/:id"
+              element={
+                <ProtectedRoute allowedRoles={["Standard User"]}>
+                  <BookingDetails />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Protected routes for System Admin */}
+            <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoute allowedRoles={["System Admin"]}>
+                  <AdminUsersPage />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Public event routes */}
             <Route path="/events" element={<EventList />} />
             <Route path="/events/:id" element={<EventDetails />} />
-
-            <Route path="/bookings" element={<UserBookingsPage />} />
-            <Route path="/bookings/:id" element={<BookingDetails />} />
-
-            <Route path="/unauthorized" element={<UnauthorizedPage />} />
-            <Route path="/admin/users" element={<AdminUsersPage />} />
-            {/* Protected routes */}
-            {/*<Route
-                path="/admin/users"
-                element={
-                  <ProtectedRoutes allowedRoles={['System Admin']}>
-                    <AdminUsersPage />
-                  </ProtectedRoutes>
-                }
-              />*/}
           </Routes>
         </div>
         <Footer />
