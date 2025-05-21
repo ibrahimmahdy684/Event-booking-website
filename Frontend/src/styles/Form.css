@@ -2,8 +2,10 @@
   margin-top: 0;
   min-height: 87vh;
   display: flex;
+  font-family: 'Lelita One', cursive;
   align-items: center;
   justify-content: center;
+  background: #0d1b2a;
 }
 
 #register-form-container {
@@ -12,10 +14,10 @@
 }
 
 .form {
-  background: #fff;
+  background: #1b263b;
   padding: 2rem 2rem 1.5rem 2rem;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   width: 100%;
   max-width: 370px;
   display: flex;
@@ -29,7 +31,7 @@
   font-size: 3.2rem;
   font-weight: 700;
   text-align: center;
-  color: #000000;
+  color: #ffffff;
 }
 
 .form-group {
@@ -41,48 +43,37 @@
 .form-group label {
   margin-bottom: 0.4rem;
   font-size: 1rem;
-  color: #222;
+  color: #e0e0e0;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   padding: 0.7rem 0.9rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #415a77;
   border-radius: 6px;
   font-size: 1rem;
-  background: #f9fafb;
+  background: #27374d;
+  color: #f1f1f1;
   transition: border 0.2s;
 }
 
-.form-group input:focus {
-  border-color: #2563eb;
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3a86ff;
   outline: none;
 }
 
 .form-group select {
-  padding: 0.7rem 0.9rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #f9fafb;
-  color: #222;
-  transition: border 0.2s;
   appearance: none;
-  outline: none;
-}
-
-.form-group select:focus {
-  border-color: #2563eb;
 }
 
 .form-group input[type="file"] {
   padding: 0.5rem 0.2rem;
-  border: 1px solid #d1d5db;
+  background: #27374d;
+  color: #f1f1f1;
+  border: 1px solid #415a77;
   border-radius: 6px;
-  background: #f9fafb;
   font-size: 1rem;
-  color: #222;
-  transition: border 0.2s;
-  /* Hide the default file input */
   opacity: 0;
   width: 0.1px;
   height: 0.1px;
@@ -93,37 +84,36 @@
 .form-group .custom-file-label {
   display: inline-block;
   padding: 0.7rem 1.2rem;
-  background: #f9fafb;
-  color: #22223b;
+  background: #27374d;
+  color: #f1f1f1;
   border-radius: 10px;
   font-size: 1.1rem;
   font-weight: 400;
   cursor: pointer;
-  transition: border 0.2s, box-shadow 0.2s;
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
-  border: 1.5px solid #d1d5db;
+  border: 1.5px solid #415a77;
   box-shadow: none;
 }
 
 .form-group .custom-file-label:hover,
 .form-group .custom-file-label:focus {
-  border-color: #2563eb;
-  background: #f3f4f6;
+  border-color: #3a86ff;
+  background: #324b66;
 }
 
 .form-group .file-name {
   margin-top: 0.3rem;
   font-size: 0.97rem;
-  color: #444;
-  word-break: break-all;
+  color: #b0b0b0;
+  word-break: break-word;
 }
 
 .form-btn {
   margin-top: 0.5rem;
   padding: 0.8rem 0;
-  background: #2563eb;
-  color: #fff;
+  background: #3a86ff;
+  color: #ffffff;
   font-size: 1.1rem;
   font-weight: 600;
   border: none;
@@ -142,7 +132,7 @@
 }
 
 .forgot-link {
-  color: #2563eb;
+  color: #3a86ff;
   text-decoration: none;
   font-size: 0.98rem;
 }
@@ -155,11 +145,11 @@
   margin-top: 1.2rem;
   text-align: center;
   font-size: 1rem;
-  color: #222;
+  color: #e0e0e0;
 }
 
 .alt-link a {
-  color: #2563eb;
+  color: #3a86ff;
   text-decoration: none;
   font-weight: 500;
 }
@@ -186,18 +176,18 @@
   padding: 0;
   display: flex;
   align-items: center;
-  color: #757575;
+  color: #b0b0b0;
   font-size: 1.25rem;
   height: 100%;
 }
 
 .show-password-btn:focus {
-  color: #2563eb;
+  color: #3a86ff;
 }
 
 .password-group input[type="password"],
 .password-group input[type="text"] {
   width: 100%;
-  padding-right: 2.2rem; /* space for the icon */
+  padding-right: 2.2rem;
   box-sizing: border-box;
 }
