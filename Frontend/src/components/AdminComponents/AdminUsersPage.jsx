@@ -67,7 +67,7 @@ const AdminUsersPage = () => {
       setLoading(false);
     }
   };
-
+/*
   const handleUpdateRole = async (id, newRole) => {
     setLoading(true);
     try {
@@ -84,7 +84,30 @@ const AdminUsersPage = () => {
       setLoading(false);
     }
   };
-
+*/
+const handleUpdateRole = async (id, newRole) => {
+  setLoading(true);
+  try {
+    await axios.put(
+      `http://localhost:3000/api/v1/users/${id}`,
+      { newRole },
+      { withCredentials: true }
+    );
+    
+    // Update the local state immediately
+    setUsers(prevUsers => 
+      prevUsers.map(user => 
+        user._id === id ? { ...user, role: newRole } : user
+      )
+    );
+    
+    toast.success("Role updated");
+  } catch (err) {
+    toast.error("Failed to update role");
+  } finally {
+    setLoading(false);
+  }
+};
   if (loading) {
     return (
       <div>
