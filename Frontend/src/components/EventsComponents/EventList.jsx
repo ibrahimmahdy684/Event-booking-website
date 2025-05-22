@@ -17,7 +17,7 @@ const eventList=()=>{
            toast.error("Failed to get events")
             setLoading(false);
         });
-    },[events]);
+    },[]);
     if(loading)return <div><LoadingSpinner/></div>
     
     return(
