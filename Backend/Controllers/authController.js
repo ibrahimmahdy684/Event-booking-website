@@ -143,32 +143,42 @@ const authController = {
         }
     },
 
-    //function for the user to send the otp sent and the new password he want to use
     verifyReset: async (req, res) => {
-        const { email, otp, newPassword } = req.body;
+    const { email, otpCode: inputOtp, newPassword } = req.body;
 
-        try {
-            const user = await UserModel.findOne({ email });
-
-            // if the otp does not exist or expired
-            if (!user || Date.now() > user.otpExpiry) {
-                return res.status(400).json({ message: "Invalid or expired OTP" });
-            }
-
-            //hahsing the new password with 10 salt
-            const hashedPassword = await bcrypt.hash(newPassword, 10);
-            user.password = hashedPassword;
-            user.otpCode = undefined;
-            user.otpExpiry = undefined;
-
-            await user.save(); //saving the uptaded user
-
-            res.status(200).json({ message: "Password reset successful" });
-        } catch (err) {
-            console.log(err);
-            res.status(500).json({ message: err.message });
+    try {
+        const user = await UserModel.findOne({ email });
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
         }
-    },
+        if (!user.otpCode || !user.otpExpiry) {
+            return res.status(400).json({ message: "No OTP requested" });
+        }
+
+        if (Date.now() > user.otpExpiry) {
+            return res.status(400).json({ message: "OTP expired" });
+        }
+
+        if (user.otpCode.toString() !== inputOtp.toString()) {
+            return res.status(400).json({ message: "Invalid OTP" });
+        }
+
+        // Update password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        user.otpCode = undefined;
+        user.otpExpiry = undefined;
+        
+        await user.save();
+
+        return res.status(200).json({ message: "Password reset successful" });
+    } catch (err) {
+        console.error("Error in verifyReset:", err);
+        return res.status(500).json({ message: err.message });
+    }
+},
+
 
     // method to log the user out
     logoutUser: async (req, res) => {
