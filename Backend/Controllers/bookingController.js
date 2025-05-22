@@ -46,7 +46,8 @@ const bookingController = {
     getBookingDetails: async (req, res) => {
         try {
             // Find the booking by ID
-            const booking = await BookingModel.findById(req.params.id);
+            const booking = await BookingModel.findById(req.params.id)
+            .populate("event")
             if (!booking) {
                 return res.status(404).json({ message: "Booking not found" });
             }
