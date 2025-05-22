@@ -13,31 +13,22 @@ const EventList = () => {
       .then((response) => {
         setEvents(response.data);
         setLoading(false);
-      })
-      .catch((error) => {
-        toast.error("Failed to get events");
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading)
-    return (
-      <div>
-        <LoadingSpinner />
-      </div>
+        }).catch(error=>{
+           toast.error("Failed to get events")
+            setLoading(false);
+        });
+    },[]);
+    if(loading)return <div><LoadingSpinner/></div>
+    
+    return(
+        <div className="eventsList">
+            <h2>Events</h2>
+            <div className="eventCards">
+                {events.map(event=>(
+                    <EventCard key={event._id} event={event}/>
+                ))}
+            </div>
+        </div>
     );
-
-  return (
-    <div className="eventsList">
-      <h2>Events</h2>
-      <div className="eventCards">
-        {events.map((event) => (
-          <EventCard key={event._id} event={event} />
-        ))}
-      </div>
-    </div>
-  );
-
-  
-};
-export default EventList;
+}
+export default eventList
