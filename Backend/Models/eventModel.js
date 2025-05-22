@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
+        required: false,
     },
     date: {
         type: Date,
@@ -19,12 +19,12 @@ const eventSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true,
+        required: false,
     },
     image: {
         // cover photo
         type: String, // represents url or file path
-        required: true,
+        required: false,
     },
     ticketPrice: {
         type: Number,
@@ -38,12 +38,12 @@ const eventSchema = new mongoose.Schema({
     },
     remainingTickets: {
         type: Number,
-        required: true,
+        required: false,
     },
     organizer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        required: false,
     },
     status: {
         type: String,

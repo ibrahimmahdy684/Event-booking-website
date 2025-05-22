@@ -20,6 +20,7 @@ import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
 import ForgetPassword from "./components/ForgetPassword";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import BookTicketForm from "./components/BookingComponenets/BookTicketForm";
+import EventForm from "./components/EventsComponents/EventForm";
 
 function App() {
   return (
@@ -74,8 +75,23 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
-
+            {/*protected routes for Organizer*/ }
+            <Route
+            path="/my-events/new"
+            element={
+            <ProtectedRoute allowedRoles={["Organizer"]}>
+              <EventForm/>
+            </ProtectedRoute>
+            }
+            />
+            <Route
+            path="/my-events/:id/edit"
+            element={
+              <ProtectedRoute allowedRoles={["Organizer"]}>
+                <EventForm/>
+              </ProtectedRoute>
+            }
+            />
             {/* Protected routes for System Admin */}
             <Route
               path="/admin/users"
