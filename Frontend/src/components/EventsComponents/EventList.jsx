@@ -38,15 +38,6 @@ const EventList = () => {
     </div>
   );
 
-  return (
-    <div className="eventsList">
-      <h2>Events</h2>
-      <div className="eventCards">
-        {events.map((event) => (
-          <EventCard key={event._id} event={event} />
-        ))}
-      </div>
-    </div>
-  );
+  
 };
 export default EventList;

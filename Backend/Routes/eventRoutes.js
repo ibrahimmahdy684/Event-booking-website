@@ -32,14 +32,14 @@ router.get(
 //rote to get a single event (public access)
 router.get(
     "/events/:id",
-    authenticateUser,
-    authorizeUser(["Standard User", "System Admin", "Organizer"]),
     eventController.getEvent
 );
 
 //route to update an event not for standard user
 router.put(
     "/events/:id",
+    authenticateUser,
+    authorizeUser(["Organizer","System Admin"]),
     eventController.updateEvent
 );
 
