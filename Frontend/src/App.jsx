@@ -23,6 +23,7 @@ import BookTicketForm from "./components/BookingComponenets/BookTicketForm";
 import EventForm from "./components/EventsComponents/EventForm";
 import MyEvents from "./components/EventsComponents/MyEventsPage";
 import AdminEventsPage from "./components/EventsComponents/AdminEventsPage";
+import EventAnalytics from "./components/EventsComponents/EventAnalytics";
 function App() {
   return (
     <Router>
@@ -105,7 +106,7 @@ function App() {
             path="/my-events/analytics"
             element={
               <ProtectedRoute allowedRoles={["Organizer"]}>
-                <MyEvents/>
+                <EventAnalytics/>
               </ProtectedRoute>
             }
             />

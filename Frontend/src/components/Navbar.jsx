@@ -30,12 +30,17 @@ const Navbar = () => {
       </Link>
       <div className="navbar-links">
         <Link to="/">Home</Link>
-        <Link to="/events">Events</Link>
+        <Link to="/events">All Events</Link>
 
         {user?.role === "System Admin" && (
           <>
             <Link to="/admin/users">User Management</Link>
             <Link to="/admin/events">Admin Events</Link>
+          </>
+        )}
+        {user?.role==="Organizer"&&(
+          <>
+          <Link to="/my-events">my-events</Link>
           </>
         )}
 

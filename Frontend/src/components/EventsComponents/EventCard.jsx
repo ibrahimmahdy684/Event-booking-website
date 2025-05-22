@@ -10,10 +10,11 @@ const EventCard = ({ event }) => {
 
   return (
     <div className="event-card" onClick={handleClick} style={{ cursor: "pointer" } }>
-      <h3>{event.title}</h3>
-      <p>{new Date(event.date).toLocaleDateString()}</p>
-      <p>{event.location}</p>
-      <p>${event.ticketPrice}</p>
+      <h3>${event.title}</h3>
+      <p>date:${new Date(event.date).toLocaleDateString()}</p>
+      <p>location:{event.location}</p>
+      <p>price:${event.ticketPrice}</p>
+      <p>status:${event.status}</p>
     </div>
   );
 };

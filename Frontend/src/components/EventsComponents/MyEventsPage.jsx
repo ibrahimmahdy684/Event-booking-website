@@ -62,6 +62,9 @@ const MyEvents = () => {
       <div>
         <button onClick={() => navigate(`/my-events/new`)}>Create new event</button>
       </div>
+      <div>
+      <button onClick={()=>navigate(`/my-events/analytics`)}>view events' analytics</button>
+      </div>
     </div>
   );
 };
