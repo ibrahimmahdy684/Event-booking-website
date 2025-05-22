@@ -6,7 +6,7 @@ import {
   FaQuestionCircle,
 } from "react-icons/fa";
 import "../styles/Footer.css";
-
+import React from "react";
 const Footer = () => (
   <footer className="footer">
     <div className="footer-main">

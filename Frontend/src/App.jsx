@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import React from "react";
 import "./App.css";
 
 import Navbar from "./components/Navbar";
@@ -22,6 +22,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import BookTicketForm from "./components/BookingComponenets/BookTicketForm";
 import EventForm from "./components/EventsComponents/EventForm";
 import MyEvents from "./components/EventsComponents/MyEventsPage";
+import AdminEventsPage from "./components/EventsComponents/AdminEventsPage";
 function App() {
   return (
     <Router>
@@ -100,6 +101,14 @@ function App() {
               </ProtectedRoute>
             }
             />
+            <Route
+            path="/my-events/analytics"
+            element={
+              <ProtectedRoute allowedRoles={["Organizer"]}>
+                <MyEvents/>
+              </ProtectedRoute>
+            }
+            />
             {/* Protected routes for System Admin */}
             <Route
               path="/admin/users"
@@ -109,7 +118,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
+            <Route
+            path="/admin/events"
+            element={
+             <ProtectedRoute allowedRoles={["System Admin"]}>
+              <AdminEventsPage/>
+             </ProtectedRoute>
+            }
+            />
             {/* Public event routes */}
             <Route path="/events" element={<EventList />} />
             <Route path="/events/:id" element={<EventDetails />} />

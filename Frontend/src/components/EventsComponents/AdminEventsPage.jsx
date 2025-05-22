@@ -14,7 +14,7 @@ useEffect(()=>{
     },
     withCredentials:true
     }).then(response=>{
-       setEvents(response)
+       setEvents(response.data)
        setLoading(false)
     }).catch(error=>{
         toast.error("failed to get events");
@@ -88,14 +88,17 @@ if(loading) return <div><LoadingSpinner/></div>
 return(
     <div>
         <h2>Events</h2>
-        <div>
-            {events.map(event=>{
-                <EventCard event={event}/>,
-                <button onClick={handleApprove}>Approve</button>,
-                <button onClick={handleDecline}>Decline</button>,
-                <button onClick={handleDelete}>Delete</button>
-            })}
+        <div >
+            {events.map(event => (
+            <div key={event._id}>
+            <EventCard event={event} />
+            <button onClick={() => handleApprove(event._id)}>Approve</button>
+            <button onClick={() => handleDecline(event._id)}>Decline</button>
+           <button onClick={() => handleDelete(event._id)}>Delete</button>
+  </div>
+))}
         </div>
     </div>
 )
 }
+export default AdminEventsPage

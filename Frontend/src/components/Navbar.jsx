@@ -2,7 +2,7 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./auth/AuthContext";
-
+import React from "react";
 import userIcon from "../assets/user-icon.png";
 import "../styles/Navbar.css";
 
