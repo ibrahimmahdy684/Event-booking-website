@@ -32,7 +32,7 @@ const BookingDetails = ({ bookingId, onClose }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Booking Details</h2>
-        <p><strong>Event:</strong> {booking.event.name}</p>
+        <p><strong>Event:</strong> {booking.event.title}</p>
         <p><strong>Quantity:</strong> {booking.numberOfTicketsBooked}</p>
         <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
         <p><strong>Status:</strong> {booking.bookingStatus}</p>
