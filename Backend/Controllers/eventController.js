@@ -28,6 +28,7 @@ const eventController = {
                 remainingTickets: totalTickets,
                 organizer: req.user.userId,
             });
+            console.log(newEvent);
             await newEvent.save();
 
             res.status(201).json(newEvent);

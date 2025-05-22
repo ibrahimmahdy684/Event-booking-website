@@ -183,7 +183,7 @@ const userController = {
     getCurrentUserEvents: async (req, res) => {
         try {
             const events = await EventModel.find({ organizer: req.user.userId });
-            return res.status(200).json({ events });
+            return res.status(200).json( events );
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });

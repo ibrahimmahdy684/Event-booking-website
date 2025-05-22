@@ -21,7 +21,7 @@ import ForgetPassword from "./components/ForgetPassword";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import BookTicketForm from "./components/BookingComponenets/BookTicketForm";
 import EventForm from "./components/EventsComponents/EventForm";
-
+import MyEvents from "./components/EventsComponents/MyEventsPage";
 function App() {
   return (
     <Router>
@@ -89,6 +89,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={["Organizer"]}>
                 <EventForm/>
+              </ProtectedRoute>
+            }
+            />
+            <Route
+            path="/my-events"
+            element={
+              <ProtectedRoute allowedRoles={["Organizer"]}>
+                <MyEvents/>
               </ProtectedRoute>
             }
             />
