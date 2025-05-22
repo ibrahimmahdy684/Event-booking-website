@@ -116,7 +116,8 @@ const userController = {
     //get current user's bookings
     getCurrentUserBookings: async (req, res) => {
         try {
-            const bookings = await BookingModel.find({ user: req.user.userId });
+            const bookings = await BookingModel.find({ user: req.user.userId })
+            .populate("event")
             res.status(200).json(bookings);
         } catch (err) {
             console.log(err);

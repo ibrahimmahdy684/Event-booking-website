@@ -88,7 +88,7 @@ const UserBookingsPage = () => {
             {booking.event && <EventCard event={booking.event} />}
             <div className="booking-info">
               <p className="booking-details">
-                <strong>Event:</strong> {booking.event?.name || "N/A"}
+                <strong>Event:</strong> {booking.event.title || "N/A"}
               </p>
               <p className="booking-details">
                 <strong>Quantity:</strong> {booking.numberOfTicketsBooked || "0"}
