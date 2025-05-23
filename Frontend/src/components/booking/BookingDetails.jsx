@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import "../../styles/BookingDetails.css";
+
 
 const BookingDetails = ({ bookingId, onClose }) => {
   const [booking, setBooking] = useState(null);

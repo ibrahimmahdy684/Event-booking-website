@@ -1,0 +1,13 @@
+.bookings-container {
+  background-color: #f9f9f9; /* or any contrasting color */
+  color: #333; /* dark text for light background */
+  padding: 1rem;
+}
+
+.booking-details,
+.bookings-title,
+.booking-info,
+.cancel-button,
+.details-button {
+  color: #333; /* ensure readable text */
+}
