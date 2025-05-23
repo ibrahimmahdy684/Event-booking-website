@@ -1,0 +1,126 @@
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.featured-event {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 32px 24px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.featured-event img {
+  width: 320px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.featured-event-details {
+  flex: 1;
+}
+
+.featured-event-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.featured-event-desc {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  color: #444;
+}
+
+.featured-event-date {
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.hot-events-section,
+.upcoming-events-section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.events-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.event-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  width: 220px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
+}
+
+.event-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.event-card-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.event-card-date {
+  font-size: 0.95rem;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.event-card-location {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.show-all-btn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 28px;
+  background: #f7b500;
+  color: #222;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.show-all-btn:hover {
+  background: #ff9800;
+  color: #fff;
+}

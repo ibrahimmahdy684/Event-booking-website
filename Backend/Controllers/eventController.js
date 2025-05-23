@@ -140,6 +140,43 @@ const eventController = {
             res.status(500).json({ message: err.message });
         }
     },
+
+    // Home page events: featured, hot, upcoming
+    getHomeEvents: async (req, res) => {
+        try {
+            // Featured Event: the soonest approved event
+            const featuredEvent = await EventModel.findOne({
+                status: "Approved",
+                date: { $gte: new Date() },
+            }).sort({ date: 1 });
+
+            // Hot Events: top 4 approved events with most tickets sold (or random if you don't track sales)
+            // Here, fallback to most recent if no sales field
+            const hotEvents = await EventModel.find({
+                status: "Approved",
+                date: { $gte: new Date() },
+            })
+                .sort({ totalTickets: -1, date: 1 })
+                .limit(4);
+
+            // Upcoming Events: next 8 approved events by date
+            const upcomingEvents = await EventModel.find({
+                status: "Approved",
+                date: { $gte: new Date() },
+            })
+                .sort({ date: 1 })
+                .limit(8);
+
+            res.json({
+                featuredEvent,
+                hotEvents,
+                upcomingEvents,
+            });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: err.message });
+        }
+    },
 };
 
 module.exports = eventController; //exporting the event controller
