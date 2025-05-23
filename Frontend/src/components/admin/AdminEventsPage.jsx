@@ -128,6 +128,9 @@ const AdminEventsPage = () => {
       <div className="admin-events-list">
         {events.map((event) => (
           <div className="admin-event-card-wrapper" key={event._id}>
+             <div className={`event-status-badge ${event.status.toLowerCase()}`}>
+            {event.status}
+          </div>
             <EventCard event={event} />
             <div className="admin-event-actions">
               <button className="approve-btn" onClick={() => handleApprove(event._id)}>

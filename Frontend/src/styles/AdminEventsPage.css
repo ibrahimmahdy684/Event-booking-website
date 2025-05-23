@@ -112,3 +112,40 @@
     justify-content: flex-end;
   }
 }
+
+
+
+/* Add these styles to your existing CSS */
+
+.event-status-badge {
+  position: absolute;
+  top: 0.2rem;
+  left: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-status-badge.approved {
+  background-color: #22c55e;
+}
+
+.event-status-badge.declined {
+  background-color: #f87171;
+}
+
+.event-status-badge.pending {
+  background-color: #fbbf24;
+}
+
+/* Adjust the EventCard position to account for the status badge */
+.admin-event-card-wrapper {
+  position: relative;
+  padding-top: 2.5rem; /* Make space for the status badge */
+}
+
