@@ -170,22 +170,22 @@
   transition: background 0.18s, color 0.18s;
 }
 
-.confirm-btn {
+.cancel-btn {
   background: #3a86ff;
   color: #fff;
 }
 
-.confirm-btn:hover {
+.cancel-btn:hover {
   background: #22c55e;
   color: #fff;
 }
 
-.cancel-btn {
+.confirm-btn {
   background: #f87171;
   color: #fff;
 }
 
-.cancel-btn:hover {
+.confirm-btn:hover {
   background: #dc2626;
   color: #fff;
 }

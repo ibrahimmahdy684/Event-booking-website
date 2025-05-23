@@ -4,10 +4,16 @@ import { toast } from "react-toastify";
 import LoadingSpinner from "../layout/LoadingSpinner";
 import EventCard from "./EventCard";
 import { useNavigate } from "react-router-dom";
+import ConfirmationDialog from "../admin/ConfirmationDialogue";
+
+import "../../styles/EventList.css";
+import "../../styles/MyEvents.css";
 
 const MyEvents = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showDialog, setShowDialog] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +51,24 @@ const MyEvents = () => {
     }
   };
 
+  const confirmDelete = (eventId) => {
+    setEventToDelete(eventId);
+    setShowDialog(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (eventToDelete) {
+      handleDelete(eventToDelete);
+    }
+    setShowDialog(false);
+    setEventToDelete(null);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDialog(false);
+    setEventToDelete(null);
+  };
+
   if (loading)
     return (
       <div>
@@ -53,28 +77,54 @@ const MyEvents = () => {
     );
 
   return (
-    <div>
-      <h2>Events</h2>
-      <div>
-        {Array.isArray(events) &&
-          events.map((event) => (
-            <div key={event._id}>
-              <EventCard event={event} />
-              <button onClick={() => navigate(`/my-events/${event._id}/edit`)}>
-                Edit event
-              </button>
-              <button onClick={() => handleDelete(event._id)}>Delete event</button>
-            </div>
-          ))}
-      </div>
-      <div>
-        <button onClick={() => navigate(`/my-events/new`)}>Create new event</button>
-      </div>
-      <div>
-        <button onClick={() => navigate(`/my-events/analytics`)}>
-          view events' analytics
+    <div className="my-events-list">
+      <div className="my-events-actions">
+        <button
+          onClick={() => navigate(`/my-events/new`)}
+          className="my-events-action-btn"
+        >
+          Create New Event
+        </button>
+        <button
+          onClick={() => navigate(`/my-events/analytics`)}
+          className="my-events-action-btn"
+        >
+          View Events Analytics
         </button>
       </div>
+      <h2>My Events</h2>
+      <div className="eventCards">
+        {Array.isArray(events) && events.length > 0 ? (
+          events.map((event) => (
+            <div key={event._id} className="my-event-card-wrapper">
+              <EventCard event={event} />
+              <div className="my-event-actions">
+                <button
+                  className="my-event-edit-btn"
+                  onClick={() => navigate(`/my-events/${event._id}/edit`)}
+                >
+                  Edit Event
+                </button>
+                <button
+                  className="my-event-delete-btn"
+                  onClick={() => confirmDelete(event._id)}
+                >
+                  Delete Event
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="event-card-empty">You have no events.</p>
+        )}
+      </div>
+      {showDialog && (
+        <ConfirmationDialog
+          message="Are you sure you want to delete this event?"
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
     </div>
   );
 };
