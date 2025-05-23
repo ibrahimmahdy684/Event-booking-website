@@ -3,32 +3,31 @@ const EventModel = require("../Models/eventModel");
 const eventController = {
     createEvent: async (req, res) => {
         try {
-            // get details from body
             const {
                 title,
                 description,
                 date,
                 location,
                 category,
-                image,
                 ticketPrice,
                 totalTickets,
             } = req.body;
 
-            // create new event and save it to db
+            // Get the filename from multer
+            const image = req.file ? req.file.filename : undefined;
+
             const newEvent = new EventModel({
                 title,
                 description,
                 date,
                 location,
                 category,
-                image,
+                image, // Save the filename here
                 ticketPrice,
                 totalTickets,
                 remainingTickets: totalTickets,
                 organizer: req.user.userId,
             });
-            console.log(newEvent);
             await newEvent.save();
 
             res.status(201).json(newEvent);
@@ -76,28 +75,27 @@ const eventController = {
     //update the event by id
     updateEvent: async (req, res) => {
         try {
-            // validate and filter the fields to update
-            const updateFields = ({
-                title,
-                description,
-                date,
-                location,
-                category,
-                image,
-                ticketPrice,
-                totalTickets,
-                remainingTickets,
-                organizer,
-                status,
-            } = req.body);
+            // Build updateFields from req.body
+            const updateFields = {
+                title: req.body.title,
+                description: req.body.description,
+                date: req.body.date,
+                location: req.body.location,
+                category: req.body.category,
+                ticketPrice: req.body.ticketPrice,
+                totalTickets: req.body.totalTickets,
+                status: req.body.status,
+            };
 
-            // find the event and update it
+            // If a new image is uploaded, update it
+            if (req.file) {
+                updateFields.image = req.file.filename;
+            }
+
             const event = await EventModel.findByIdAndUpdate(
                 req.params.id,
                 updateFields,
-                {
-                    new: true,
-                }
+                { new: true }
             );
 
             if (!event) {

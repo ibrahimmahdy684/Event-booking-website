@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 
 // load middlewares and controller
 const authorizeUser = require("../Middleware/authorizationMiddleware");
@@ -6,20 +7,19 @@ const authenticateUser = require("../Middleware/authenticationMiddleware");
 const eventController = require("../Controllers/eventController");
 
 const router = express.Router();
+const upload = multer({ dest: "uploads/" });
 
 // route for oragainzer to post events
 router.post(
     "/events",
     authenticateUser,
     authorizeUser(["Organizer"]),
+    upload.single("image"),
     eventController.createEvent
 );
 
 // route to get Approved events (public access)
-router.get(
-    "/events",
-    eventController.getApprovedEvents
-);
+router.get("/events", eventController.getApprovedEvents);
 
 //route to get all the events
 router.get(
@@ -30,16 +30,14 @@ router.get(
 );
 
 //rote to get a single event (public access)
-router.get(
-    "/events/:id",
-    eventController.getEvent
-);
+router.get("/events/:id", eventController.getEvent);
 
 //route to update an event not for standard user
 router.put(
     "/events/:id",
     authenticateUser,
-    authorizeUser(["Organizer","System Admin"]),
+    authorizeUser(["Organizer", "System Admin"]),
+    upload.single("image"),
     eventController.updateEvent
 );
 

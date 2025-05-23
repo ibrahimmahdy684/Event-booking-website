@@ -8,13 +8,21 @@ const EventCard = ({ event }) => {
     navigate(`/events/${event._id}`);
   };
 
+  // Check for both image and imageUrl fields
+  const coverUrl =
+    event.image && event.image !== ""
+      ? event.image.startsWith("http")
+        ? event.image
+        : `http://localhost:3000/uploads/${event.image}`
+      : event.imageUrl && event.imageUrl !== ""
+      ? event.imageUrl.startsWith("http")
+        ? event.imageUrl
+        : `http://localhost:3000/uploads/${event.imageUrl}`
+      : "/default-event.jpg";
+
   return (
     <div className="event-card" onClick={handleClick} style={{ cursor: "pointer" }}>
-      <img
-        src={event.imageUrl || "/default-event.jpg"}
-        alt={event.title}
-        className="event-card-img"
-      />
+      <img src={coverUrl} alt={event.title} className="event-card-img" />
       <div className="event-card-content">
         <div className="event-card-title">{event.title}</div>
         <div className="event-card-date">

@@ -91,6 +91,66 @@
   background: #1746a2;
 }
 
+.event-cover-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.event-cover-image-preview {
+  width: 100%;
+  max-width: 320px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 2px solid #3498db;
+  background: #e2e8f0;
+}
+
+.event-cover-image-placeholder {
+  width: 100%;
+  max-width: 320px;
+  height: 140px;
+  border-radius: 16px;
+  background-color: #e2e8f0;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.custom-file-label {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  background: #f9fafb;
+  color: #22223b;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  border: 1.5px solid #d1d5db;
+  box-shadow: none;
+  width: fit-content;
+}
+
+.custom-file-label:hover,
+.custom-file-label:focus {
+  border-color: #2563eb;
+  background: #f3f4f6;
+}
+
+.file-name {
+  margin-top: 0.3rem;
+  font-size: 0.97rem;
+  color: #444;
+  word-break: break-all;
+}
+
 @media (max-width: 600px) {
   .event-form-card {
     padding: 1.2rem 0.7rem 1.2rem 0.7rem;
