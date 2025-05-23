@@ -9,6 +9,9 @@ const eventController = require("../Controllers/eventController");
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
+// Home page events (public)
+router.get("/events/home", eventController.getHomeEvents);
+
 // route for oragainzer to post events
 router.post(
     "/events",
@@ -48,4 +51,5 @@ router.delete(
     authorizeUser(["Organizer", "System Admin"]),
     eventController.deleteEvent
 );
+
 module.exports = router; //exporting the router
