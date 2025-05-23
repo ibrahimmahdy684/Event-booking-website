@@ -61,17 +61,17 @@ const userController = {
             const user = await UserModel.findById(userId);
 
             // Remove profile picture if requested
-            if (req.body.removeProfilePicture === "true" && user && user.profilePicture) {
-                const filePath = path.join(
-                    __dirname,
-                    "../../uploads",
-                    user.profilePicture
-                );
-                // Remove file from disk if exists
-                fs.unlink(filePath, (err) => {
-                    // Ignore error if file doesn't exist
-                });
-                updates.profilePicture = null;
+            if (req.body.profilePicture === "") {
+                // Remove the file from disk if you want
+                if (user.profilePicture) {
+                    const filePath = path.join(
+                        __dirname,
+                        "../../uploads",
+                        user.profilePicture
+                    );
+                    fs.unlink(filePath, () => {});
+                }
+                user.profilePicture = undefined;
             }
 
             // save profile picture path if exists
@@ -116,8 +116,9 @@ const userController = {
     //get current user's bookings
     getCurrentUserBookings: async (req, res) => {
         try {
-            const bookings = await BookingModel.find({ user: req.user.userId })
-            .populate("event")
+            const bookings = await BookingModel.find({ user: req.user.userId }).populate(
+                "event"
+            );
             res.status(200).json(bookings);
         } catch (err) {
             console.log(err);
@@ -183,7 +184,7 @@ const userController = {
     getCurrentUserEvents: async (req, res) => {
         try {
             const events = await EventModel.find({ organizer: req.user.userId });
-            return res.status(200).json( events );
+            return res.status(200).json(events);
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });

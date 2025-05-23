@@ -198,6 +198,27 @@
   border-color: #2563eb;
 }
 
+.profile-remove-btn {
+  background: #f87171;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.profile-remove-btn:disabled {
+  background: #f3bcbc;
+  cursor: not-allowed;
+}
+
+.profile-remove-btn:hover:not(:disabled) {
+  background: #dc2626;
+}
+
 .profile-picture-container {
   display: flex;
   justify-content: center;

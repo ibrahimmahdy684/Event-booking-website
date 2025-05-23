@@ -14,6 +14,7 @@ const UpdateProfile = () => {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [removeProfilePic, setRemoveProfilePic] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,6 +68,15 @@ const UpdateProfile = () => {
     }
   };
 
+  const handleRemoveProfilePicture = () => {
+    setEditForm((prev) => ({
+      ...prev,
+      profilePicture: null,
+    }));
+    setProfileImageUrl(null);
+    setRemoveProfilePic(true);
+  };
+
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -77,6 +87,9 @@ const UpdateProfile = () => {
 
       if (editForm.profilePicture) {
         formData.append("profilePicture", editForm.profilePicture);
+      }
+      if (removeProfilePic) {
+        formData.append("profilePicture", "");
       }
 
       const res = await axios.put(
@@ -100,6 +113,7 @@ const UpdateProfile = () => {
       toast.error(err.response?.data?.message || "Failed to update profile.");
     } finally {
       setSaving(false);
+      setRemoveProfilePic(false); // Reset after submit
     }
   };
 
@@ -169,6 +183,15 @@ const UpdateProfile = () => {
             {editForm.profilePicture && (
               <div className="file-name">{editForm.profilePicture.name}</div>
             )}
+            <button
+              type="button"
+              className="profile-remove-btn"
+              onClick={handleRemoveProfilePicture}
+              style={{ marginLeft: "1rem" }}
+              disabled={saving || !profileImageUrl}
+            >
+              Remove Profile Picture
+            </button>
           </div>
           <div className="profile-edit-actions">
             <button type="submit" className="profile-save-btn" disabled={saving}>
