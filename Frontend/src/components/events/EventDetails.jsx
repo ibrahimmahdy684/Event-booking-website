@@ -4,11 +4,15 @@ import { useParams } from "react-router-dom";
 import LoadingSpinner from "../layout/LoadingSpinner";
 import { toast } from "react-toastify";
 import BookTicketForm from "../booking/BookTicketForm";
+
+import "../../styles/EventDetails.css";
+
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showBookingForm, setShowBookingForm] = useState(false);
+
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -54,7 +58,7 @@ const EventDetails = () => {
       <p>
         <strong>Available Tickets:</strong> {event.remainingTickets}
       </p>
-      <button onClick={() => setShowBookingForm(true)}></button>
+      <button onClick={() => setShowBookingForm(true)}>Book Tickets</button>
       {showBookingForm && (
         <div className="modal-overlay">
           <div className="modal-content">
