@@ -43,6 +43,12 @@ const Navbar = () => {
           <Link to="/my-events">my-events</Link>
           </>
         )}
+        {user?.role==="Standard User"&&(
+          <>
+          <Link to="/bookings">my-bookings</Link>
+          </>
+        )}
+
 
         {user ? (
           <>

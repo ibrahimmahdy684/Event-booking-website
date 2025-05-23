@@ -4,6 +4,8 @@ import LoadingSpinner from "../LoadingSpinner";
 import EventCard from "../EventsComponents/EventCard";
 import { toast } from "react-toastify";
 import BookingDetails from "./BookingDetails";
+import "../../styles/UserBookingPage.css";
+
 
 const UserBookingsPage = () => {
   const [bookings, setBookings] = useState([]);
