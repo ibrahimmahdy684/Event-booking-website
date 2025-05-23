@@ -151,6 +151,28 @@
   word-break: break-all;
 }
 
+.event-remove-image-btn {
+  background: #f87171;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+  margin-left: 0.5rem;
+}
+
+.event-remove-image-btn:disabled {
+  background: #f3bcbc;
+  cursor: not-allowed;
+}
+
+.event-remove-image-btn:hover:not(:disabled) {
+  background: #dc2626;
+}
+
 @media (max-width: 600px) {
   .event-form-card {
     padding: 1.2rem 0.7rem 1.2rem 0.7rem;

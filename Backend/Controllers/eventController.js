@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const EventModel = require("../Models/eventModel");
 
 const eventController = {
@@ -92,17 +95,31 @@ const eventController = {
                 updateFields.image = req.file.filename;
             }
 
-            const event = await EventModel.findByIdAndUpdate(
+            // Remove image if requested
+            if (req.body.image === "") {
+                const event = await EventModel.findById(req.params.id);
+                if (event && event.image) {
+                    const filePath = path.join(__dirname, "../../uploads", event.image);
+                    fs.unlink(filePath, () => {});
+                }
+                // Use $unset to remove the image field from the document
+                await EventModel.findByIdAndUpdate(req.params.id, {
+                    $unset: { image: 1 },
+                });
+            }
+
+            // Now update the rest of the fields
+            const updatedEvent = await EventModel.findByIdAndUpdate(
                 req.params.id,
                 updateFields,
                 { new: true }
             );
 
-            if (!event) {
+            if (!updatedEvent) {
                 return res.status(404).json({ message: "Event not found" });
             }
 
-            return res.status(200).json(event);
+            return res.status(200).json(updatedEvent);
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: err.message });
