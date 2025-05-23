@@ -107,6 +107,8 @@ const EventForm = () => {
       data.append("location", formData.location);
       data.append("totalTickets", formData.totalTickets);
       data.append("ticketPrice", formData.ticketPrice);
+      data.append("description", formData.description);
+      data.append("category", formData.category);
       if (formData.image) {
         data.append("image", formData.image);
       }
@@ -176,6 +178,36 @@ const EventForm = () => {
               name="title"
               type="text"
               value={formData.title}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          {/* Description input */}
+          <div className="event-form-group">
+            <label>Description</label>
+            <textarea
+              name="description"
+              value={formData.description || ""}
+              onChange={handleChange}
+              rows={3}
+              style={{
+                resize: "vertical",
+                padding: "0.7rem 0.9rem",
+                borderRadius: "6px",
+                border: "1px solid #d1d5db",
+                fontSize: "1rem",
+                background: "#f9fafb",
+              }}
+              required
+            />
+          </div>
+          {/* Category input */}
+          <div className="event-form-group">
+            <label>Category</label>
+            <input
+              name="category"
+              type="text"
+              value={formData.category || ""}
               onChange={handleChange}
               required
             />
