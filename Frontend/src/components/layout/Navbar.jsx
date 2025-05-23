@@ -1,10 +1,8 @@
-
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "./auth/AuthContext";
-import React from "react";
-import userIcon from "../assets/user-icon.png";
-import "../styles/Navbar.css";
+import { useAuth } from "../auth/AuthContext";
+import userIcon from "../../assets/user-icon.png";
+import "../../styles/Navbar.css";
 
 const Navbar = () => {
   const { user, setUser } = useAuth();
@@ -38,9 +36,9 @@ const Navbar = () => {
             <Link to="/admin/events">Admin Events</Link>
           </>
         )}
-        {user?.role==="Organizer"&&(
+        {user?.role === "Organizer" && (
           <>
-          <Link to="/my-events">my-events</Link>
+            <Link to="/my-events">My Events</Link>
           </>
         )}
         {user?.role==="Standard User"&&(

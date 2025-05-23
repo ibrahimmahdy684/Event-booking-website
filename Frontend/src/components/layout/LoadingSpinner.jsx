@@ -1,5 +1,5 @@
-import loadingSVG from "../assets/loading.svg"; // adjust the path based on location
-import React from "react";
+import loadingSVG from "../../assets/loading.svg"; // adjust the path based on location
+
 const LoadingSpinner = () => {
   return (
     <div style={{ textAlign: "center", margin: "2rem" }}>
