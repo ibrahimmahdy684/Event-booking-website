@@ -1,43 +1,46 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LoadingSpinner from "../layout/LoadingSpinner";
-import EventCard from "../events/EventCard";
 import { toast } from "react-toastify";
 import BookingDetails from "./BookingDetails";
-import "../../styles/UserBookingPage.css";
+import ConfirmationDialog from "../admin/ConfirmationDialogue";
+import { useNavigate } from "react-router-dom";
 
+import "../../styles/UserBookingPage.css";
 
 const UserBookingsPage = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Which booking to show details for
   const [selectedBookingId, setSelectedBookingId] = useState(null);
 
-  // Fetch current user's bookings
+  // Which booking to cancel (and whether to show dialog)
+  const [bookingToCancel, setBookingToCancel] = useState(null);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("No authentication token found");
-        }
+        if (!token) throw new Error("No authentication token found");
 
-        const response = await axios.get("http://localhost:3000/api/v1/users/bookings", {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        });
-
-        // Validate response data structure
-        if (!Array.isArray(response.data)) {
-          throw new Error("Invalid bookings data format");
-        }
-
-        setBookings(response.data);
-        setError(null);
-      } catch (error) {
-        console.error("Booking fetch error:", error);
-        setError(error.message);
-        toast.error(error.response?.data?.message || "Failed to load bookings");
+        const res = await axios.get(
+          "http://localhost:3000/api/v1/users/bookings",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
+          }
+        );
+        if (!Array.isArray(res.data)) throw new Error("Invalid data format");
+        setBookings(res.data);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+        toast.error(err.response?.data?.message || "Failed to load bookings");
       } finally {
         setLoading(false);
       }
@@ -46,61 +49,62 @@ const UserBookingsPage = () => {
     fetchBookings();
   }, []);
 
-  // Cancel a booking
-  const handleCancel = async (bookingId) => {
+  const handleConfirmCancel = async () => {
+    setShowDialog(false);
+    setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        throw new Error("No authentication token found");
-      }
-
-      await axios.delete(`http://localhost:3000/api/v1/bookings/${bookingId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true,
-      });
-
-      setBookings((prev) => prev.filter((b) => b._id !== bookingId));
+      await axios.delete(
+        `http://localhost:3000/api/v1/bookings/${bookingToCancel}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
+      );
+      setBookings((prev) =>
+        prev.filter((b) => b._id !== bookingToCancel)
+      );
       toast.success("Booking canceled successfully");
-    } catch (error) {
-      console.error("Cancel booking error:", error);
-      toast.error(error.response?.data?.message || "Failed to cancel booking");
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.message || "Failed to cancel booking");
     } finally {
       setLoading(false);
+      setBookingToCancel(null);
     }
   };
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    return <div className="error-message">Error: {error}</div>;
-  }
-
-  if (!bookings || bookings.length === 0) {
+  if (loading) return <LoadingSpinner />;
+  if (error) return <div className="error-message">Error: {error}</div>;
+  if (!bookings.length)
     return <p className="no-bookings">You haven't booked any events yet.</p>;
-  }
 
   return (
     <div className="bookings-container">
       <h2 className="bookings-title">My Bookings</h2>
       <ul className="bookings-list">
         {bookings.map((booking) => (
-          <li key={booking._id} className="booking-item">
-            {booking.event && <EventCard event={booking.event} />}
+          <li key={booking._id} className="booking-card">
+            <button
+              className="event-title-button"
+              onClick={() => navigate(`/events/${booking.event._id}`)}
+            >
+              {booking.event.title || "Untitled Event"}
+            </button>
+
             <div className="booking-info">
-              <p className="booking-details">
-                <strong>Event:</strong> {booking.event.title || "N/A"}
+              <p>
+                <strong>Quantity:</strong>{" "}
+                {booking.numberOfTicketsBooked || 0}
               </p>
-              <p className="booking-details">
-                <strong>Quantity:</strong> {booking.numberOfTicketsBooked || "0"}
+              <p>
+                <strong>Total Price:</strong>{" "}
+                ${booking.totalPrice?.toFixed(2) || "0.00"}
               </p>
-              <p className="booking-details">
-                <strong>Total Price:</strong> ${booking.totalPrice?.toFixed(2) || "0.00"}
-              </p>
-              <p className="booking-details">
+              <p>
                 <strong>Status:</strong> {booking.bookingStatus || "Unknown"}
               </p>
+
               <div className="booking-actions">
                 <button
                   className="details-button"
@@ -110,10 +114,15 @@ const UserBookingsPage = () => {
                 </button>
                 <button
                   className="cancel-button"
-                  onClick={() => handleCancel(booking._id)}
+                  onClick={() => {
+                    setBookingToCancel(booking._id);
+                    setShowDialog(true);
+                  }}
                   disabled={booking.bookingStatus === "canceled"}
                 >
-                  {booking.bookingStatus === "canceled" ? "cancelled" : "Cancel Booking"}
+                  {booking.bookingStatus === "canceled"
+                    ? "Cancelled"
+                    : "Cancel Booking"}
                 </button>
               </div>
             </div>
@@ -125,6 +134,17 @@ const UserBookingsPage = () => {
         <BookingDetails
           bookingId={selectedBookingId}
           onClose={() => setSelectedBookingId(null)}
+        />
+      )}
+
+      {showDialog && (
+        <ConfirmationDialog
+          message="Are you sure you want to cancel this booking?"
+          onConfirm={handleConfirmCancel}
+          onCancel={() => {
+            setShowDialog(false);
+            setBookingToCancel(null);
+          }}
         />
       )}
     </div>
