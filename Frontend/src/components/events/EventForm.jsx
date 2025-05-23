@@ -11,6 +11,7 @@ const EventForm = () => {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [coverPreview, setCoverPreview] = useState(null);
+  const [removeImage, setRemoveImage] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     date: "",
@@ -39,7 +40,6 @@ const EventForm = () => {
             ticketPrice: event.ticketPrice || "",
             image: null,
           });
-          // After fetching event data
           if (event.image) {
             setCoverPreview(
               event.image.startsWith("http")
@@ -72,6 +72,7 @@ const EventForm = () => {
       }));
       if (files[0]) {
         setCoverPreview(URL.createObjectURL(files[0]));
+        setRemoveImage(false);
       }
     } else {
       setFormData((prev) => ({
@@ -79,6 +80,15 @@ const EventForm = () => {
         [name]: value,
       }));
     }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData((prev) => ({
+      ...prev,
+      image: null,
+    }));
+    setCoverPreview(null);
+    setRemoveImage(true);
   };
 
   const handleSubmit = async (e) => {
@@ -98,9 +108,10 @@ const EventForm = () => {
       data.append("totalTickets", formData.totalTickets);
       data.append("ticketPrice", formData.ticketPrice);
       if (formData.image) {
-        console.log("HHHHHHHHHHHHHHHHH");
-        console.log(formData.image);
         data.append("image", formData.image);
+      }
+      if (removeImage && id) {
+        data.append("image", "");
       }
 
       await axios[method](url, data, {
@@ -148,6 +159,16 @@ const EventForm = () => {
               style={{ display: "none" }}
             />
             {formData.image && <div className="file-name">{formData.image.name}</div>}
+            {coverPreview && (
+              <button
+                type="button"
+                className="event-remove-image-btn"
+                onClick={handleRemoveImage}
+                style={{ marginTop: "0.7rem", width: "fit-content" }}
+              >
+                Remove Image
+              </button>
+            )}
           </div>
           <div className="event-form-group">
             <label>Title</label>
