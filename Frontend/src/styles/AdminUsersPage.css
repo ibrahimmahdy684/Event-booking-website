@@ -61,34 +61,8 @@
   background: #f7fafd;
 }
 
-.admin-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #e2e8f0;
-  display: inline-block;
-  margin-right: 0.2rem;
-  border: 1.5px solid #e0e7ef;
-}
-
-.admin-active-dot {
-  display: inline-block;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #22c55e;
-  margin-right: 0.3rem;
-  border: 1.5px solid #fff;
-  box-shadow: 0 0 0 2px #e2e8f0;
-  vertical-align: middle;
-}
-
-.admin-inactive-dot {
-  background: #f87171;
-}
-
-.admin-badge {
+/* Role badge styling */
+.admin-page .admin-badge {
   display: inline-block;
   background: #e2e8f0;
   color: #0a192f;
@@ -101,9 +75,25 @@
   letter-spacing: 0.2px;
 }
 
-.admin-page button,
+/* Select dropdown styling */
 .admin-page select {
-  background: #3a86ff;
+  background: #f3f6fa;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  font-size: 1rem;
+  font-weight: 500;
+  outline: none;
+  transition: border 0.18s;
+}
+.admin-page select:focus {
+  border: 1.5px solid #3a86ff;
+}
+
+/* Delete button styling */
+.admin-page .delete-btn {
+  background: #f87171;
   color: #fff;
   border: none;
   border-radius: 7px;
@@ -111,25 +101,9 @@
   font-size: 0.98rem;
   font-weight: 500;
   cursor: pointer;
-  margin-right: 0.5rem;
   transition: background 0.18s, color 0.18s;
   outline: none;
 }
-
-.admin-page button:last-child {
-  margin-right: 0;
-}
-
-.admin-page button:hover {
-  background: #1e293b;
-  color: #64ffda;
-}
-
-.admin-page .delete-btn {
-  background: #f87171;
-  color: #fff;
-}
-
 .admin-page .delete-btn:hover {
   background: #dc2626;
   color: #fff;

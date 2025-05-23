@@ -7,7 +7,7 @@ import LoadingSpinner from "../layout/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
-import "../../styles/AdminPage.css";
+import "../../styles/AdminUsersPage.css";
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
