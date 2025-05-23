@@ -14,6 +14,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import "../../styles/EventAnalytics.css";
+
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AA336A"];
 
 const EventAnalytics = () => {
@@ -42,7 +44,13 @@ const EventAnalytics = () => {
   if (!analytics) return <p>No analytics data available</p>;
 
   // Prepare data for charts
-  const { eventsByStatus, eventsByCategory, upcomingVsPastEvents, ticketsSoldAndRevenue, totalEvents } = analytics;
+  const {
+    eventsByStatus,
+    eventsByCategory,
+    upcomingVsPastEvents,
+    ticketsSoldAndRevenue,
+    totalEvents,
+  } = analytics;
 
   // Transform data for recharts PieChart
   const pieDataStatus = eventsByStatus.map(({ _id, count }) => ({
@@ -61,17 +69,18 @@ const EventAnalytics = () => {
   }));
 
   return (
-    <div>
+    <div className="analytics-container">
       <h2>Event Analytics</h2>
-      <p>Total Events: {totalEvents}</p>
-      <p>
-        Total Tickets Sold: {ticketsSoldAndRevenue.totalTicketsSold} <br />
-        Total Revenue: ${ticketsSoldAndRevenue.totalRevenue.toFixed(2)}
-      </p>
-
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem" }}>
+      <div className="analytics-summary">
+        <p>Total Events: {totalEvents}</p>
+        <p>
+          Total Tickets Sold: {ticketsSoldAndRevenue.totalTicketsSold} <br />
+          Total Revenue: ${ticketsSoldAndRevenue.totalRevenue.toFixed(2)}
+        </p>
+      </div>
+      <div className="analytics-charts">
         {/* Events by Status */}
-        <div style={{ flex: "1 1 300px" }}>
+        <div className="analytics-chart-card">
           <h3>Events by Status</h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
@@ -85,7 +94,10 @@ const EventAnalytics = () => {
                 label
               >
                 {pieDataStatus.map((entry, index) => (
-                  <Cell key={`cell-status-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell
+                    key={`cell-status-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
               <Tooltip />
@@ -95,7 +107,7 @@ const EventAnalytics = () => {
         </div>
 
         {/* Events by Category */}
-        <div style={{ flex: "1 1 300px" }}>
+        <div className="analytics-chart-card">
           <h3>Events by Category</h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
@@ -119,7 +131,7 @@ const EventAnalytics = () => {
         </div>
 
         {/* Upcoming vs Past */}
-        <div style={{ flex: "1 1 300px" }}>
+        <div className="analytics-chart-card">
           <h3>Upcoming vs Past Events</h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
@@ -144,7 +156,6 @@ const EventAnalytics = () => {
       </div>
 
       {/* You can also add bar charts or other charts here if you want */}
-
     </div>
   );
 };
