@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import LoadingSpinner from "../LoadingSpinner";
-import EventCard from "../EventsComponents/EventCard";
+import LoadingSpinner from "../layout/LoadingSpinner";
+import EventCard from "../events/EventCard";
 import { toast } from "react-toastify";
 import BookingDetails from "./BookingDetails";
 
@@ -54,7 +54,7 @@ const UserBookingsPage = () => {
 
       await axios.delete(`http://localhost:3000/api/v1/bookings/${bookingId}`, {
         headers: { Authorization: `Bearer ${token}` },
-         withCredentials: true,
+        withCredentials: true,
       });
 
       setBookings((prev) => prev.filter((b) => b._id !== bookingId));
@@ -62,9 +62,9 @@ const UserBookingsPage = () => {
     } catch (error) {
       console.error("Cancel booking error:", error);
       toast.error(error.response?.data?.message || "Failed to cancel booking");
-    }finally {
-        setLoading(false);
-      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -100,14 +100,14 @@ const UserBookingsPage = () => {
                 <strong>Status:</strong> {booking.bookingStatus || "Unknown"}
               </p>
               <div className="booking-actions">
-                <button 
-                  className="details-button" 
+                <button
+                  className="details-button"
                   onClick={() => setSelectedBookingId(booking._id)}
                 >
                   View Details
                 </button>
-                <button 
-                  className="cancel-button" 
+                <button
+                  className="cancel-button"
                   onClick={() => handleCancel(booking._id)}
                   disabled={booking.bookingStatus === "canceled"}
                 >

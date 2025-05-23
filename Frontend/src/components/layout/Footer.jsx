@@ -5,8 +5,8 @@ import {
   FaTiktok,
   FaQuestionCircle,
 } from "react-icons/fa";
-import "../styles/Footer.css";
-import React from "react";
+import "../../styles/Footer.css";
+
 const Footer = () => (
   <footer className="footer">
     <div className="footer-main">

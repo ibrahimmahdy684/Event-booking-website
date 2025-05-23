@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../layout/LoadingSpinner";
 const BookTicketForm = ({ event }) => {
   const [tickets, setTickets] = useState(1);
   const [loading, setLoading] = useState(false);
 
   if (!event) {
-  return <p><LoadingSpinner/></p>;
-}
+    return (
+      <p>
+        <LoadingSpinner />
+      </p>
+    );
+  }
   const handleBooking = async (e) => {
     e.preventDefault();
 

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../layout/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import "./../styles/Profile.css";
+import "../../styles/Profile.css";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
