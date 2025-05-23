@@ -1,6 +1,8 @@
 import { useState } from "react";
+import ConfirmationDialog from "./ConfirmationDialogue";
 
-import ConfirmationDialog from "../ConfirmationDialogue";
+import "../../styles/AdminUsersPage.css";
+
 const UserRow = ({ user, onDelete, onUpdateRole }) => {
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -37,7 +39,9 @@ const UserRow = ({ user, onDelete, onUpdateRole }) => {
           </select>
         </td>
         <td>
-          <button onClick={handleDeleteClick}>Delete</button>
+          <button className="delete-btn" onClick={handleDeleteClick}>
+            Delete
+          </button>
         </td>
       </tr>
 

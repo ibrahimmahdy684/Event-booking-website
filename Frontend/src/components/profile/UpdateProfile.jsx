@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-import "../styles/Profile.css";
+import "../../styles/Profile.css";
 
 const UpdateProfile = () => {
   const [editForm, setEditForm] = useState({

@@ -1,0 +1,71 @@
+/* Top action bar */
+.my-events-actions {
+  margin-top: 2.5rem; /* Adjust as needed for your navbar height */
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.2rem;
+  justify-content: center;
+}
+
+.my-events-action-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.my-events-action-btn:hover {
+  background: #1746a2;
+}
+
+/* Wrapper for each event card and its actions */
+.my-event-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center children horizontally */
+  width: 100%;
+  max-width: 370px;
+}
+
+/* Actions below each card */
+.my-event-actions {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.my-event-edit-btn,
+.my-event-delete-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 7px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+
+.my-event-edit-btn {
+  background: #3a86ff;
+  color: #fff;
+}
+.my-event-edit-btn:hover {
+  background: #1746a2;
+}
+
+.my-event-delete-btn {
+  background: #f87171;
+  color: #fff;
+}
+.my-event-delete-btn:hover {
+  background: #dc2626;
+  color: #fff;
+}
+
+/* Responsive: keep grid from EventList.css */

@@ -4,26 +4,27 @@ import "react-toastify/dist/ReactToastify.css";
 import React from "react";
 import "./App.css";
 
-import Navbar from "./components/Navbar";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import Footer from "./components/Footer";
-import Register from "./components/Register";
-import EventList from "./components/EventsComponents/EventList";
-import EventDetails from "./components/EventsComponents/EventDetails";
-import UserBookingsPage from "./components/BookingComponenets/UserBookingsPage";
-import BookingDetails from "./components/BookingComponenets/BookingDetails";
-import Profile from "./components/Profile";
-import UpdateProfile from "./components/UpdateProfile";
+import Navbar from "./components/layout/Navbar";
+import Login from "./components/forms/Login";
+import Home from "./components/home/Home";
+import Footer from "./components/layout/Footer";
+import Register from "./components/forms/Register";
+import EventList from "./components/events/EventList";
+import EventDetails from "./components/events/EventDetails";
+import UserBookingsPage from "./components/booking/UserBookingsPage";
+import BookingDetails from "./components/booking/BookingDetails";
+import Profile from "./components/profile/Profile";
+import UpdateProfile from "./components/profile/UpdateProfile";
 import UnauthorizedPage from "./components/auth/UnauthorizedPage";
-import AdminUsersPage from "./components/AdminComponents/AdminUsersPage";
-import ForgetPassword from "./components/ForgetPassword";
+import AdminUsersPage from "./components/admin/AdminUsersPage";
+import ForgetPassword from "./components/forms/ForgetPassword";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import BookTicketForm from "./components/BookingComponenets/BookTicketForm";
-import EventForm from "./components/EventsComponents/EventForm";
-import MyEvents from "./components/EventsComponents/MyEventsPage";
-import AdminEventsPage from "./components/EventsComponents/AdminEventsPage";
-import EventAnalytics from "./components/EventsComponents/EventAnalytics";
+import BookTicketForm from "./components/booking/BookTicketForm";
+import EventForm from "./components/events/EventForm";
+import MyEvents from "./components/events/MyEventsPage";
+import AdminEventsPage from "./components/admin/AdminEventsPage";
+import EventAnalytics from "./components/events/EventAnalytics";
+
 function App() {
   return (
     <Router>
@@ -77,38 +78,38 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            {/*protected routes for Organizer*/ }
+            {/*protected routes for Organizer*/}
             <Route
-            path="/my-events/new"
-            element={
-            <ProtectedRoute allowedRoles={["Organizer"]}>
-              <EventForm/>
-            </ProtectedRoute>
-            }
+              path="/my-events/new"
+              element={
+                <ProtectedRoute allowedRoles={["Organizer"]}>
+                  <EventForm />
+                </ProtectedRoute>
+              }
             />
             <Route
-            path="/my-events/:id/edit"
-            element={
-              <ProtectedRoute allowedRoles={["Organizer"]}>
-                <EventForm/>
-              </ProtectedRoute>
-            }
+              path="/my-events/:id/edit"
+              element={
+                <ProtectedRoute allowedRoles={["Organizer"]}>
+                  <EventForm />
+                </ProtectedRoute>
+              }
             />
             <Route
-            path="/my-events"
-            element={
-              <ProtectedRoute allowedRoles={["Organizer"]}>
-                <MyEvents/>
-              </ProtectedRoute>
-            }
+              path="/my-events"
+              element={
+                <ProtectedRoute allowedRoles={["Organizer"]}>
+                  <MyEvents />
+                </ProtectedRoute>
+              }
             />
             <Route
-            path="/my-events/analytics"
-            element={
-              <ProtectedRoute allowedRoles={["Organizer"]}>
-                <EventAnalytics/>
-              </ProtectedRoute>
-            }
+              path="/my-events/analytics"
+              element={
+                <ProtectedRoute allowedRoles={["Organizer"]}>
+                  <EventAnalytics />
+                </ProtectedRoute>
+              }
             />
             {/* Protected routes for System Admin */}
             <Route
@@ -120,12 +121,12 @@ function App() {
               }
             />
             <Route
-            path="/admin/events"
-            element={
-             <ProtectedRoute allowedRoles={["System Admin"]}>
-              <AdminEventsPage/>
-             </ProtectedRoute>
-            }
+              path="/admin/events"
+              element={
+                <ProtectedRoute allowedRoles={["System Admin"]}>
+                  <AdminEventsPage />
+                </ProtectedRoute>
+              }
             />
             {/* Public event routes */}
             <Route path="/events" element={<EventList />} />

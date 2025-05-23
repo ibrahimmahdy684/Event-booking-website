@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import LoadingSpinner from "./LoadingSpinner";
-import "../styles/Form.css";
+import LoadingSpinner from "../layout/LoadingSpinner";
+import "../../styles/Form.css";
 
 // SVG icons for eye/eye-off
 const EyeIcon = ({ open }) =>

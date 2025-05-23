@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import "../styles/ForgetPassword.css";
+import "../../styles/ForgetPassword.css";
 
 const ForgetPassword = () => {
   const [step, setStep] = useState(1); // 1: request OTP, 2: verify/reset

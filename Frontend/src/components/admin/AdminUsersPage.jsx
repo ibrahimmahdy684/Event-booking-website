@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserRow from "./UserRow";
 import { toast } from "react-toastify";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../layout/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+
+import "../../styles/AdminUsersPage.css";
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -15,9 +17,6 @@ const AdminUsersPage = () => {
 
   // Fetch users on mount
   useEffect(() => {
-    //if (!user || user.role !== "System Admin") {
-    //navigate("/unauthorized"); // Redirect to unauthorized page
-    // }
     fetchUsers();
   }, [user, navigate]);
 
@@ -67,47 +66,28 @@ const AdminUsersPage = () => {
       setLoading(false);
     }
   };
-/*
+
   const handleUpdateRole = async (id, newRole) => {
     setLoading(true);
     try {
       await axios.put(
         `http://localhost:3000/api/v1/users/${id}`,
-        { newRole }, // or send new role if needed
+        { newRole },
         { withCredentials: true }
       );
+
+      // Update the local state immediately
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => (user._id === id ? { ...user, role: newRole } : user))
+      );
+
       toast.success("Role updated");
-      fetchUsers(); // Refresh list
     } catch (err) {
       toast.error("Failed to update role");
     } finally {
       setLoading(false);
     }
   };
-*/
-const handleUpdateRole = async (id, newRole) => {
-  setLoading(true);
-  try {
-    await axios.put(
-      `http://localhost:3000/api/v1/users/${id}`,
-      { newRole },
-      { withCredentials: true }
-    );
-    
-    // Update the local state immediately
-    setUsers(prevUsers => 
-      prevUsers.map(user => 
-        user._id === id ? { ...user, role: newRole } : user
-      )
-    );
-    
-    toast.success("Role updated");
-  } catch (err) {
-    toast.error("Failed to update role");
-  } finally {
-    setLoading(false);
-  }
-};
   if (loading) {
     return (
       <div>
