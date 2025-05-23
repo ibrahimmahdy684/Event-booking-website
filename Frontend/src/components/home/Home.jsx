@@ -4,6 +4,8 @@ import axios from "axios";
 import "../../styles/Home.css";
 import LoadingSpinner from "../layout/LoadingSpinner";
 import EventCard from "../events/EventCard";
+import AnimatedBanner from "../layout/AnimatedBanner";
+
 
 const Home = () => {
   const [featuredEvent, setFeaturedEvent] = useState(null);
@@ -34,6 +36,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <AnimatedBanner />
       {/* Featured Event */}
       {featuredEvent && (
         <div className="featured-event">

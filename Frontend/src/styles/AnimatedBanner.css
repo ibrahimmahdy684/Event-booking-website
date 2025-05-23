@@ -1,0 +1,17 @@
+.animated-banner {
+  width: 100%;
+  margin: 1rem 0;
+  text-align: center;
+  height: 2.5rem; /* Fixed height to prevent jumping */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing-text {
+  font-size: 1.8rem;
+  color: #000;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
