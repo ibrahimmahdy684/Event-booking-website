@@ -38,6 +38,7 @@ const BookingDetails = ({ bookingId, onClose }) => {
         <p><strong>Quantity:</strong> {booking.numberOfTicketsBooked}</p>
         <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
         <p><strong>Status:</strong> {booking.bookingStatus}</p>
+        <p><strong>Created at:</strong> {booking.createdAt}</p>
         <button className="close-button" onClick={onClose}>Close</button>
       </div>
     </div>
