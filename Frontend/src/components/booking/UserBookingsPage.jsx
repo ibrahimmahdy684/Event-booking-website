@@ -89,7 +89,7 @@ const UserBookingsPage = () => {
               className="event-title-button"
               onClick={() => navigate(`/events/${booking.event._id}`)}
             >
-              {booking.event.title || "Untitled Event"}
+              {booking.event?.title || "Untitled Event"}
             </button>
 
             <div className="booking-info">
