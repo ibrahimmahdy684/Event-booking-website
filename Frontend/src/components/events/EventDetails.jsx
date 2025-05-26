@@ -58,6 +58,9 @@ const EventDetails = () => {
       <p>
         <strong>Available Tickets:</strong> {event.remainingTickets}
       </p>
+      <p>
+        <strong>Status:</strong> {event.status}
+      </p>
       <button onClick={() => setShowBookingForm(true)}>Book Tickets</button>
       {showBookingForm && (
         <div className="modal-overlay">
