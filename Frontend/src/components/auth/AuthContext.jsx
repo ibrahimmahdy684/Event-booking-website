@@ -11,7 +11,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/check-auth", {
+        const apiBaseUrl =
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://javascript-event-booking.onrender.com";
+
+        const res = await axios.get(`${apiBaseUrl}/api/v1/check-auth`, {
           withCredentials: true,
         });
         setUser(res.data.user);

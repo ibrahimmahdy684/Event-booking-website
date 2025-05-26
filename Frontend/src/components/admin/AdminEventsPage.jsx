@@ -15,8 +15,13 @@ const AdminEventsPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const apiBaseUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://javascript-event-booking.onrender.com";
+
     axios
-      .get("http://localhost:3000/api/v1/events/all", {
+      .get(`${apiBaseUrl}/api/v1/events/all`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,13 +33,19 @@ const AdminEventsPage = () => {
       })
       .catch((error) => {
         toast.error("failed to get events");
+        setLoading(false);
       });
   }, []);
 
   const handleDelete = async (eventId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:3000/api/v1/events/${eventId}`, {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      await axios.delete(`${apiBaseUrl}/api/v1/events/${eventId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,8 +61,13 @@ const AdminEventsPage = () => {
   const handleApprove = async (eventId) => {
     const token = localStorage.getItem("token");
     try {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
       await axios.put(
-        `http://localhost:3000/api/v1/events/${eventId}`,
+        `${apiBaseUrl}/api/v1/events/${eventId}`,
         { status: "Approved" },
         {
           headers: {
@@ -75,8 +91,13 @@ const AdminEventsPage = () => {
   const handleDecline = async (eventId) => {
     const token = localStorage.getItem("token");
     try {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
       await axios.put(
-        `http://localhost:3000/api/v1/events/${eventId}`,
+        `${apiBaseUrl}/api/v1/events/${eventId}`,
         { status: "Declined" },
         {
           headers: {
@@ -128,9 +149,9 @@ const AdminEventsPage = () => {
       <div className="admin-events-list">
         {events.map((event) => (
           <div className="admin-event-card-wrapper" key={event._id}>
-             <div className={`event-status-badge ${event.status.toLowerCase()}`}>
-            {event.status}
-          </div>
+            <div className={`event-status-badge ${event.status.toLowerCase()}`}>
+              {event.status}
+            </div>
             <EventCard event={event} />
             <div className="admin-event-actions">
               <button className="approve-btn" onClick={() => handleApprove(event._id)}>

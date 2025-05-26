@@ -41,9 +41,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // prevent refreshing the page after form submission
     try {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
       // call the login api from the backend
       const res = await axios.post(
-        "http://localhost:3000/api/v1/login",
+        `${apiBaseUrl}/api/v1/login`,
         {
           email,
           password,

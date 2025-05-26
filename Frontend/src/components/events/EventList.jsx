@@ -18,8 +18,13 @@ const EventList = () => {
   const [endDate, setEndDate] = useState("");
 
   useEffect(() => {
+    const apiBaseUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://javascript-event-booking.onrender.com";
+
     axios
-      .get("http://localhost:3000/api/v1/events")
+      .get(`${apiBaseUrl}/api/v1/events`)
       .then((response) => {
         setEvents(response.data);
         setLoading(false);

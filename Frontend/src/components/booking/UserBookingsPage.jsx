@@ -27,14 +27,15 @@ const UserBookingsPage = () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) throw new Error("No authentication token found");
+        const apiBaseUrl =
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://javascript-event-booking.onrender.com";
 
-        const res = await axios.get(
-          "http://localhost:3000/api/v1/users/bookings",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-            withCredentials: true,
-          }
-        );
+        const res = await axios.get(`${apiBaseUrl}/api/v1/users/bookings`, {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        });
         if (!Array.isArray(res.data)) throw new Error("Invalid data format");
         setBookings(res.data);
       } catch (err) {
@@ -54,16 +55,16 @@ const UserBookingsPage = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://localhost:3000/api/v1/bookings/${bookingToCancel}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        }
-      );
-      setBookings((prev) =>
-        prev.filter((b) => b._id !== bookingToCancel)
-      );
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      await axios.delete(`${apiBaseUrl}/api/v1/bookings/${bookingToCancel}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      setBookings((prev) => prev.filter((b) => b._id !== bookingToCancel));
       toast.success("Booking canceled successfully");
     } catch (err) {
       console.error(err);
@@ -94,12 +95,10 @@ const UserBookingsPage = () => {
 
             <div className="booking-info">
               <p>
-                <strong>Quantity:</strong>{" "}
-                {booking.numberOfTicketsBooked || 0}
+                <strong>Quantity:</strong> {booking.numberOfTicketsBooked || 0}
               </p>
               <p>
-                <strong>Total Price:</strong>{" "}
-                ${booking.totalPrice?.toFixed(2) || "0.00"}
+                <strong>Total Price:</strong> ${booking.totalPrice?.toFixed(2) || "0.00"}
               </p>
               <p>
                 <strong>Status:</strong> {booking.bookingStatus || "Unknown"}
@@ -120,9 +119,7 @@ const UserBookingsPage = () => {
                   }}
                   disabled={booking.bookingStatus === "canceled"}
                 >
-                  {booking.bookingStatus === "canceled"
-                    ? "Cancelled"
-                    : "Cancel Booking"}
+                  {booking.bookingStatus === "canceled" ? "Cancelled" : "Cancel Booking"}
                 </button>
               </div>
             </div>

@@ -24,8 +24,13 @@ const EventAnalytics = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const apiBaseUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://javascript-event-booking.onrender.com";
+
     axios
-      .get("http://localhost:3000/api/v1/users/events/analytics", {
+      .get(`${apiBaseUrl}/api/v1/users/events/analytics`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       })

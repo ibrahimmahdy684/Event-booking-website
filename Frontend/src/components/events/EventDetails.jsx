@@ -16,7 +16,12 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/v1/events/${id}`);
+        const apiBaseUrl =
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://javascript-event-booking.onrender.com";
+
+        const res = await axios.get(`${apiBaseUrl}/api/v1/events/${id}`);
         setEvent(res.data);
       } catch (error) {
         console.log("Error fetching event details:", error);

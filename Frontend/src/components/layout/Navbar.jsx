@@ -11,7 +11,12 @@ const Navbar = () => {
   // method to logout
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/v1/logout", {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      await axios.get(`${apiBaseUrl}/api/v1/logout`, {
         withCredentials: true,
       });
       setUser(null); // user not authenticated

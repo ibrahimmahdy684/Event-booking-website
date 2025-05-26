@@ -18,8 +18,13 @@ const MyEvents = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const apiBaseUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://javascript-event-booking.onrender.com";
+
     axios
-      .get("http://localhost:3000/api/v1/users/events", {
+      .get(`${apiBaseUrl}/api/v1/users/events`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,7 +43,12 @@ const MyEvents = () => {
   const handleDelete = async (eventId) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:3000/api/v1/events/${eventId}`, {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      await axios.delete(`${apiBaseUrl}/api/v1/events/${eventId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

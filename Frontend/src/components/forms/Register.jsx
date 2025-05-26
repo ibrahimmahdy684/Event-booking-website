@@ -80,7 +80,12 @@ const Register = () => {
         role: form.role,
       };
 
-      await axios.post("http://localhost:3000/api/v1/register", data, {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      await axios.post(`${apiBaseUrl}/api/v1/register`, data, {
         withCredentials: true,
       });
 
