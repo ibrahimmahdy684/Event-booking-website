@@ -27,9 +27,13 @@ const BookTicketForm = ({ event }) => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/bookings",
+        `${apiBaseUrl}/api/v1/bookings`,
         {
           eventId: event._id,
           numberOfTicketsBooked: tickets,
@@ -59,34 +63,33 @@ const BookTicketForm = ({ event }) => {
   };
 
   return (
-  <form onSubmit={handleBooking} className="space-y-4">
-    {event.remainingTickets > 0 ? (
-      <>
-        <label className="block">
-          <span className="text-gray-700">Number of Tickets:</span>
-          <input
-            type="number"
-            min="1"
-            max={event.remainingTickets}
-            value={tickets}
-            onChange={(e) => setTickets(Number(e.target.value))}
-            className="mt-1 block w-full border rounded p-2"
-          />
-        </label>
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700 transition"
-        >
-          {loading ? "Booking..." : "Confirm Booking"}
-        </button>
-      </>
-    ) : (
-      <p className="text-red-500 font-semibold">All tickets have been sold out.</p>
-    )}
-  </form>
-);
-
+    <form onSubmit={handleBooking} className="space-y-4">
+      {event.remainingTickets > 0 ? (
+        <>
+          <label className="block">
+            <span className="text-gray-700">Number of Tickets:</span>
+            <input
+              type="number"
+              min="1"
+              max={event.remainingTickets}
+              value={tickets}
+              onChange={(e) => setTickets(Number(e.target.value))}
+              className="mt-1 block w-full border rounded p-2"
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700 transition"
+          >
+            {loading ? "Booking..." : "Confirm Booking"}
+          </button>
+        </>
+      ) : (
+        <p className="text-red-500 font-semibold">All tickets have been sold out.</p>
+      )}
+    </form>
+  );
 };
 
 export default BookTicketForm;

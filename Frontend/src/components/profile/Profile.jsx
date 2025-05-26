@@ -16,7 +16,12 @@ const Profile = () => {
     const fetchProfile = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/users/profile", {
+        const apiBaseUrl =
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://javascript-event-booking.onrender.com";
+
+        const res = await axios.get(`${apiBaseUrl}/api/v1/users/profile`, {
           withCredentials: true,
         });
         if (res.data) {
@@ -24,9 +29,7 @@ const Profile = () => {
 
           // Set the profile image URL if it exists
           if (res.data.profilePicture) {
-            setProfileImageUrl(
-              `http://localhost:3000/uploads/${res.data.profilePicture}`
-            );
+            setProfileImageUrl(`${apiBaseUrl}/uploads/${res.data.profilePicture}`);
           }
         } else {
           setUser(null);

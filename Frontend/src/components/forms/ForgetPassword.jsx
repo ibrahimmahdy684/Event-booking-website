@@ -15,7 +15,12 @@ const ForgetPassword = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.put("http://localhost:3000/api/v1/forgetPassword", { email });
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      await axios.put(`${apiBaseUrl}/api/v1/forgetPassword`, { email });
       toast.success("OTP sent to your email!");
       setStep(2);
     } catch (err) {
@@ -30,7 +35,12 @@ const ForgetPassword = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.put("http://localhost:3000/api/v1/verifyReset", {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      await axios.put(`${apiBaseUrl}/api/v1/verifyReset`, {
         email,
         otpCode: otp,
         newPassword,

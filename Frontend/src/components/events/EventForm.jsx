@@ -25,8 +25,13 @@ const EventForm = () => {
     if (id) {
       setFetching(true);
       const token = localStorage.getItem("token");
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
       axios
-        .get(`http://localhost:3000/api/v1/events/${id}`, {
+        .get(`${apiBaseUrl}/api/v1/events/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         })
@@ -44,13 +49,13 @@ const EventForm = () => {
             setCoverPreview(
               event.image.startsWith("http")
                 ? event.image
-                : `http://localhost:3000/uploads/${event.image}`
+                : `${apiBaseUrl}/uploads/${event.image}`
             );
           } else if (event.imageUrl) {
             setCoverPreview(
               event.imageUrl.startsWith("http")
                 ? event.imageUrl
-                : `http://localhost:3000/uploads/${event.imageUrl}`
+                : `${apiBaseUrl}/uploads/${event.imageUrl}`
             );
           }
         })
@@ -95,9 +100,11 @@ const EventForm = () => {
     e.preventDefault();
     setLoading(true);
     const token = localStorage.getItem("token");
-    const url = id
-      ? `http://localhost:3000/api/v1/events/${id}`
-      : "http://localhost:3000/api/v1/events";
+    const apiBaseUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://javascript-event-booking.onrender.com";
+    const url = id ? `${apiBaseUrl}/api/v1/events/${id}` : `${apiBaseUrl}/api/v1/events`;
     const method = id ? "put" : "post";
 
     try {

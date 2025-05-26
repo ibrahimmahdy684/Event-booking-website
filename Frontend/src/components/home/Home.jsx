@@ -6,19 +6,23 @@ import LoadingSpinner from "../layout/LoadingSpinner";
 import EventCard from "../events/EventCard";
 import AnimatedBanner from "../layout/AnimatedBanner";
 
-
 const Home = () => {
   const [featuredEvent, setFeaturedEvent] = useState(null);
   const [hotEvents, setHotEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const apiBaseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://javascript-event-booking.onrender.com";
+
   useEffect(() => {
     // Example API endpoints, adjust as needed
     const fetchEvents = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/events/home");
+        const res = await axios.get(`${apiBaseUrl}/api/v1/events/home`);
         setFeaturedEvent(res.data.featuredEvent);
         setHotEvents(res.data.hotEvents);
         setUpcomingEvents(res.data.upcomingEvents);
@@ -45,7 +49,7 @@ const Home = () => {
               featuredEvent.image
                 ? featuredEvent.image.startsWith("http")
                   ? featuredEvent.image
-                  : `http://localhost:3000/uploads/${featuredEvent.image}`
+                  : `${apiBaseUrl}/uploads/${featuredEvent.image}`
                 : "/placeholder.jpg"
             }
             alt={featuredEvent.title}
@@ -62,8 +66,6 @@ const Home = () => {
           </div>
         </div>
       )}
-
-      {/* Hot Events */}
       <div className="hot-events-section">
         <div className="section-title">Hot Events</div>
         <div className="events-list">

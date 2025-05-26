@@ -23,7 +23,12 @@ const AdminUsersPage = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/users", {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      const res = await axios.get(`${apiBaseUrl}/api/v1/users`, {
         withCredentials: true,
       });
 
@@ -55,7 +60,12 @@ const AdminUsersPage = () => {
   const handleDelete = async (id) => {
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:3000/api/v1/users/${id}`, {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
+      await axios.delete(`${apiBaseUrl}/api/v1/users/${id}`, {
         withCredentials: true,
       });
       toast.success("User deleted");
@@ -70,8 +80,13 @@ const AdminUsersPage = () => {
   const handleUpdateRole = async (id, newRole) => {
     setLoading(true);
     try {
+      const apiBaseUrl =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com";
+
       await axios.put(
-        `http://localhost:3000/api/v1/users/${id}`,
+        `${apiBaseUrl}/api/v1/users/${id}`,
         { newRole },
         { withCredentials: true }
       );

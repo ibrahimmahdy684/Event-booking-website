@@ -9,15 +9,20 @@ const EventCard = ({ event }) => {
   };
 
   // Check for both image and imageUrl fields
+  const apiBaseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://javascript-event-booking.onrender.com";
+
   const coverUrl =
     event.image && event.image !== ""
       ? event.image.startsWith("http")
         ? event.image
-        : `http://localhost:3000/uploads/${event.image}`
+        : `${apiBaseUrl}/uploads/${event.image}`
       : event.imageUrl && event.imageUrl !== ""
       ? event.imageUrl.startsWith("http")
         ? event.imageUrl
-        : `http://localhost:3000/uploads/${event.imageUrl}`
+        : `${apiBaseUrl}/uploads/${event.imageUrl}`
       : "/default-event.jpg";
 
   return (
