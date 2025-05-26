@@ -17,11 +17,16 @@ app.use(express.json());
 // use middleware to parse cookies from requests
 app.use(cookieParser());
 // use middleware to enable CORS
+const allowedOrigins = [
+    "http://localhost:5173", // for local dev
+    "https://java-script-event-booking.vercel.app/", // deployed frontend
+];
+
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL,
-        methods: ["GET", "POST", "DELETE", "PUT"],
-        credentials: true,
+        origin: allowedOrigins,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true, // this is key for cookies/session tokens
     })
 );
 // to serve the uploads folder statically
