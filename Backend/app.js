@@ -19,7 +19,7 @@ app.use(cookieParser());
 // use middleware to enable CORS
 const allowedOrigins = [
     "http://localhost:5173", // for local dev
-    "https://java-script-event-booking.vercel.app/", // deployed frontend
+    "https://javascript-event-booking-1.onrender.com", // deployed frontend
 ];
 
 app.use(
