@@ -1,5 +1,5 @@
 import React from "react";
-
+import '../../styles/ConfirmationDialouge.css'
 const ConfirmationDialog = ({ message, onConfirm, onCancel }) => {
   return (
     <div className="dialog-overlay">

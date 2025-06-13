@@ -60,7 +60,7 @@ const EventList = () => {
 
   return (
     <div className="eventsList">
-      <h2>Events</h2>
+      
       <div className="filter-bar">
         <input
           type="text"

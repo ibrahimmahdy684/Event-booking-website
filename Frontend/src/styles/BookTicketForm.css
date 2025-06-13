@@ -1,0 +1,58 @@
+.booking-form-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+.booking-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ticket-label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.close-button {
+  background-color: #1d4ed8;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ticket-input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f9fafb;
+  margin-bottom: 1rem;
+}
+
+.booking-submit-btn {
+  width: 100%;
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.booking-submit-btn:hover {
+  background-color: #1e40af;
+}
+

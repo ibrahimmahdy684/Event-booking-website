@@ -44,7 +44,12 @@ const EventDetails = () => {
   return (
     <div className="event-details">
       <h2>{event.title}</h2>
-      <img src={event.image} alt={event.title} width="300" />
+      <img src={event.image?.startsWith("http")
+      ? event.image
+      : `${process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://javascript-event-booking.onrender.com"
+        }/uploads/${event.image}`} alt={event.title} width="300" />
       <p>
         <strong>Date:</strong> {new Date(event.date).toLocaleDateString()}
       </p>

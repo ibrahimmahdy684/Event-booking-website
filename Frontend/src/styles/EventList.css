@@ -6,7 +6,7 @@
 
 /* Title */
 .eventsList h2 {
-  color: #0a192f;
+  color: #8d99ae;
   font-size: 2.1rem;
   font-weight: 700;
   margin-bottom: 2rem;
@@ -20,7 +20,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2.2rem;
-  background: #fff;
+  background: #0c0808;
   border-radius: 18px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   padding: 1.2rem 1.5rem;
@@ -69,7 +69,7 @@
 
 /* Event card styling */
 .event-card {
-  background: #fff;
+  background: #0d0000;
   border-radius: 2.2rem;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
   overflow: hidden;
@@ -105,20 +105,20 @@
 .event-card-title {
   font-size: 1.35rem;
   font-weight: 700;
-  color: #0a192f;
+  color: #fbfcfd;
   margin-bottom: 0.5rem;
   letter-spacing: 0.2px;
 }
 
 .event-card-date {
-  color: #3a86ff;
+  color: #8d99ae;
   font-size: 1.05rem;
   margin-bottom: 0.3rem;
   font-weight: 500;
 }
 
 .event-card-location {
-  color: #1e293b;
+  color: #8d99ae;
   font-size: 1rem;
   margin-bottom: 0.7rem;
 }

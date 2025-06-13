@@ -1,7 +1,7 @@
 .event-details {
   max-width: 520px;
   margin: 3rem auto 2.5rem auto;
-  background: #fff;
+  background: #060505;
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
   padding: 2.5rem 2.5rem 2rem 2.5rem;
@@ -13,7 +13,7 @@
 .event-details h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: #2563eb;
+  color: #fdfdfd;
   margin-bottom: 1.2rem;
   text-align: center;
 }
@@ -31,20 +31,20 @@
 
 .event-details p {
   font-size: 1.08rem;
-  color: #22223b;
+  color: #8d99ae;
   margin: 0.4rem 0;
   width: 100%;
   text-align: left;
 }
 
 .event-details strong {
-  color: #2563eb;
+  color: #ffffff;
   font-weight: 600;
 }
 
 .event-details button {
   margin-top: 1.5rem;
-  background: #2563eb;
+  background: #0c00f7;
   color: #fff;
   border: none;
   border-radius: 8px;

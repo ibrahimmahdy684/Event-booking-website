@@ -1,15 +1,23 @@
+/* Background container with night cityscape */
 .profile-container {
   min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f7fafd;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('https://triptins.com/wp-content/uploads/2023/02/Things-To-Do-in-NYC-at-Night.jpeg') no-repeat center center/cover;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Profile Card */
 .profile-card {
-  background: #fff;
+  background: #1e293b;
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.4);
   padding: 2.5rem 2.5rem 2rem 2.5rem;
   max-width: 420px;
   width: 100%;
@@ -18,16 +26,46 @@
   align-items: center;
 }
 
+/* Profile Picture */
 .profile-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+.profile-picture-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.profile-picture-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+}
+
+.profile-picture-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/* Role label */
 .profile-role {
   font-size: 1.08rem;
-  color: #2563eb;
-  background: #e8f0fe;
+  color: #dbeafe;
+  background: rgba(59, 130, 246, 0.2);
   padding: 0.25rem 0.9rem;
   border-radius: 12px;
   font-weight: 500;
@@ -35,6 +73,7 @@
   letter-spacing: 0.5px;
 }
 
+/* Info Fields */
 .profile-info {
   width: 100%;
   margin-top: 0.5rem;
@@ -46,38 +85,40 @@
   align-items: center;
   margin-bottom: 1.1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid #374151;
 }
 
 .profile-label {
   font-size: 1.08rem;
-  color: #64748b;
+  color: #9ca3af;
   font-weight: 500;
 }
 
 .profile-value {
   font-size: 1.13rem;
-  color: #22223b;
+  color: #f9fafb;
   font-weight: 500;
-  word-break: break-all;
+  word-break: break-word;
 }
 
+/* Loading and Error */
 .profile-loading,
 .profile-error {
   font-size: 1.2rem;
-  color: #2563eb;
+  color: #60a5fa;
   text-align: center;
   padding: 2rem 0;
 }
 
 .profile-error {
-  color: #dc2626;
+  color: #ef4444;
 }
 
+/* Edit Button */
 .profile-edit-btn {
   margin-top: 1.2rem;
   padding: 0.7rem 2.2rem;
-  background: #2563eb;
+  background: #3b82f6;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -85,13 +126,14 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.18s;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
 }
 
 .profile-edit-btn:hover {
-  background: #1746a2;
+  background: #1d4ed8;
 }
 
+/* Edit Form */
 .profile-edit-form {
   width: 100%;
   margin-top: 0.5rem;
@@ -108,31 +150,33 @@
 
 .profile-edit-group label {
   font-size: 1rem;
-  color: #22223b;
+  color: #d1d5db;
   margin-bottom: 0.2rem;
 }
 
 .profile-edit-group input[type="text"],
 .profile-edit-group input[type="email"] {
   padding: 0.7rem 0.9rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #4b5563;
   border-radius: 6px;
   font-size: 1rem;
-  background: #f9fafb;
+  background: #111827;
+  color: #f9fafb;
   transition: border 0.2s;
 }
 
 .profile-edit-group input[type="text"]:focus,
 .profile-edit-group input[type="email"]:focus {
-  border-color: #2563eb;
+  border-color: #3b82f6;
   outline: none;
 }
 
+/* File Upload */
 .profile-edit-group .custom-file-label {
   display: inline-block;
   padding: 0.7rem 1.2rem;
-  background: #f9fafb;
-  color: #22223b;
+  background: #1f2937;
+  color: #e5e7eb;
   border-radius: 10px;
   font-size: 1.1rem;
   font-weight: 400;
@@ -140,24 +184,24 @@
   transition: border 0.2s, box-shadow 0.2s;
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
-  border: 1.5px solid #d1d5db;
-  box-shadow: none;
+  border: 1.5px solid #4b5563;
   width: fit-content;
 }
 
 .profile-edit-group .custom-file-label:hover,
 .profile-edit-group .custom-file-label:focus {
-  border-color: #2563eb;
-  background: #f3f4f6;
+  border-color: #3b82f6;
+  background: #111827;
 }
 
 .profile-edit-group .file-name {
   margin-top: 0.3rem;
   font-size: 0.97rem;
-  color: #444;
-  word-break: break-all;
+  color: #d1d5db;
+  word-break: break-word;
 }
 
+/* Save/Cancel Actions */
 .profile-edit-actions {
   display: flex;
   gap: 1rem;
@@ -167,7 +211,7 @@
 
 .profile-save-btn {
   padding: 0.6rem 1.8rem;
-  background: #2563eb;
+  background: #3b82f6;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -178,14 +222,14 @@
 }
 
 .profile-save-btn:hover {
-  background: #1746a2;
+  background: #1d4ed8;
 }
 
 .profile-cancel-btn {
   padding: 0.6rem 1.8rem;
-  background: #f3f4f6;
-  color: #22223b;
-  border: 1px solid #d1d5db;
+  background: #374151;
+  color: #f3f4f6;
+  border: 1px solid #4b5563;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 500;
@@ -194,10 +238,11 @@
 }
 
 .profile-cancel-btn:hover {
-  background: #e5e7eb;
-  border-color: #2563eb;
+  background: #4b5563;
+  border-color: #3b82f6;
 }
 
+/* Remove Button */
 .profile-remove-btn {
   background: #f87171;
   color: #fff;
@@ -219,33 +264,7 @@
   background: #dc2626;
 }
 
-.profile-picture-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.profile-picture-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #3498db;
-}
-
-.profile-picture-placeholder {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #3498db;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  font-weight: bold;
-}
-
+/* Mobile responsiveness */
 @media (max-width: 600px) {
   .profile-card {
     padding: 1.2rem 0.7rem 1.2rem 0.7rem;

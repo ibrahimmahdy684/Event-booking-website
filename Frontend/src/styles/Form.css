@@ -4,7 +4,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url('https://triptins.com/wp-content/uploads/2023/02/Things-To-Do-in-NYC-at-Night.jpeg') no-repeat center center / cover;
+  font-family: 'Poppins', sans-serif;
 }
+
 
 #register-form-container {
   margin-top: 68px;
@@ -12,10 +19,10 @@
 }
 
 .form {
-  background: #fff;
+  background: #1e293b;
   padding: 2rem 2rem 1.5rem 2rem;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 370px;
   display: flex;
@@ -26,10 +33,10 @@
 .form h1 {
   margin-top: 0;
   margin-bottom: 1.5rem;
-  font-size: 3.2rem;
+  font-size: 2.4rem;
   font-weight: 700;
   text-align: center;
-  color: #000000;
+  color: #f8fafc;
 }
 
 .form-group {
@@ -41,48 +48,36 @@
 .form-group label {
   margin-bottom: 0.4rem;
   font-size: 1rem;
-  color: #222;
+  color: #cbd5e1;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   padding: 0.7rem 0.9rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #334155;
   border-radius: 6px;
   font-size: 1rem;
-  background: #f9fafb;
+  background: #0f172a;
+  color: #f1f5f9;
   transition: border 0.2s;
 }
 
-.form-group input:focus {
-  border-color: #2563eb;
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3b82f6;
   outline: none;
 }
 
 .form-group select {
-  padding: 0.7rem 0.9rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #f9fafb;
-  color: #222;
-  transition: border 0.2s;
   appearance: none;
-  outline: none;
-}
-
-.form-group select:focus {
-  border-color: #2563eb;
 }
 
 .form-group input[type="file"] {
   padding: 0.5rem 0.2rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid #334155;
   border-radius: 6px;
-  background: #f9fafb;
-  font-size: 1rem;
-  color: #222;
-  transition: border 0.2s;
-  /* Hide the default file input */
+  background: #0f172a;
+  color: #f1f5f9;
   opacity: 0;
   width: 0.1px;
   height: 0.1px;
@@ -93,36 +88,34 @@
 .form-group .custom-file-label {
   display: inline-block;
   padding: 0.7rem 1.2rem;
-  background: #f9fafb;
-  color: #22223b;
+  background: #0f172a;
+  color: #e2e8f0;
   border-radius: 10px;
-  font-size: 1.1rem;
-  font-weight: 400;
+  font-size: 1rem;
   cursor: pointer;
-  transition: border 0.2s, box-shadow 0.2s;
+  border: 1.5px solid #334155;
+  transition: border 0.2s, background 0.2s;
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
-  border: 1.5px solid #d1d5db;
-  box-shadow: none;
 }
 
 .form-group .custom-file-label:hover,
 .form-group .custom-file-label:focus {
-  border-color: #2563eb;
-  background: #f3f4f6;
+  border-color: #3b82f6;
+  background: #1e293b;
 }
 
 .form-group .file-name {
   margin-top: 0.3rem;
-  font-size: 0.97rem;
-  color: #444;
-  word-break: break-all;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  word-break: break-word;
 }
 
 .form-btn {
   margin-top: 0.5rem;
   padding: 0.8rem 0;
-  background: #2563eb;
+  background: #3b82f6;
   color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
@@ -130,10 +123,11 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
 }
 
 .form-btn:hover {
-  background: #1d4ed8;
+  background: #2563eb;
 }
 
 .form-links {
@@ -142,7 +136,7 @@
 }
 
 .forgot-link {
-  color: #2563eb;
+  color: #3b82f6;
   text-decoration: none;
   font-size: 0.98rem;
 }
@@ -155,11 +149,11 @@
   margin-top: 1.2rem;
   text-align: center;
   font-size: 1rem;
-  color: #222;
+  color: #cbd5e1;
 }
 
 .alt-link a {
-  color: #2563eb;
+  color: #3b82f6;
   text-decoration: none;
   font-weight: 500;
 }
@@ -186,18 +180,18 @@
   padding: 0;
   display: flex;
   align-items: center;
-  color: #757575;
+  color: #94a3b8;
   font-size: 1.25rem;
   height: 100%;
 }
 
 .show-password-btn:focus {
-  color: #2563eb;
+  color: #3b82f6;
 }
 
 .password-group input[type="password"],
 .password-group input[type="text"] {
   width: 100%;
-  padding-right: 2.2rem; /* space for the icon */
+  padding-right: 2.2rem;
   box-sizing: border-box;
 }

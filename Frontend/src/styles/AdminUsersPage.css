@@ -1,14 +1,22 @@
 .admin-page {
-  min-height: 80vh;
-  background: #f7fafd;
+  min-height: 100vh;
   padding: 2.5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ),
+    url('/images/c70c290a-a0b6-454a-af1d-8a978d29e9bb.png') no-repeat center center / cover;
+  font-family: 'Poppins', sans-serif;
+  color: #f8fafc;
 }
 
+
 .admin-page h2 {
-  color: #0a192f;
+  color: #f1f5f9;
   font-size: 2rem;
   margin-bottom: 2rem;
   font-weight: 700;
@@ -18,176 +26,80 @@
 .admin-page table {
   width: 96%;
   max-width: 1100px;
-  background: #fff;
+  background: #1e293b; /* dark card background */
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
   font-size: 1.04rem;
-}
-
-.admin-page th,
-.admin-page td {
-  padding: 0.85rem 1rem;
-  text-align: left;
-  vertical-align: middle;
+  color: #f1f5f9;
 }
 
 .admin-page th {
-  background: #f3f6fa;
-  color: #0a192f;
+  background: #334155;
+  color: #f8fafc;
   font-size: 1.08rem;
   font-weight: 700;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid #475569;
   letter-spacing: 0.5px;
 }
 
 .admin-page td {
-  color: #1e293b;
-  background: #fff;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.admin-page tr:last-child td {
-  border-bottom: none;
-}
-
-.admin-page tbody tr {
-  transition: background 0.18s;
+  color: #e2e8f0;
+  background: #1e293b;
+  border-bottom: 1px solid #475569;
 }
 
 .admin-page tbody tr:hover td {
-  background: #f7fafd;
+  background: #334155;
 }
 
-/* Role badge styling */
+/* Role badge */
 .admin-page .admin-badge {
-  display: inline-block;
-  background: #e2e8f0;
-  color: #0a192f;
-  font-size: 0.93rem;
-  font-weight: 500;
-  border-radius: 6px;
-  padding: 0.18rem 0.7rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0.15rem;
-  letter-spacing: 0.2px;
+  background: #475569;
+  color: #e2e8f0;
 }
 
-/* Select dropdown styling */
+/* Dropdown */
 .admin-page select {
-  background: #f3f6fa;
-  color: #1e293b;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 0.3rem 0.7rem;
-  font-size: 1rem;
-  font-weight: 500;
-  outline: none;
-  transition: border 0.18s;
+  background: #334155;
+  color: #e2e8f0;
+  border: 1px solid #64748b;
 }
 .admin-page select:focus {
-  border: 1.5px solid #3a86ff;
+  border: 1.5px solid #3b82f6;
 }
 
-/* Delete button styling */
+/* Buttons */
 .admin-page .delete-btn {
   background: #f87171;
   color: #fff;
-  border: none;
-  border-radius: 7px;
-  padding: 0.38rem 1.1rem;
-  font-size: 0.98rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.18s, color 0.18s;
-  outline: none;
 }
 .admin-page .delete-btn:hover {
   background: #dc2626;
-  color: #fff;
 }
 
-/* Confirmation Dialog Overlay */
-.dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(10, 25, 47, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-
-/* Dialog Box */
 .dialog-box {
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 8px 32px rgba(10, 25, 47, 0.18);
-  padding: 2rem 2.2rem 1.5rem 2.2rem;
-  min-width: 320px;
-  max-width: 90vw;
-  text-align: center;
-  color: #0a192f;
-  animation: dialog-pop 0.18s cubic-bezier(0.4, 2, 0.6, 1) both;
+  background: #1e293b;
+  color: #f8fafc;
+  box-shadow: 0 8px 32px rgba(10, 25, 47, 0.45);
 }
-
-@keyframes dialog-pop {
-  0% {
-    transform: scale(0.85);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
 .dialog-box p {
-  font-size: 1.13rem;
-  margin-bottom: 1.5rem;
-  color: #1e293b;
-}
-
-.dialog-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-}
-
-.confirm-btn,
-.cancel-btn {
-  padding: 0.5rem 1.4rem;
-  border-radius: 7px;
-  border: none;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.18s, color 0.18s;
+  color: #f1f5f9;
 }
 
 .cancel-btn {
-  background: #3a86ff;
-  color: #fff;
+  background: #3b82f6;
 }
-
 .cancel-btn:hover {
   background: #22c55e;
-  color: #fff;
 }
-
 .confirm-btn {
   background: #f87171;
-  color: #fff;
 }
-
 .confirm-btn:hover {
   background: #dc2626;
-  color: #fff;
 }
 
 @media (max-width: 900px) {

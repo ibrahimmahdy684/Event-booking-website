@@ -1,5 +1,5 @@
 .footer {
-  background: #f9fafb;
+  background: #050613;
   padding: 0 0 12px 0;
   font-family: "Inter", Arial, sans-serif;
   border-top: 1px solid #d1d5db;
@@ -18,7 +18,7 @@
   font-size: 36px;
   font-weight: 700;
   letter-spacing: -1px;
-  color: #22223b;
+  color: #8d99ae;
   margin-bottom: 8px;
 }
 
@@ -35,14 +35,14 @@
 }
 
 .footer-links-col a {
-  color: #22223b;
+  color: #8d99ae;
   text-decoration: none;
   font-size: 15px;
   transition: color 0.2s;
 }
 
 .footer-links-col a:hover {
-  color: #4ea8de;
+  color: #8d99ae;
 }
 
 .footer-contact {
@@ -96,7 +96,7 @@
 
 .footer-social-label {
   font-size: 16px;
-  color: #22223b;
+  color: #8d99ae;
   margin-right: 8px;
   font-weight: 400;
 }
@@ -123,7 +123,7 @@
 }
 
 .footer-social-icon:hover {
-  background: #22223b;
+  background: #8d99ae;
   color: #4ea8de;
 }
 
