@@ -44,6 +44,7 @@ Frontend (React) <--> Backend (Node.js + Express) <--> Database (MongoDB)
 ![Booking Page](path/to/booking_screenshot.png)
 
 **Live Demo:** [🌐 Demo Link](https://javascript-event-booking-1.onrender.com/)  
+**Video:** [View](https://drive.google.com/file/d/1i3ks1A7kGsY7N2sV3LSwJNiyZ5BtpB66/view?usp=sharing)
 
 
 ---
